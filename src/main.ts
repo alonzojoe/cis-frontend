@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import PrimeVue from 'primevue/config';
 import App from '@/App.vue'
 import router from '@/router'
 
@@ -31,6 +32,7 @@ import '@/assets/vendor/js/menu.js'
 import '@/assets/vendor/js/main.js'
 
 const app = createApp(App)
+app.use(PrimeVue)
 app.use(router)
 app.mount('#app')
 

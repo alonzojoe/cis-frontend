@@ -1,6 +1,6 @@
 <template>
     <div class="card mb-4 border border-primary position-relative">
-        <span class="card-legend bg-primary text-white fw-bold rounded px-3 py-2">Card Title</span>
+        <span class="card-legend bg-primary text-white fw-bold rounded px-3 py-2">{{ title }}</span>
         <div class="card-body">
             <slot></slot>
         </div>
@@ -12,6 +12,12 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'Titled Card',
+    props: {
+        title: {
+            type: String,
+            default: ""
+        }
+    },
     setup() {
 
 

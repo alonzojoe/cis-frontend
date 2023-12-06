@@ -26,6 +26,17 @@ const routes = [
                 path: 'ecommerce',
                 name: 'ecommerce',
                 component: () => import('@/pages/Dashboard/Ecommerce.vue'),
+            },
+            {
+                path: 'patients',
+                component: () => import('@/components/RouterBypass/RouterBypass.vue'),
+                children: [
+                    {
+                        path: 'chart',
+                        name: 'chart',
+                        component: () => import('@/pages/Patient/PatientChart.vue'),
+                    }
+                ]
             }
 
         ]
