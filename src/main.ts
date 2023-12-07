@@ -30,7 +30,9 @@ import '@/assets/vendor/libs/i18n/i18n.js'
 import '@/assets/vendor/js/menu.js'
 
 import '@/assets/vendor/js/main.js'
-
+import '@/assets/css/custom-style.css'
+// import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
 const app = createApp(App)
 app.use(PrimeVue)
 app.use(router)
