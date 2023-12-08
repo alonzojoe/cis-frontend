@@ -8,9 +8,6 @@
                         <div>
                             <label class="form-label fs-6 mb-2 fw-semibold">Date of Consultation</label>
                             <input type="datetime-local" class="form-control form-control-sm">
-                            <!-- <div id="defaultFormControlHelp" class="form-text">
-                                We'll never share your details with anyone else.
-                            </div> -->
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3">
