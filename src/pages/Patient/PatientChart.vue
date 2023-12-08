@@ -1,5 +1,12 @@
 <template>
-    <div class="row">
+    <div class="bg-primary fam-med p-2 px-3" style="top: 4rem;">
+        <div class="d-flex justify-content-between  align-items-center">
+            <span class="fs-2 text-white fw-semibold">Family Medicine - Patient Chart</span>
+            <button class="btn btn-warning btn-sm">Save Patient Chart</button>
+        </div>
+    </div>
+
+    <div class="row mt-6">
         <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
             <div data-bs-spy="scroll" data-bs-target="#side-sections" data-bs-root-margin="0px 0px -40%">
                 <patient-information id="pinfo" />
@@ -34,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, inject, ref } from "vue";
 import TitledCard from "@/components/Cards/TitledCard.vue";
 import Textarea from "primevue/textarea";
 import PatientInformation from "./chart-components/PatientInformation.vue";
@@ -60,6 +67,10 @@ export default defineComponent({
         Physician
     },
     setup() {
+        // const isLock = inject("isLock");
+        // const calculateWidth = computed(() => {
+        //     return isLock.value ? "calc(100% - 16.25rem)" : "calc(100% - 5.25rem)";
+        // });
         onMounted(() => {
             const scrollSpy = new bootstrap.ScrollSpy(document.body, {
                 target: "#side-sections",
@@ -73,5 +84,16 @@ export default defineComponent({
 <style scoped>
 .list-group-item {
     border: none !important;
+}
+
+.fam-med {
+    position: fixed;
+    width: calc(100% - 5.25rem);
+    right: 0;
+    z-index: 100;
+}
+
+.mt-6 {
+    margin-top: 5rem !important;
 }
 </style>
