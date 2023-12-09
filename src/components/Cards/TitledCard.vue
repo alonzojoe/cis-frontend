@@ -1,5 +1,5 @@
 <template>
-    <div class="card mb-4 border border-primary position-relative">
+    <div class="card border border-primary position-relative">
         <span class="card-legend bg-primary text-white fw-bold rounded px-3 py-2">{{ title }}</span>
         <div class="card-body">
             <slot></slot>

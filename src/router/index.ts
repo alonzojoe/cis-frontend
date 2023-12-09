@@ -32,6 +32,16 @@ const routes = [
                 component: () => import('@/components/RouterBypass/RouterBypass.vue'),
                 children: [
                     {
+                        path: '',
+                        name: 'concierge',
+                        component: () => import('@/pages/Lists/Concierge.vue'),
+                    },
+                    {
+                        path: '',
+                        name: 'masterfile',
+                        component: () => import('@/pages/Lists/Masterfile.vue'),
+                    },
+                    {
                         path: 'chart',
                         name: 'chart',
                         component: () => import('@/pages/Patient/PatientChart.vue'),
