@@ -53,7 +53,7 @@
             </div>
         </titled-card>
         <div class="d-flex justify-content-end align-items-center">
-            <button class="btn btn-primary" @click="addPatient()">Add New Patient</button>
+            <button class="btn btn-primary">Add New Patient</button>
         </div>
         <div class="table-responsive mt-3">
             <table class="table table-bordered table-hover">
@@ -304,32 +304,22 @@
         </div>
         <paginator />
     </div>
-    <modal-md :details="modalDetails" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import TitledCard from '@/components/Cards/TitledCard.vue';
 import Paginator from '@/components/Paginators/Paginator.vue';
-import ModalMd from '@/components/Modals/ModalMd.vue';
 export default defineComponent({
-    name: "PatientMasterfile",
+    name: "Users",
     components: {
         TitledCard,
-        Paginator,
-        ModalMd
+        Paginator
     },
     setup() {
-        const modalDetails = ref({
-            show: false,
-            title: 'Patient Registry',
-        })
 
-        const addPatient = () => {
-            modalDetails.value.show = true
-        }
 
-        return { modalDetails, addPatient }
+        return {}
     }
 })
 </script>

@@ -4,13 +4,15 @@ const routes = [
     {
         path: '/',
         name: 'auth',
-        component: () => import('@/pages/Auth/Auth.vue')
+        component: () => import('@/pages/Auth/Auth.vue'),
+        meta: { requiresGuest: true }
     },
 
     {
         path: '/main',
         name: 'main',
         component: () => import('@/layouts/AppLayout.vue'),
+        meta: { requiresAuth: true },
         children: [
             {
                 path: '',
@@ -35,16 +37,19 @@ const routes = [
                         path: '',
                         name: 'concierge',
                         component: () => import('@/pages/Lists/Concierge.vue'),
+                        meta: { title: 'Patient Concierge' }
                     },
                     {
-                        path: '',
+                        path: 'masterfile',
                         name: 'masterfile',
                         component: () => import('@/pages/Lists/Masterfile.vue'),
+                        meta: { title: 'Patient Master File' }
                     },
                     {
                         path: 'chart',
                         name: 'chart',
                         component: () => import('@/pages/Patient/PatientChart.vue'),
+                        meta: { title: 'Patient Chart' }
                     }
                 ]
             }

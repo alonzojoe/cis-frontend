@@ -1,208 +1,323 @@
 <template>
     <div class="card">
-        <div class="card-header border-bottom">
-            <h5 class="card-title mb-3">Search Filter</h5>
-            <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-                <div class="col-md-4 user_role"></div>
-                <div class="col-md-4 user_plan"></div>
-                <div class="col-md-4 user_status"></div>
-            </div>
-        </div>
-        <div class="card-datatable table-responsive">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                <div class="row me-2">
-                    <div class="col-md-2">
-                        <div class="me-3">
-                            <div class="dataTables_length" id="DataTables_Table_0_length"><label><select
-                                        name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                                        class="form-select">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select></label></div>
-                        </div>
-                    </div>
-                    <div class="col-md-10">
-                        <div
-                            class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
-                            <div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search"
-                                        class="form-control" placeholder="Search.."
-                                        aria-controls="DataTables_Table_0"></label></div>
-                            <div class="dt-buttons btn-group flex-wrap">
-                                <div class="btn-group"><button
-                                        class="btn btn-secondary buttons-collection dropdown-toggle btn-label-secondary mx-3"
-                                        tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog"
-                                        aria-expanded="false"><span><i
-                                                class="ti ti-screen-share me-1 ti-xs"></i>Export</span><span
-                                            class="dt-down-arrow"></span></button></div> <button
-                                    class="btn btn-secondary add-new btn-primary" tabindex="0"
-                                    aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasAddUser"><span><i
-                                            class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span
-                                            class="d-none d-sm-inline-block">Add New User</span></span></button>
-                            </div>
-                        </div>
+        <titled-card class="mb-3" title="Search Patient">
+            <div class="row mt-4">
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div>
+                        <label class="form-label fs-6 mb-2 fw-semibold">Consultation No.</label>
+                        <input type="text" class="form-control form-control-sm custom-font" />
                     </div>
                 </div>
-                <table class="datatables-users table dataTable no-footer dtr-column" id="DataTables_Table_0"
-                    aria-describedby="DataTables_Table_0_info">
-                    <thead class="border-top">
-                        <tr>
-                            <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1"
-                                style="width: 79.2656px; display: none;" aria-label=""></th>
-                            <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                colspan="1" style="width: 179.391px;" aria-sort="descending"
-                                aria-label="User: activate to sort column ascending">User</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 176.656px;" aria-label="Role: activate to sort column ascending">Role</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 180px;" aria-label="Plan: activate to sort column ascending">Plan</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 229.641px;" aria-label="Billing: activate to sort column ascending">Billing
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 222.344px;" aria-label="Status: activate to sort column ascending">Status</th>
-                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 230.703px;"
-                                aria-label="Actions">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd">
-                            <td valign="top" colspan="6" class="dataTables_empty">Loading...</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row mx-2">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 0
-                            to 0 of 0 entries</div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div>
+                        <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
+                        <input type="text" class="form-control form-control-sm custom-font" />
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                            <ul class="pagination">
-                                <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a
-                                        aria-controls="DataTables_Table_0" aria-disabled="true" aria-role="link"
-                                        data-dt-idx="previous" tabindex="0" class="page-link">Previous</a></li>
-                                <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a
-                                        aria-controls="DataTables_Table_0" aria-disabled="true" aria-role="link"
-                                        data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div>
+                        <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
+                        <input type="text" class="form-control form-control-sm custom-font" />
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div>
+                        <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
+                        <input type="text" class="form-control form-control-sm custom-font" />
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Offcanvas to add new user -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel">
-            <div class="offcanvas-header">
-                <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="row mt-3">
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div>
+                        <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
+                        <input type="date" class="form-control form-control-sm custom-font" />
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div>
+                        <label class="form-label fs-6 mb-2 fw-semibold">Date From</label>
+                        <input type="date" class="form-control form-control-sm custom-font" />
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div>
+                        <label class="form-label fs-6 mb-2 fw-semibold">Date To</label>
+                        <input type="date" class="form-control form-control-sm custom-font" />
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem;">
+                        <button class="btn btn-primary">Search</button>
+                        <button class="btn btn-danger">Refresh</button>
+                    </div>
+                </div>
             </div>
-            <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm"
-                    onsubmit="return false" novalidate="novalidate">
-                    <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe"
-                            name="userFullname" aria-label="John Doe">
-                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                    </div>
-                    <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com"
-                            aria-label="john.doe@example.com" name="userEmail">
-                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input type="text" id="add-user-contact" class="form-control phone-mask"
-                            placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="add-user-company">Company</label>
-                        <input type="text" id="add-user-company" class="form-control" placeholder="Web Developer"
-                            aria-label="jdoe1" name="companyName">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="country">Country</label>
-                        <div class="position-relative"><select id="country"
-                                class="select2 form-select select2-hidden-accessible" data-select2-id="country"
-                                tabindex="-1" aria-hidden="true">
-                                <option value="" data-select2-id="2">Select</option>
-                                <option value="Australia">Australia</option>
-                                <option value="Bangladesh">Bangladesh</option>
-                                <option value="Belarus">Belarus</option>
-                                <option value="Brazil">Brazil</option>
-                                <option value="Canada">Canada</option>
-                                <option value="China">China</option>
-                                <option value="France">France</option>
-                                <option value="Germany">Germany</option>
-                                <option value="India">India</option>
-                                <option value="Indonesia">Indonesia</option>
-                                <option value="Israel">Israel</option>
-                                <option value="Italy">Italy</option>
-                                <option value="Japan">Japan</option>
-                                <option value="Korea">Korea, Republic of</option>
-                                <option value="Mexico">Mexico</option>
-                                <option value="Philippines">Philippines</option>
-                                <option value="Russia">Russian Federation</option>
-                                <option value="South Africa">South Africa</option>
-                                <option value="Thailand">Thailand</option>
-                                <option value="Turkey">Turkey</option>
-                                <option value="Ukraine">Ukraine</option>
-                                <option value="United Arab Emirates">United Arab Emirates</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                                <option value="United States">United States</option>
-                            </select><span class="select2 select2-container select2-container--default" dir="ltr"
-                                data-select2-id="1" style="width: 352px;"><span class="selection"><span
-                                        class="select2-selection select2-selection--single" role="combobox"
-                                        aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false"
-                                        aria-labelledby="select2-country-container"><span
-                                            class="select2-selection__rendered" id="select2-country-container"
-                                            role="textbox" aria-readonly="true"><span
-                                                class="select2-selection__placeholder">Select Country</span></span><span
-                                            class="select2-selection__arrow" role="presentation"><b
-                                                role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                                    aria-hidden="true"></span></span></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="user-role">User Role</label>
-                        <select id="user-role" class="form-select">
-                            <option value="subscriber">Subscriber</option>
-                            <option value="editor">Editor</option>
-                            <option value="maintainer">Maintainer</option>
-                            <option value="author">Author</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="user-plan">Select Plan</label>
-                        <select id="user-plan" class="form-select">
-                            <option value="basic">Basic</option>
-                            <option value="enterprise">Enterprise</option>
-                            <option value="company">Company</option>
-                            <option value="team">Team</option>
-                        </select>
-                    </div>
-                    <button type="submit"
-                        class="btn btn-primary me-sm-3 me-1 data-submit waves-effect waves-light">Submit</button>
-                    <button type="reset" class="btn btn-label-secondary waves-effect"
-                        data-bs-dismiss="offcanvas">Cancel</button>
-                    <input type="hidden">
-                </form>
-            </div>
+        </titled-card>
+        <div class="d-flex justify-content-end align-items-center">
+            <button class="btn btn-primary">Add New Patient</button>
         </div>
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr style="text-transform:capitalize !important;">
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Consultation No.</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Date of Consultation</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Patient Name</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Gender</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Birthdate</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Payment Type</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141722
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 10:54 AM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            DELA CRUZ, JUAN NEPOMUCENO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            MALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            January 27, 1992
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CASH
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141723
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 11:15 AM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            GARCIA, MARIA ELENA
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            FEMALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            March 14, 1985
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            HMO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141724
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 11:35 AM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            RODRIGUEZ, CARLOS ALBERTO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            MALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            September 5, 1990
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            HMO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141725
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 11:55 AM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            LOPEZ, ANA ISABEL
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            FEMALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            June 8, 1982
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CASH
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141726
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 12:15 PM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            SMITH, JOHN MICHAEL
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            MALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            October 20, 1988
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            HMO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141727
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 12:35 PM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            MARTINEZ, SOPHIA LEE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            FEMALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            April 15, 1995
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CASH
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141728
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 12:55 PM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            WANG, JASON
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            MALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            August 3, 1980
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CASH
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141729
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 1:15 PM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            ANDERSON, EMMA GRACE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            FEMALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            February 12, 1997
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            HMO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141730
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 1:35 PM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            NGUYEN, ALEXANDER
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            MALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            September 28, 1983
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            HMO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            CON-122023-1141731
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            December 9, 2023 1:55 PM
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            GOMEZ, ISABELLA
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            FEMALE
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            July 7, 1990
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            HMO
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <paginator />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import TitledCard from '@/components/Cards/TitledCard.vue';
+import Paginator from '@/components/Paginators/Paginator.vue';
 export default defineComponent({
     name: "PatientMasterfile",
+    components: {
+        TitledCard,
+        Paginator
+    },
     setup() {
 
 
