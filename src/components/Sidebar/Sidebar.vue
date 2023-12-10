@@ -93,7 +93,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch, computed, provide } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
+import { useStore } from "vuex";
 export default defineComponent({
   setup() {
     const hoverNav = (type) => {
@@ -104,7 +104,7 @@ export default defineComponent({
         htmlTag.classList.remove("layout-menu-hover");
       }
     };
-
+    const store = useStore();
     const isLock = ref(false);
     provide("isLock", isLock);
     const route = useRoute();
@@ -155,36 +155,7 @@ export default defineComponent({
       }
     };
 
-    const menuItems = ref([
-      {
-        id: 1,
-        label: "Dashboard",
-        icon: "ti-dashboard",
-        name: "dashboard",
-        subMenu: [
-          { label: "Analytics", name: "dashboard" },
-          { label: "eCommerce", name: "ecommerce" },
-        ],
-        isToggled: false,
-      },
-      {
-        id: 2,
-        label: "Home",
-        icon: "ti-smart-home",
-        name: "home",
-        subMenu: [],
-        isToggled: false,
-      },
-      // {
-      //   id: 3,
-      //   label: "Registry",
-      //   icon: "ti-smart-home",
-      //   name: "registry",
-      //   path: "registry",
-      //   subMenu: [],
-      //   isToggled: ref(false),
-      // },
-    ]);
+    const menuItems = computed(() => store.getters.getMenus);
 
     const currentRoute = ref(route.name);
 

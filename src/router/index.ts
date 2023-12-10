@@ -18,6 +18,7 @@ const routes = [
                 path: '',
                 name: 'dashboard',
                 component: () => import('@/pages/Dashboard/Dashboard.vue'),
+                meta: { title: "Dashboard" }
             },
             {
                 path: 'home',
@@ -52,6 +53,30 @@ const routes = [
                         meta: { title: 'Patient Chart' }
                     }
                 ]
+            },
+            {
+                path: 'settings',
+                component: () => import('@/components/RouterBypass/RouterBypass.vue'),
+                children: [
+                    {
+                        path: '',
+                        name: 'users',
+                        component: () => import('@/pages/Settings/Users.vue'),
+                        meta: { title: 'User Management' }
+                    },
+                    {
+                        path: 'physicians',
+                        name: 'physicians',
+                        component: () => import('@/pages/Settings/Physicians.vue'),
+                        meta: { title: 'Physicians' }
+                    },
+                ]
+            },
+            {
+                path: 'report',
+                name: 'report',
+                component: () => import('@/pages/Reports/Reports.vue'),
+                meta: { title: 'Report Generation' }
             }
 
         ]

@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import PrimeVue from 'primevue/config';
 import App from '@/App.vue'
 import router from '@/router'
-
+import store from '@/store'
 //css
 import '@/assets/vendor/fonts/fontawesome.css'
 import '@/assets/vendor/fonts/tabler-icons.css'
@@ -36,6 +36,7 @@ import 'bootstrap/dist/js/bootstrap.js'
 import '@/assets/vendor/css/pages/app-email.css'
 const app = createApp(App)
 app.use(PrimeVue)
+app.use(store)
 app.use(router)
 app.mount('#app')
 

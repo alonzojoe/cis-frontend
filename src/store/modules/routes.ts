@@ -12,35 +12,35 @@ const state = {
             {
                 id: 2,
                 label: "Concierge",
-                icon: "ti-smart-home",
-                name: "home",
+                icon: "ti-users",
+                name: "concierge",
                 subMenu: [],
                 isToggled: false,
             },
             {
                 id: 3,
                 label: "Masterfile",
-                icon: "ti-smart-home",
-                name: "home",
+                icon: "ti-users-group",
+                name: "masterfile",
                 subMenu: [],
                 isToggled: false,
             },
             {
                 id: 4,
                 label: "Reports",
-                icon: "ti-smart-home",
-                name: "home",
+                icon: "ti-file-text",
+                name: "report",
                 subMenu: [],
                 isToggled: false,
             },
             {
                 id: 5,
                 label: "Settings",
-                icon: "ti-smart-home",
+                icon: "ti-settings",
                 name: "home",
                 subMenu: [
-                    { label: "Physicians", name: "physicians" },
-                    { label: "Users", name: "users" },
+                    { label: "Physicians", name: "physicians", icon: "fa-solid fa-user-doctor" },
+                    { label: "Users", name: "users", icon: "ti ti-user-plus" },
                 ],
                 isToggled: false,
             },
@@ -57,7 +57,7 @@ const actions = {
 }
 
 const getters = {
-
+    getMenus: state => state.data.menus
 }
 
 export default {

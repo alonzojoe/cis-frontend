@@ -24,7 +24,7 @@
         </div>
       </div> -->
       <!-- /Search -->
-
+      {{ title }}
       <ul class="navbar-nav flex-row align-items-center ms-auto">
         <!-- Language -->
         <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
@@ -456,12 +456,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch, watchEffect } from "vue";
-
+import { useRoute } from "vue-router";
 export default defineComponent({
   props: {
     expanded: Boolean,
   },
   setup(props: Boolean) {
+    const route = useRoute();
     const isExpanded = ref(false);
 
     const toggleExpend = () => {
@@ -530,7 +531,13 @@ export default defineComponent({
       }
     };
 
-    return { isExpanded, toggleExpend, setExpanded, toggleChangeTheme, appTheme };
+    const title = ref("asdsadsad")
+
+    watch(() => route.meta.title, (newTitle) => {
+      title.value = newTitle
+    })
+
+    return { isExpanded, toggleExpend, setExpanded, toggleChangeTheme, appTheme, title };
   },
 });
 </script>
