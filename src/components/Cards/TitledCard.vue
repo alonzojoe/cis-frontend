@@ -29,7 +29,7 @@ export default defineComponent({
 <style scoped>
 .card-legend {
     position: absolute;
-    top: -17px;
+    top: -18px;
     left: 15px;
 }
 </style>
