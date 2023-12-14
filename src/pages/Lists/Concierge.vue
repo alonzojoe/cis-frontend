@@ -69,231 +69,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr v-for="(p, index) in patients" :key="index">
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141722
+                            {{ p.consultation_no }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 10:54 AM
+                            {{ p.consultation_date }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            DELA CRUZ, JUAN NEPOMUCENO
+                            {{ p.patient }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            MALE
+                            {{ p.gender }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            January 27, 1992
+                            {{ p.birthdate }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            CASH
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141723
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 11:15 AM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            GARCIA, MARIA ELENA
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            FEMALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            March 14, 1985
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            HMO
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141724
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 11:35 AM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            RODRIGUEZ, CARLOS ALBERTO
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            MALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            September 5, 1990
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            HMO
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141725
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 11:55 AM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            LOPEZ, ANA ISABEL
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            FEMALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            June 8, 1982
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CASH
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141726
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 12:15 PM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            SMITH, JOHN MICHAEL
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            MALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            October 20, 1988
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            HMO
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141727
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 12:35 PM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            MARTINEZ, SOPHIA LEE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            FEMALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            April 15, 1995
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CASH
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141728
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 12:55 PM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            WANG, JASON
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            MALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            August 3, 1980
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CASH
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141729
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 1:15 PM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            ANDERSON, EMMA GRACE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            FEMALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            February 12, 1997
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            HMO
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141730
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 1:35 PM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            NGUYEN, ALEXANDER
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            MALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            September 28, 1983
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            HMO
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            CON-122023-1141731
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            December 9, 2023 1:55 PM
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            GOMEZ, ISABELLA
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            FEMALE
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            July 7, 1990
-                        </td>
-                        <td class="text-center align-middle fw-normal p-1 m-0">
-                            HMO
+                            {{ p.payment_type }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
                             <button class="btn btn-warning btn-sm">Update Chart</button>
@@ -313,7 +106,7 @@ import TitledCard from '@/components/Cards/TitledCard.vue';
 import Paginator from '@/components/Paginators/Paginator.vue';
 import ModalMd from '@/components/Modals/ModalMd.vue';
 export default defineComponent({
-    name: "PatientMasterfile",
+    name: "PatientConcierge",
     components: {
         TitledCard,
         Paginator,
@@ -325,11 +118,97 @@ export default defineComponent({
             title: 'Patient Registry',
         })
 
+        const patients = ref(
+            [
+                {
+                    "consultation_no": "CON-122023-1141722",
+                    "consultation_date": "December 9, 2023 10:54 AM",
+                    "patient": "DELA CRUZ, JUAN NEPOMUCENO",
+                    "gender": "MALE",
+                    "birthdate": "January 27, 1992",
+                    "payment_type": "CASH"
+                },
+                {
+                    "consultation_no": "CON-122023-1141723",
+                    "consultation_date": "December 9, 2023 11:15 AM",
+                    "patient": "GARCIA, MARIA ELENA",
+                    "gender": "FEMALE",
+                    "birthdate": "March 14, 1985",
+                    "payment_type": "HMO"
+                },
+                {
+                    "consultation_no": "CON-122023-1141724",
+                    "consultation_date": "December 9, 2023 11:35 AM",
+                    "patient": "RODRIGUEZ, CARLOS ALBERTO",
+                    "gender": "MALE",
+                    "birthdate": "September 5, 1990",
+                    "payment_type": "HMO"
+                },
+                {
+                    "consultation_no": "CON-122023-1141725",
+                    "consultation_date": "December 9, 2023 11:55 AM",
+                    "patient": "LOPEZ, ANA ISABEL",
+                    "gender": "FEMALE",
+                    "birthdate": "June 8, 1982",
+                    "payment_type": "CASH"
+                },
+                {
+                    "consultation_no": "CON-122023-1141726",
+                    "consultation_date": "December 9, 2023 12:15 PM",
+                    "patient": "SMITH, JOHN MICHAEL",
+                    "gender": "MALE",
+                    "birthdate": "October 20, 1988",
+                    "payment_type": "HMO"
+                },
+                {
+                    "consultation_no": "CON-122023-1141727",
+                    "consultation_date": "December 9, 2023 12:35 PM",
+                    "patient": "MARTINEZ, SOPHIA LEE",
+                    "gender": "FEMALE",
+                    "birthdate": "April 15, 1995",
+                    "payment_type": "CASH"
+                },
+                {
+                    "consultation_no": "CON-122023-1141728",
+                    "consultation_date": "December 9, 2023 12:55 PM",
+                    "patient": "WANG, JASON",
+                    "gender": "MALE",
+                    "birthdate": "August 3, 1980",
+                    "payment_type": "CASH"
+                },
+                {
+                    "consultation_no": "CON-122023-1141729",
+                    "consultation_date": "December 9, 2023 1:15 PM",
+                    "patient": "ANDERSON, EMMA GRACE",
+                    "gender": "FEMALE",
+                    "birthdate": "February 12, 1997",
+                    "payment_type": "HMO"
+                },
+                {
+                    "consultation_no": "CON-122023-1141730",
+                    "consultation_date": "December 9, 2023 1:35 PM",
+                    "patient": "NGUYEN, ALEXANDER",
+                    "gender": "MALE",
+                    "birthdate": "September 28, 1983",
+                    "payment_type": "HMO"
+                },
+                {
+                    "consultation_no": "CON-122023-1141731",
+                    "consultation_date": "December 9, 2023 1:55 PM",
+                    "patient": "GOMEZ, ISABELLA",
+                    "gender": "FEMALE",
+                    "birthdate": "July 7, 1990",
+                    "payment_type": "HMO"
+                }
+            ]
+
+        )
+
         const addPatient = () => {
             modalDetails.value.show = true
         }
 
-        return { modalDetails, addPatient }
+        return { modalDetails, addPatient, patients }
     }
 })
 </script>

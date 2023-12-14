@@ -1,6 +1,6 @@
 
 import { createStore } from 'vuex';
-import Routes from './modules/routes'
+import Routes from './modules/route-lists'
 const store = createStore({
     modules: {
         Routes

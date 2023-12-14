@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import PrimeVue from 'primevue/config';
+import VueSweetalert2 from 'vue-sweetalert2'
 import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
@@ -35,6 +36,7 @@ import '@/assets/css/custom-style.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import '@/assets/vendor/css/pages/app-email.css'
 const app = createApp(App)
+app.use(VueSweetalert2);
 app.use(PrimeVue)
 app.use(store)
 app.use(router)
