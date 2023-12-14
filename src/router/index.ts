@@ -1,4 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useRouter } from "vue-router";
+import Cookies from 'js-cookie';
+import { app } from '@/main'
+import { decryptData } from '@/service'
+import { useLoading } from '@/components/Loaders/loaderSettings'
+import api from "@/api";
 
 const routes = [
     {
@@ -87,5 +93,72 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+const { startLoading, stopLoading } = useLoading()
+
+router.beforeEach((to, from) => {
+    startLoading()
+
+    //Route Guard
+    const authenticated = Cookies.get('auth_token')
+    api.defaults.headers.common['Authorization'] = `Bearer ${authenticated}`
+    if (to.meta.requiresGuest && authenticated) {
+
+        return { name: 'dashboard' };
+    } else if (to.meta.requiresAuth && !authenticated) {
+
+        Cookies.remove('auth_token');
+        return { name: 'auth' };
+    } else {
+
+        return;
+
+    }
+    // else if (to.meta.requireRole) {
+
+
+    //     if (authenticated) {
+
+
+    //         try {
+    //             const authUser = decryptData(localStorage.getItem('userData'))
+    //             const currentRole = authUser.role
+    //             const requiredRoles = to.meta.requireRole;
+
+    //             const userRole = currentRole;
+
+    //             if (requiredRoles.includes(userRole)) {
+
+    //                 return;
+    //             } else {
+
+    //                 return { name: 'unauthorized' }; // Redirect to an unauthorized page
+    //             }
+    //         } catch (error) {
+    //             return { name: 'auth' }
+    //         }
+
+
+
+    //     } else {
+
+    //         return { name: 'auth' }; // Redirect to the login page
+    //     }
+    // } else {
+
+    //     return;
+
+    // }
+
+
+})
+
+router.afterEach((to, from) => {
+    setTimeout(() => {
+        stopLoading()
+    }, 500);
+});
+
+
 
 export default router;
