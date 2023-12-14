@@ -41,11 +41,10 @@
           <h3 class="mb-1 fw-bold">Welcome to Vuexy! 👋</h3>
           <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-          <form class="mb-3">
+          <form class="mb-3" @submit.prevent="login()">
             <div class="mb-3">
-              <label for="email" class="form-label">Email or Username</label>
-              <input type="text" class="form-control" id="email" name="email-username"
-                placeholder="Enter your email or username" autofocus />
+              <label for="email" class="form-label">Email</label>
+              <input type="text" class="form-control" id="email" name="email-username" v-model="formData.email" />
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
@@ -55,9 +54,8 @@
                 </a>
               </div>
               <div class="input-group input-group-merge">
-                <input type="password" id="password" class="form-control" name="password"
-                  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                  aria-describedby="password" />
+                <input type="password" id="password" class="form-control" name="password" aria-describedby="password"
+                  v-model="formData.password" />
                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
               </div>
             </div>
@@ -67,7 +65,7 @@
                 <label class="form-check-label" for="remember-me"> Remember Me </label>
               </div>
             </div>
-            <button @click.prevent="" type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
+            <button type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
           </form>
 
           <p class="text-center">
@@ -99,15 +97,86 @@
       <!-- /Login -->
     </div>
   </div>
+  {{ formData }}
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, computed, inject, onMounted, watch } from "vue";
 import '@/assets/vendor/css/pages/page-auth.css'
+import api from "@/api";
+import Cookies from "js-cookie";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import CryptoJS from "crypto-js";
+import { swalMessage } from '@/service'
+
 export default defineComponent({
   name: "Auth",
   setup() {
-    return {};
+    const store = useStore();
+    const swal = inject("$swal");
+    const router = useRouter();
+
+    const formData = computed(() => store.getters.getLoginForm);
+    const user = computed(() => store.getters.getAuthenticatedUser);
+
+
+    const isLoading = ref(false);
+    const login = async () => {
+      if (!formData.value.email || !formData.value.password) {
+        swalMessage(
+          swal,
+          "Warning",
+          "Email and Password are Required!",
+          "warning"
+        );
+        return;
+      }
+      isLoading.value = true;
+      try {
+        const response = await api.post("/auth/login", {
+          email: formData.value.email,
+          password: formData.value.password,
+        });
+
+        if (response.data.authorization && response.data.authorization.token) {
+          try {
+            const token = response.data.authorization.token;
+            const userData = JSON.stringify(response.data.user);
+
+            const password = import.meta.env.VITE_CRYPTO_SECRET_KEY;
+            const encryptedData = CryptoJS.AES.encrypt(
+              userData,
+              password
+            ).toString();
+            console.log(encryptedData);
+            Cookies.set("auth_token", token, { expires: 4 / 24 });
+            localStorage.setItem("ajioasdmianc8a79sdy0", token);
+            localStorage.setItem("userData", encryptedData);
+            api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            router.push({ name: "dashboard" });
+            isLoading.value = false;
+          } catch (error) {
+            console.error("Error storing token in cookie:", error);
+          }
+        }
+      } catch (error) {
+        user.value = error.response.data.message;
+        swal({
+          title: "Login Failed",
+          text: "Invalid email or password",
+          icon: "error",
+        }).then(() => {
+          isLoading.value = false;
+        });
+      }
+    }
+
+    onMounted(() => {
+      store.commit('resetLoginForm');
+    })
+
+    return { formData, login };
   },
 });
 </script>

@@ -35,6 +35,7 @@ import '@/assets/css/custom-style.css'
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import '@/assets/vendor/css/pages/app-email.css'
+import 'sweetalert2/dist/sweetalert2.min.css'
 const app = createApp(App)
 app.use(VueSweetalert2);
 app.use(PrimeVue)
