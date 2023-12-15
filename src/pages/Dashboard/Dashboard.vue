@@ -1,6 +1,15 @@
 <template>
   <div class="row">
     <!-- Website Analytics -->
+    <div class="d-flex align-items-center jusitfy-content-center">
+      <div class="sk-wave sk-primary">
+        <div class="sk-wave-rect"></div>
+        <div class="sk-wave-rect"></div>
+        <div class="sk-wave-rect"></div>
+        <div class="sk-wave-rect"></div>
+        <div class="sk-wave-rect"></div>
+      </div>
+    </div>
     <div class="col-lg-12 mb-4">
       <titled-card>
         <div class="row row-bordered g-0">

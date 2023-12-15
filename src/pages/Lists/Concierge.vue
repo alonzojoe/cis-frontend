@@ -5,25 +5,29 @@
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div>
                         <label class="form-label fs-6 mb-2 fw-semibold">Consultation No.</label>
-                        <input type="text" class="form-control form-control-sm custom-font" />
+                        <input type="text" class="form-control form-control-sm custom-font"
+                            v-model="formSearch.consultation_no" @keyup.enter="search()" />
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div>
                         <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-                        <input type="text" class="form-control form-control-sm custom-font" />
+                        <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
+                            @keyup.enter="search()" />
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div>
                         <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-                        <input type="text" class="form-control form-control-sm custom-font" />
+                        <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
+                            @keyup.enter="search()" />
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div>
                         <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-                        <input type="text" class="form-control form-control-sm custom-font" />
+                        <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.mname"
+                            @keyup.enter="search()" />
                     </div>
                 </div>
             </div>
@@ -31,13 +35,15 @@
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div>
                         <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-                        <input type="date" class="form-control form-control-sm custom-font" />
+                        <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.birthdate"
+                            @keyup.enter="search()" />
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div>
                         <label class="form-label fs-6 mb-2 fw-semibold">Payment Type</label>
-                        <select class="form-control form-select-sm custom-font form-select">
+                        <select class="form-control form-select-sm custom-font form-select"
+                            v-model="formSearch.payment_type" @keyup.enter="search()">
                             <option value="">Please Select</option>
                             <option value="CASH">CASH</option>
                             <option value="HMO">HMO</option>
@@ -46,8 +52,8 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem;">
-                        <button class="btn btn-primary">Search</button>
-                        <button class="btn btn-danger">Refresh</button>
+                        <button class="btn btn-primary" @click="search()" @keyup.enter="search()">Search</button>
+                        <button class="btn btn-danger" @click="refresh()">Refresh</button>
                     </div>
                 </div>
             </div>
@@ -69,15 +75,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(p, index) in patients" :key="index">
+                    <tr v-for="p in patients" :key="p.consultation_id">
                         <td class="text-center align-middle fw-normal p-1 m-0">
                             {{ p.consultation_no }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            {{ p.consultation_date }}
+                            {{ p.consultation_datetime }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            {{ p.patient }}
+                            {{ p.patient_lname }}, {{ p.patient_fname }} {{ p.patient_mname }} {{ p.patient_suffix }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
                             {{ p.gender }}
@@ -92,16 +98,45 @@
                             <button class="btn btn-warning btn-sm">Update Chart</button>
                         </td>
                     </tr>
+                    <tr v-if="!patients.length && !isLoading">
+                        <td class="text-center align-middle fw-bold p-1 m-0" colspan="7">
+                            No records found.
+                        </td>
+                    </tr>
+                    <tr v-if="isLoading">
+                        <td colspan="7">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="d-flex align-items-center jusitfy-content-center">
+                                    <div class="sk-wave sk-primary">
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <paginator />
+        <paginator v-if="!isLoading" :data="paginationData" @update:currentPage="updateCurrentPage($event)" />
     </div>
     <modal-md :details="modalDetails" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import {
+    defineComponent,
+    ref,
+    inject,
+    computed,
+    onMounted,
+    watch,
+    watchEffect,
+} from "vue";
+import { useStore } from "vuex";
 import TitledCard from '@/components/Cards/TitledCard.vue';
 import Paginator from '@/components/Paginators/Paginator.vue';
 import ModalMd from '@/components/Modals/ModalMd.vue';
@@ -118,97 +153,88 @@ export default defineComponent({
             title: 'Patient Registry',
         })
 
-        const patients = ref(
-            [
-                {
-                    "consultation_no": "CON-122023-1141722",
-                    "consultation_date": "December 9, 2023 10:54 AM",
-                    "patient": "DELA CRUZ, JUAN NEPOMUCENO",
-                    "gender": "MALE",
-                    "birthdate": "January 27, 1992",
-                    "payment_type": "CASH"
-                },
-                {
-                    "consultation_no": "CON-122023-1141723",
-                    "consultation_date": "December 9, 2023 11:15 AM",
-                    "patient": "GARCIA, MARIA ELENA",
-                    "gender": "FEMALE",
-                    "birthdate": "March 14, 1985",
-                    "payment_type": "HMO"
-                },
-                {
-                    "consultation_no": "CON-122023-1141724",
-                    "consultation_date": "December 9, 2023 11:35 AM",
-                    "patient": "RODRIGUEZ, CARLOS ALBERTO",
-                    "gender": "MALE",
-                    "birthdate": "September 5, 1990",
-                    "payment_type": "HMO"
-                },
-                {
-                    "consultation_no": "CON-122023-1141725",
-                    "consultation_date": "December 9, 2023 11:55 AM",
-                    "patient": "LOPEZ, ANA ISABEL",
-                    "gender": "FEMALE",
-                    "birthdate": "June 8, 1982",
-                    "payment_type": "CASH"
-                },
-                {
-                    "consultation_no": "CON-122023-1141726",
-                    "consultation_date": "December 9, 2023 12:15 PM",
-                    "patient": "SMITH, JOHN MICHAEL",
-                    "gender": "MALE",
-                    "birthdate": "October 20, 1988",
-                    "payment_type": "HMO"
-                },
-                {
-                    "consultation_no": "CON-122023-1141727",
-                    "consultation_date": "December 9, 2023 12:35 PM",
-                    "patient": "MARTINEZ, SOPHIA LEE",
-                    "gender": "FEMALE",
-                    "birthdate": "April 15, 1995",
-                    "payment_type": "CASH"
-                },
-                {
-                    "consultation_no": "CON-122023-1141728",
-                    "consultation_date": "December 9, 2023 12:55 PM",
-                    "patient": "WANG, JASON",
-                    "gender": "MALE",
-                    "birthdate": "August 3, 1980",
-                    "payment_type": "CASH"
-                },
-                {
-                    "consultation_no": "CON-122023-1141729",
-                    "consultation_date": "December 9, 2023 1:15 PM",
-                    "patient": "ANDERSON, EMMA GRACE",
-                    "gender": "FEMALE",
-                    "birthdate": "February 12, 1997",
-                    "payment_type": "HMO"
-                },
-                {
-                    "consultation_no": "CON-122023-1141730",
-                    "consultation_date": "December 9, 2023 1:35 PM",
-                    "patient": "NGUYEN, ALEXANDER",
-                    "gender": "MALE",
-                    "birthdate": "September 28, 1983",
-                    "payment_type": "HMO"
-                },
-                {
-                    "consultation_no": "CON-122023-1141731",
-                    "consultation_date": "December 9, 2023 1:55 PM",
-                    "patient": "GOMEZ, ISABELLA",
-                    "gender": "FEMALE",
-                    "birthdate": "July 7, 1990",
-                    "payment_type": "HMO"
-                }
-            ]
 
-        )
 
         const addPatient = () => {
             modalDetails.value.show = true
         }
 
-        return { modalDetails, addPatient, patients }
+
+
+        const formSearch = ref({
+            consultation_no: "",
+            lname: "",
+            fname: "",
+            mname: "",
+            birthdate: "",
+            payment_type: ""
+        });
+
+        const resetSearch = () => {
+            Object.keys(formSearch.value).forEach((key) => {
+                formSearch.value[key] = ""
+            })
+        }
+
+        const store = useStore();
+        const patients = computed(() => store.getters.getPatients);
+        const totalPatients = computed(() => store.getters.getTotalPatients)
+        const patientsPages = computed(() => store.getters.getPaginatedPatients)
+
+        const paginationData = ref({
+            totalRecords: totalPatients.value,
+            totalPages: patientsPages.value,
+            perPage: 10,
+            currentPage: 1,
+        });
+
+        watch([totalPatients, patientsPages], ([total, pages]) => {
+            paginationData.value.totalRecords = total;
+            paginationData.value.totalPages = pages;
+        })
+
+        const isLoading = ref(false)
+        const fetchPatients = async (page, form) => {
+            await store.commit('setPatientsEmpty')
+            isLoading.value = true;
+            await store.dispatch('fetchConcierge', { page: page, ...form })
+            isLoading.value = false;
+        }
+
+        const updateCurrentPage = (newPage: number) => {
+            paginationData.value.currentPage = newPage
+            fetchPatients(newPage, formSearch.value)
+        }
+
+        const search = async () => {
+            isLoading.value = true
+            await store.commit('setPatientsEmpty')
+            paginationData.value.currentPage = 1
+            await fetchPatients(1, formSearch.value)
+        }
+
+        const refresh = () => {
+            resetSearch();
+            search();
+        }
+
+        onMounted(async () => {
+            await fetchPatients(1, formSearch.value);
+
+        });
+
+        return {
+            modalDetails,
+            addPatient,
+            //fetch
+            patients,
+            formSearch,
+            paginationData,
+            isLoading,
+            updateCurrentPage,
+            search,
+            refresh
+        }
     }
 })
 </script>
