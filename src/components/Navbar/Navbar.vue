@@ -12,7 +12,7 @@
       <!-- Search -->
       <div class="navbar-nav align-items-center">
         <div class="nav-item navbar-search-wrapper mb-0">
-          <h4 class="mt-4 fw-bold">{{ title }}</h4>
+          <h4 class="mt-4 fw-bold">{{ route.meta.title }}</h4>
         </div>
       </div>
       <!-- /Search -->
@@ -203,7 +203,7 @@ export default defineComponent({
       title.value = newTitle
     })
 
-    return { isExpanded, toggleExpend, setExpanded, toggleChangeTheme, appTheme, title };
+    return { isExpanded, toggleExpend, setExpanded, toggleChangeTheme, appTheme, title, route };
   },
 });
 </script>

@@ -66,11 +66,12 @@
                 <thead>
                     <tr style="text-transform:capitalize !important;">
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Consultation No.</th>
-                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Date of Consultation</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Consultation Date & Time</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Patient Name</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Gender</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Birthdate</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Payment Type</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Physician</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Options</th>
                     </tr>
                 </thead>
@@ -95,16 +96,19 @@
                             {{ p.payment_type }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
+                            {{ p.physician }}
+                        </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
                             <button class="btn btn-warning btn-sm">Update Chart</button>
                         </td>
                     </tr>
                     <tr v-if="!patients.length && !isLoading">
-                        <td class="text-center align-middle fw-bold p-1 m-0" colspan="7">
+                        <td class="text-center align-middle fw-bold p-1 m-0" colspan="8">
                             No records found.
                         </td>
                     </tr>
                     <tr v-if="isLoading">
-                        <td colspan="7">
+                        <td colspan="8">
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="d-flex align-items-center jusitfy-content-center">
                                     <div class="sk-wave sk-primary">

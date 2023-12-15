@@ -39,7 +39,7 @@ const actions = {
     async fetchConcierge({ commit }, payload) {
         const queryParams = buildQueryParams(payload)
         const response = await api.get(`patient/concierge?${queryParams}`)
-        if (response.data.data) {
+        if (response.data.data.length > 0) {
             commit('setPatients', response.data.data)
             commit('setTotalPatients', response.data.total)
             commit('setPaginatedPatients', response.data.total_pages)
@@ -48,8 +48,8 @@ const actions = {
 
     async fetchMasterfile({ commit }, payload) {
         const queryParams = buildQueryParams(payload)
-        const response = await api.get(`patient/mastefile?${queryParams}`)
-        if (response.data.data) {
+        const response = await api.get(`patient/masterfile?${queryParams}`)
+        if (response.data.data.length > 0) {
             commit('setPatients', response.data.data)
             commit('setTotalPatients', response.data.total)
             commit('setPaginatedPatients', response.data.total_pages)
