@@ -127,7 +127,49 @@
         </div>
         <paginator v-if="!isLoading" :data="paginationData" @update:currentPage="updateCurrentPage($event)" />
     </div>
-    <modal-md :details="modalDetails" />
+    <modal-sm :details="modalDetails">
+        <div class="d-flex align-items-center justify-content-center">
+            <h3>Patient Type</h3>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="card card-border-shadow-primary">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2 pb-1">
+                            <div class="avatar me-2">
+                                <span class="avatar-initial rounded bg-label-primary"><i
+                                        class="ti ti-truck ti-md"></i></span>
+                            </div>
+                            <h4 class="ms-1 mb-0">Old</h4>
+                        </div>
+                        <p class="mb-1">On route vehicles</p>
+                        <p class="mb-0">
+                            <span class="fw-medium me-1">+18.2%</span>
+                            <small class="text-muted">than last week</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="card card-border-shadow-primary">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2 pb-1">
+                            <div class="avatar me-2">
+                                <span class="avatar-initial rounded bg-label-primary"><i
+                                        class="ti ti-truck ti-md"></i></span>
+                            </div>
+                            <h4 class="ms-1 mb-0">New</h4>
+                        </div>
+                        <p class="mb-1">On route vehicles</p>
+                        <p class="mb-0">
+                            <span class="fw-medium me-1">+18.2%</span>
+                            <small class="text-muted">than last week</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-sm>
 </template>
 
 <script lang="ts">
@@ -144,17 +186,19 @@ import { useStore } from "vuex";
 import TitledCard from '@/components/Cards/TitledCard.vue';
 import Paginator from '@/components/Paginators/Paginator.vue';
 import ModalMd from '@/components/Modals/ModalMd.vue';
+import ModalSm from "@/components/Modals/ModalSm.vue"
 export default defineComponent({
     name: "PatientConcierge",
     components: {
         TitledCard,
         Paginator,
-        ModalMd
+        ModalMd,
+        ModalSm
     },
     setup() {
         const modalDetails = ref({
             show: false,
-            title: 'Patient Registry',
+            title: 'New Consultation',
         })
 
 

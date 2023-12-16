@@ -22,7 +22,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'ModalMd',
+    name: 'ModalSm',
     props: {
         details: Object
     },
@@ -75,7 +75,7 @@ export default defineComponent({
 }
 
 .cst-modal-body2 {
-    width: 70vw;
+    width: 40vw;
     height: fit-content;
     border-top: 10px solid #FFFFFF;
     border-bottom: 10px solid #FFFFFF;

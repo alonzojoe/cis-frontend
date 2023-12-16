@@ -60,9 +60,9 @@
                 </div>
             </div>
         </titled-card>
-        <div class="d-flex justify-content-end align-items-center">
+        <!-- <div class="d-flex justify-content-end align-items-center">
             <button class="btn btn-primary">Add New Patient</button>
-        </div>
+        </div> -->
         <div class="table-responsive mt-3">
             <table class="table table-bordered table-hover">
                 <thead>
