@@ -81,6 +81,7 @@ export default defineComponent({
         const tableDatas = computed(() => store.getters.getReportDatas)
         const isLoading = ref(false);
         const fetchReport = async () => {
+            await store.commit('setReportDatasEmpty')
             isLoading.value = true
             await store.dispatch('fetchReport', formSearch.value)
             isLoading.value = false

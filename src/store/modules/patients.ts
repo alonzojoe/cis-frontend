@@ -39,7 +39,6 @@ const mutations = {
             return {
                 ...p,
                 consultation_datetime: moment(p.consultation_datetime).format('lll'),
-                birthdate: moment(p.birthdate).format('MMMM d, Y')
             }
         })
     },
