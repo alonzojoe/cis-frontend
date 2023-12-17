@@ -1,5 +1,6 @@
 import api from '@/api'
 import moment from 'moment'
+import { data } from '../../assets/libs/datatables-bs5/datatables-bootstrap5';
 
 const state = {
     data: {
@@ -42,7 +43,29 @@ const mutations = {
             email: "",
             password: "",
         }
-    }
+    },
+
+    setUsers: (state: any, payload: any) => {
+        state.data.users = payload.map((u) => {
+            return {
+                ...u,
+                created_at: moment(u.created_at).format('lll'),
+                updated_at: moment(u.updated_at).format('lll'),
+            }
+        })
+    },
+
+    setUsersEmpty: (state: any, payload: any) => {
+        state.data.users = []
+    },
+
+    setTotalUsers: (state: any, payload: any) => {
+        state.data.totalUsers = payload
+    },
+
+    setPaginatedUsers: (state: any, payload: any) => {
+        state.data.paginatedUsers = payload
+    },
 }
 
 const actions = {
@@ -51,7 +74,10 @@ const actions = {
 
 const getters = {
     getAuthenticatedUser: state => state.data.authenticatedUser,
-    getLoginForm: state => state.data.loginForm
+    getLoginForm: state => state.data.loginForm,
+    getUsers: state => state.data.users,
+    getTotalUsers: state => state.data.totalUsers,
+    getPaginatedUsers: state => state.data.paginatedUsers
 }
 
 export default {
