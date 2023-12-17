@@ -137,13 +137,13 @@
                         v-model="formData.mname" />
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+            <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
                 <div>
-                    <button class="btn btn-primary w-100" @click="saveRecord()">Save Physician Record</button>
+                    <button class="btn btn-primary w-100" @click="saveRecord()">{{ formData.id == 0 ? 'Save' : 'Update' }}
+                        Physician Record</button>
                 </div>
             </div>
         </div>
-        {{ formData }}
     </modal-sm>
     <loader title="Saving Physician Record..." :warning="true" :create="true" v-if="savingFlag" />
 </template>
@@ -239,20 +239,22 @@ export default defineComponent({
         const addPhysician = () => {
             store.commit('resetFormPhysician')
             modalDetails.value.show = true
+            modalDetails.value.title = 'Add New Physician'
         }
         const swal = inject("$swal");
         const formData = computed(() => store.getters.getFormPhysician)
         const response = computed(() => store.getters.getPhysiciansResponse)
         const savingFlag = ref(false);
-        const saveRecord = async (res) => {
-
-            swalConfirmation(swal, 'Confirmation', 'Are you sure to save new Physician Record?', 'question').then(async (res) => {
+        const saveRecord = async () => {
+            const confirmMessage = formData.value.id == 0 ? 'save' : 'update';
+            const message = formData.value.id == 0 ? 'added' : 'updated';
+            swalConfirmation(swal, 'Confirmation', `Are you sure to ${confirmMessage} physician record?`, 'question').then(async (res) => {
                 if (res.isConfirmed) {
                     savingFlag.value = true
                     await store.dispatch('savePhysician', formData.value)
                     modalDetails.value.show = false
                     savingFlag.value = false
-                    swalMessage(swal, 'Information', 'Physician added successfully!', 'success').then(() => {
+                    swalMessage(swal, 'Information', `Physician ${message} successfully!`, 'success').then(() => {
                         refresh()
                     })
                 }
@@ -262,12 +264,13 @@ export default defineComponent({
         }
 
         const updateRecord = async (physician) => {
-
+            await store.commit('setFormPhysician', physician)
+            modalDetails.value.show = true
+            modalDetails.value.title = 'Update Physician Record'
         }
 
         onMounted(async () => {
             await fetchPhysicians(1, formSearch.value);
-
         });
 
         return {
