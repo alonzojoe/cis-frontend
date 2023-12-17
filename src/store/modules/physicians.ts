@@ -1,6 +1,7 @@
 import api from '@/api';
 import { buildQueryParams } from '@/service'
 import moment from 'moment';
+import { validationStatus } from '../../pages/Settings/Validations/physicianValidation';
 
 const state = {
     data: {
@@ -99,6 +100,17 @@ const actions = {
                 mname: payload.mname,
             })
             commit('setPhysicianResponse', response.data.data)
+        }
+
+    },
+
+    async changeStatus({ state }, payload) {
+        const status = payload.status
+
+        if (status == 0) {
+            await api.patch(`/physician/active/${payload.id}`)
+        } else {
+            await api.patch(`/physician/inactive/${payload.id}`)
         }
 
     }

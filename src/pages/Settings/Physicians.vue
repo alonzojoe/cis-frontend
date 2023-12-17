@@ -1,5 +1,6 @@
 <template>
     <div class="card">
+        <Toast />
         <titled-card class="mb-3" title="Search Physician">
             <div class="row mt-4">
                 <div class="col-sm-12 col-md-6 col-lg-3">
@@ -52,6 +53,7 @@
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Created At</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Updated At</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Options</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,14 +73,19 @@
                         <td class="text-center align-middle fw-normal p-1 m-0">
                             <button class="btn btn-warning btn-sm" @click="updateRecord(p)">Update Physician</button>
                         </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-sm" :class="p.status == 0 ? 'btn-success' : 'btn-danger'"
+                                @click="changeStatus(p)">Set {{ p.status == 0
+                                    ? 'Active' : 'Inactive' }}</button>
+                        </td>
                     </tr>
                     <tr v-if="!physicians.length && !isLoading">
-                        <td class="text-center align-middle fw-bold p-1 m-0" colspan="5">
+                        <td class="text-center align-middle fw-bold p-1 m-0" colspan="6">
                             No records found.
                         </td>
                     </tr>
                     <tr v-if="isLoading">
-                        <td colspan="5">
+                        <td colspan="6">
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="d-flex align-items-center jusitfy-content-center">
                                     <div class="sk-wave sk-primary">
@@ -117,14 +124,14 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                <div>
+                <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.lname }">
                     <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
                     <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
                         v-model="formData.lname" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                <div>
+                <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.fname }">
                     <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
                     <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
                         v-model="formData.fname" />
@@ -145,7 +152,9 @@
             </div>
         </div>
     </modal-sm>
-    <loader title="Saving Physician Record..." :warning="true" :create="true" v-if="savingFlag" />
+    <loader :title="formData.id == 0 ? 'Saving Physician Record...' : 'Updating Physician Record...'" :warning="true"
+        :create="true" v-if="savingFlag" />
+    <loader :title="statusMessage" :warning="true" :create="true" v-if="statusFlag" />
 </template>
 
 <script lang="ts">
@@ -164,16 +173,23 @@ import Paginator from '@/components/Paginators/Paginator.vue';
 import ModalSm from "@/components/Modals/ModalSm.vue";
 import { swalMessage, swalConfirmation } from '@/service'
 import Loader from '@/components/Loaders/Loader.vue'
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast";
+import { validateFields, validationStatus } from "@/pages/Settings/Validations/physicianValidation"
 export default defineComponent({
     name: "Physicians",
     components: {
         TitledCard,
         Paginator,
         ModalSm,
-        Loader
+        Loader,
+        Toast
     },
     setup() {
-
+        const toast = useToast();
+        const showSuccess = () => {
+            toast.add({ severity: 'error', summary: 'Success Message', detail: 'Message Content', life: 100000 });
+        };
         const formSearch = ref({
             license_no: "",
             lname: "",
@@ -237,6 +253,7 @@ export default defineComponent({
 
 
         const addPhysician = () => {
+            resetter();
             store.commit('resetFormPhysician')
             modalDetails.value.show = true
             modalDetails.value.title = 'Add New Physician'
@@ -245,28 +262,64 @@ export default defineComponent({
         const formData = computed(() => store.getters.getFormPhysician)
         const response = computed(() => store.getters.getPhysiciansResponse)
         const savingFlag = ref(false);
+        const saveSubmitted = ref(false);
         const saveRecord = async () => {
-            const confirmMessage = formData.value.id == 0 ? 'save' : 'update';
-            const message = formData.value.id == 0 ? 'added' : 'updated';
-            swalConfirmation(swal, 'Confirmation', `Are you sure to ${confirmMessage} physician record?`, 'question').then(async (res) => {
-                if (res.isConfirmed) {
-                    savingFlag.value = true
-                    await store.dispatch('savePhysician', formData.value)
-                    modalDetails.value.show = false
-                    savingFlag.value = false
-                    swalMessage(swal, 'Information', `Physician ${message} successfully!`, 'success').then(() => {
-                        refresh()
-                    })
-                }
-            })
-            console.log('response save', response.value)
+            saveSubmitted.value = true;
+            const errors = await validateFields(toast, formData.value, 0);
+
+            if (errors.value == 0) {
+                const confirmMessage = formData.value.id == 0 ? 'save' : 'update';
+                const message = formData.value.id == 0 ? 'added' : 'updated';
+                swalConfirmation(swal, 'Confirmation', `Are you sure to ${confirmMessage} physician record?`, 'question').then(async (res) => {
+                    if (res.isConfirmed) {
+                        savingFlag.value = true
+                        await store.dispatch('savePhysician', formData.value)
+                        modalDetails.value.show = false
+                        resetter();
+                        swalMessage(swal, 'Information', `Physician ${message} successfully!`, 'success').then(() => {
+                            refresh()
+                        })
+                    }
+                })
+                console.log('response save', response.value)
+            }
 
         }
 
         const updateRecord = async (physician) => {
+            resetter();
             await store.commit('setFormPhysician', physician)
             modalDetails.value.show = true
             modalDetails.value.title = 'Update Physician Record'
+        }
+
+        const resetter = () => {
+            savingFlag.value = false;
+            saveSubmitted.value = false;
+        }
+
+        watch(() => {
+            formData.value;
+            if (saveSubmitted.value == true) {
+                validateFields(toast, formData.value, 1);
+            }
+        }, { deep: true })
+
+        const statusFlag = ref(false)
+        const statusMessage = ref('')
+        const changeStatus = async (physician) => {
+            const message = physician.status == 1 ? 'inactive' : 'active';
+            statusMessage.value = physician.status == 1 ? 'Physician is being set to inactive...' : 'Physician is being set to active...';
+            swalConfirmation(swal, 'Confirmation', `Are you sure to set this physician ${message}?`, 'question').then(async (res) => {
+                if (res.isConfirmed) {
+                    statusFlag.value = true
+                    await store.dispatch('changeStatus', physician);
+                    statusFlag.value = false
+                    swalMessage(swal, 'Information', `Physician to ${message}!`, 'success').then(() => {
+                        refresh()
+                    })
+                }
+            })
         }
 
         onMounted(async () => {
@@ -286,7 +339,13 @@ export default defineComponent({
             formData,
             saveRecord,
             savingFlag,
-            updateRecord
+            updateRecord,
+            showSuccess,
+            validationStatus,
+            saveSubmitted,
+            changeStatus,
+            statusFlag,
+            statusMessage
 
         }
     }

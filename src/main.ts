@@ -38,11 +38,12 @@ import 'bootstrap/dist/js/bootstrap.js'
 import '@/assets/vendor/css/pages/app-email.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import '@/assets/vendor/libs/spinkit/spinkit.css'
-
+import ToastService from 'primevue/toastservice';
 const app = createApp(App)
 app.component('Loading', Loading);
 app.use(VueSweetalert2);
 app.use(PrimeVue)
+app.use(ToastService)
 app.use(store)
 app.use(router)
 app.mount('#app')
