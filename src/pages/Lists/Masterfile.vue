@@ -127,7 +127,8 @@
                 </tbody>
             </table>
         </div>
-        <paginator v-if="!isLoading" :data="paginationData" @update:currentPage="updateCurrentPage($event)" />
+        <paginator v-if="!isLoading && patients.length" :data="paginationData"
+            @update:currentPage="updateCurrentPage($event)" />
     </div>
 </template>
 

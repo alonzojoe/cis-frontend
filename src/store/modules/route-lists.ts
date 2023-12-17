@@ -4,7 +4,7 @@ const state = {
             {
                 id: 1,
                 label: "Dashboard",
-                icon: "ti-dashboard",
+                icon: "ti ti-dashboard",
                 name: "dashboard",
                 subMenu: [],
                 isToggled: false,
@@ -12,7 +12,7 @@ const state = {
             {
                 id: 2,
                 label: "Concierge",
-                icon: "ti-users",
+                icon: "ti ti-users",
                 name: "concierge",
                 subMenu: [],
                 isToggled: false,
@@ -20,7 +20,7 @@ const state = {
             {
                 id: 3,
                 label: "Masterfile",
-                icon: "ti-users-group",
+                icon: "ti ti-users-group",
                 name: "masterfile",
                 subMenu: [],
                 isToggled: false,
@@ -28,22 +28,39 @@ const state = {
             {
                 id: 4,
                 label: "Reports",
-                icon: "ti-file-text",
+                icon: "ti ti-file-text",
                 name: "report",
                 subMenu: [],
                 isToggled: false,
             },
             {
                 id: 5,
-                label: "Settings",
-                icon: "ti-settings",
-                name: "home",
-                subMenu: [
-                    { label: "Physicians", name: "physicians", icon: "fa-solid fa-user-doctor" },
-                    { label: "Users", name: "users", icon: "ti ti-user-plus" },
-                ],
+                label: "Physicians",
+                icon: "ti ti-stethoscope",
+                name: "physicians",
+                subMenu: [],
                 isToggled: false,
             },
+            {
+                id: 6,
+                label: "Users",
+                icon: "ti ti-user-plus",
+                name: "users",
+                subMenu: [],
+                isToggled: false,
+            },
+            // {
+            //     id: 5,
+            //     label: "Settings",
+            //     icon: "ti-settings",
+            //     name: "home",
+            //     subMenu: [
+            //         { label: "Physicians", name: "physicians", icon: "fa-solid fa-user-doctor" },
+            //         { label: "Users", name: "users", icon: "ti ti-user-plus" },
+            //     ],
+            //     isToggled: false,
+            // },
+
         ]
     }
 }

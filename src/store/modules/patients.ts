@@ -52,7 +52,7 @@ const mutations = {
 const actions = {
     async fetchConcierge({ commit }, payload) {
         const queryParams = buildQueryParams(payload)
-        const response = await api.get(`/concierge?${queryParams}`)
+        const response = await api.get(`/patient/concierge?${queryParams}`)
         if (response.data.data.length > 0) {
             commit('setPatients', response.data.data)
             commit('setTotalPatients', response.data.total)

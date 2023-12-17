@@ -228,3 +228,7 @@ select.form-select:required {
 button:disabled {
   cursor: not-allowed !important;
 }
+
+.swal2-backdrop-show{
+  z-index: 9999 !important;
+}

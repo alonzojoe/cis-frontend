@@ -16,7 +16,11 @@ const state = {
         loginForm: {
             email: "",
             password: "",
-        }
+        },
+
+        users: [],
+        totalUsers: 0,
+        paginatedUsers: 0,
     }
 }
 

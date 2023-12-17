@@ -55,6 +55,9 @@
 
     <ul class="menu-inner py-1">
       <!-- Dashboards -->
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Home</span>
+      </li>
       <li v-for="(m, index) in menuItems" :key="index" class="menu-item" :class="{
         active: route.name === m.name,
         open:
@@ -63,18 +66,26 @@
       }">
         <a href="javascript:void(0);" @click="selectTab(m.id, m.subMenu, m.name)" class="menu-link"
           :class="{ 'menu-toggle': m.subMenu.length }">
-          <i class="menu-icon tf-icons ti" :class="m.icon"></i>
-          <div data-i18n="Dashboards">{{ m.label }}</div>
+          <i class="menu-icon tf-icons " :class="m.icon"></i>
+          <div :data-i18n="m.label">{{ m.label }}</div>
         </a>
         <ul class="menu-sub" v-if="m.subMenu.length">
           <li v-for="(s, index) in m.subMenu" :key="index" class="menu-item" :class="{ active: route.name === s.name }">
             <router-link :to="{ name: s.name }" class="menu-link">
-              <div data-i18n="Analytics">{{ s.label }}</div>
+              <div :data-i18n="s.label">{{ s.label }}</div>
             </router-link>
           </li>
         </ul>
       </li>
-
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Auth</span>
+      </li>
+      <li class="menu-item">
+        <a href="javscript:void(0);" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-logout"></i>
+          <div data-i18n="logout">Logout</div>
+        </a>
+      </li>
       <!-- const menuItems = [
       {
         id: 1, label: 'Dashboard', icon: 'ti-smart-home', route: '', subMenu: [

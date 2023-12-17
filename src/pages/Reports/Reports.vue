@@ -64,6 +64,7 @@ import TitledCard from "@/components/Cards/TitledCard.vue";
 import moment from "moment";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { swalMessage } from '@/service'
 export default defineComponent({
     name: "Reports",
     components: {
@@ -72,6 +73,7 @@ export default defineComponent({
     setup() {
         const store = useStore();
         const today = moment();
+        const swal = inject("$swal");
         const dateToday = new Date;
         const formSearch = ref({
             date_from: today.startOf('month').format('YYYY-MM-DD'),
@@ -87,11 +89,23 @@ export default defineComponent({
             isLoading.value = false
         }
 
+        const validateDatas = (dateFrom, dateTo) => {
+            if (!tableDatas.value.length) {
+                swalMessage(swal, 'Warning', `No Records found on the selected date ${dateFrom} - ${dateTo}`, 'warning');
+                return false
+            }
+
+            return true;
+        }
+
         const generateReport = async () => {
             await fetchReport();
 
+
             const dateFrom = moment(formSearch.value.date_from).format("MMMM D, YYYY");
             const dateTo = moment(formSearch.value.date_to).format("MMMM D, YYYY")
+
+            if (!validateDatas(dateFrom, dateTo)) return;
 
             const doc = new jsPDF({
                 orientation: "landscape", // Set the orientation to landscape
@@ -215,6 +229,7 @@ export default defineComponent({
 
             totalPages++;
             doc.save(`Generated Report  ${dateFrom} - ${dateTo}`);
+            swalMessage(swal, 'Information', `Report Generated Successfully! Kindly check the file on your downloads folder.`, 'success');
             // const pdfBlob = doc.output("blob");
             // const pdfUrl = URL.createObjectURL(pdfBlob);
             // console.log(pdfUrl);
