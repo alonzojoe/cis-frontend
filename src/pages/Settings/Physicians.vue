@@ -308,7 +308,7 @@ export default defineComponent({
         const statusFlag = ref(false)
         const statusMessage = ref('')
         const changeStatus = async (physician) => {
-            const message = physician.status == 1 ? 'inactive' : 'active';
+            const message = physician.status == 1 ? 'Inactive' : 'Active';
             statusMessage.value = physician.status == 1 ? 'Physician is being set to inactive...' : 'Physician is being set to active...';
             swalConfirmation(swal, 'Confirmation', `Are you sure to set this physician ${message}?`, 'question').then(async (res) => {
                 if (res.isConfirmed) {
