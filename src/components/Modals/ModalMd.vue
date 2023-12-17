@@ -4,7 +4,7 @@
             <span class="position-absolute cst-close" @click.prevent="$emit('close-modal')"
                 style="font-size:20px;right:0;top:-4px;right:5px"><i class="fa fa-times" aria-hidden="true"></i></span>
             <div class="position-relative border border-primary p-2 m-2 mt-4">
-                <div class="position-absolute bg-primary text-white px-2" style="top:-13px; left:5px;">
+                <div class="position-absolute bg-primary text-white px-2 rounded" style="top:-13px; left:5px;">
                     {{ details.title }}
                 </div>
                 <!-- {{patient}} -->
