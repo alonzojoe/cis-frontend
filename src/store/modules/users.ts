@@ -1,6 +1,7 @@
-import api from '@/api'
-import moment from 'moment'
-import { data } from '../../assets/libs/datatables-bs5/datatables-bootstrap5';
+import api from '@/api';
+import { buildQueryParams } from '@/service'
+import moment from 'moment';
+
 
 const state = {
     data: {
@@ -69,7 +70,15 @@ const mutations = {
 }
 
 const actions = {
-
+    async fetchUsers({ commit }, payload) {
+        const queryParams = buildQueryParams(payload);
+        const response = await api.get(`/user?${queryParams}`)
+        if (response.data.data.length > 0) {
+            commit('setUsers', response.data.data)
+            commit('setTotalUsers', response.data.total)
+            commit('setPaginatedUsers', response.data.total_pages)
+        }
+    },
 }
 
 const getters = {

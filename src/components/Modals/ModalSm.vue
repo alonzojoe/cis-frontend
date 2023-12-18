@@ -281,6 +281,13 @@ export default defineComponent({
 
 }
 
+@media screen and (max-width: 767px) {
+    .cst-modal-body2 {
+        width: 90vw;
+
+    }
+}
+
 .swal2-shown {
     padding: 0 !important;
 }

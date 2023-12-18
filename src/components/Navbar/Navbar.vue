@@ -34,7 +34,7 @@
 
         <!-- Notification -->
 
-        <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+        <li class="nav-item dropdown-language dropdown me-2 me-xl-0" id="user-name">
           <a class="nav-link hide-arrow" href="javascript:void(0);">
             <h5 class="mt-3 fw-semibold">JOENELL C. ALONZO</h5>
           </a>
@@ -213,4 +213,9 @@ export default defineComponent({
   background-color: #2f3249 !important;
   color: #c8cce5 !important;
 }*/
+@media screen and (max-width: 475px) {
+  #user-name {
+    display: none;
+  }
+}
 </style>

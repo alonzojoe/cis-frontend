@@ -106,7 +106,7 @@
             @update:currentPage="updateCurrentPage($event)" />
     </div>
     <modal-sm :details="modalDetails" @close-modal="modalDetails.show = false">
-        <div class="d-flex align-items-center justify-content-center mt-4">
+        <!-- <div class="d-flex align-items-center justify-content-center mt-4">
             <div class="card shadow h-100">
                 <div class="card-body">
                     <div class="bg-label-primary rounded-3 text-center">
@@ -114,25 +114,25 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row mt-4 px-5">
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                 <div>
-                    <label class="form-label fs-6 mb-2 fw-semibold">License No.</label>
+                    <label class="form-label fs-6 mb-2 fw-semibold">License No. </label>
                     <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
                         v-model="formData.license_no" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                 <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.lname }">
-                    <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
+                    <label class="form-label fs-6 mb-2 fw-semibold">Last Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
                         v-model="formData.lname" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                 <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.fname }">
-                    <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
+                    <label class="form-label fs-6 mb-2 fw-semibold">First Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
                         v-model="formData.fname" />
                 </div>
@@ -188,7 +188,7 @@ export default defineComponent({
     setup() {
         const toast = useToast();
         const showSuccess = () => {
-            toast.add({ severity: 'error', summary: 'Success Message', detail: 'Message Content', life: 100000 });
+            toast.add({ severity: 'error', summary: 'Success Message', detail: 'Message Content', life: 3000 });
         };
         const formSearch = ref({
             license_no: "",
@@ -235,7 +235,7 @@ export default defineComponent({
 
         const search = async () => {
             isLoading.value = true
-            await store.commit('setPatientsEmpty')
+            await store.commit('setPhysiciansEmpty')
             paginationData.value.currentPage = 1
             await fetchPhysicians(1, formSearch.value)
         }
@@ -315,9 +315,12 @@ export default defineComponent({
                     statusFlag.value = true
                     await store.dispatch('changeStatus', physician);
                     statusFlag.value = false
-                    swalMessage(swal, 'Information', `Physician to ${message}!`, 'success').then(() => {
-                        refresh()
-                    })
+
+                    toast.add({ severity: 'success', summary: 'Information', detail: `Physician to ${message}!`, life: 3000 });
+                    refresh()
+                    // swalMessage(swal, 'Information', `Physician to ${message}!`, 'success').then(() => {
+                    //     refresh()
+                    // })
                 }
             })
         }

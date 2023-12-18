@@ -1,7 +1,7 @@
 import api from '@/api';
 import { buildQueryParams } from '@/service'
 import moment from 'moment';
-import { validationStatus } from '../../pages/Settings/Validations/physicianValidation';
+
 
 const state = {
     data: {
