@@ -117,6 +117,7 @@
         </div> -->
         <div class="row mt-4 px-5">
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                <h4 class="text-center fw-bold">Physician Details</h4>
                 <div>
                     <label class="form-label fs-6 mb-2 fw-semibold">License No. </label>
                     <input type="text" class="form-control form-control-sm custom-font" maxlength="255"

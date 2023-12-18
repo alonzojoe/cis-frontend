@@ -103,24 +103,27 @@
             <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                        <h4 class="text-center fw-bold">User Details</h4>
                         <div>
-                            <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
+                            <label class="form-label fs-6 mb-2 fw-semibold">Last Name <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
-                                v-model="zxc" />
+                                v-model="formData.lname" />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <div>
-                            <label class="form-label fs-6 mb-2 fw-semibold">First Name </label>
+                            <label class="form-label fs-6 mb-2 fw-semibold">First Name <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
-                                v-model="zxc" />
+                                v-model="formData.fname" />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <div>
                             <label class="form-label fs-6 mb-2 fw-semibold">Middle Name </label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
-                                v-model="zxc" />
+                                v-model="formData.mname" />
                         </div>
                     </div>
                 </div>
@@ -128,17 +131,19 @@
             <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                        <h4 class="text-center fw-bold">User Credentials</h4>
                         <div>
-                            <label class="form-label fs-6 mb-2 fw-semibold">Email</label>
+                            <label class="form-label fs-6 mb-2 fw-semibold">Email <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
-                                v-model="zxc" />
+                                v-model="formData.email" />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <div>
-                            <label class="form-label fs-6 mb-2 fw-semibold">Password </label>
+                            <label class="form-label fs-6 mb-2 fw-semibold">Password <span
+                                    class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm custom-font">
+                                <input type="text" class="form-control form-control-sm custom-font" v-model="formData.bool">
                                 <span id="basic-default-password2" class="input-group-text cursor-pointer">
                                     <i class="ti ti-eye"></i>
                                 </span>
@@ -147,9 +152,10 @@
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <div>
-                            <label class="form-label fs-6 mb-2 fw-semibold">Confirm Password </label>
+                            <label class="form-label fs-6 mb-2 fw-semibold">Confirm Password <span
+                                    class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm custom-font">
+                                <input type="text" class="form-control form-control-sm custom-font" v-model="formData.conf">
                                 <span id="basic-default-password2" class="input-group-text cursor-pointer">
                                     <i class="ti ti-eye"></i>
                                 </span>
@@ -162,11 +168,14 @@
         <div class="row px-5">
             <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
                 <div>
-                    <button class="btn btn-primary w-100" @click="zxc">Save User Credentials</button>
+                    <button class="btn btn-primary w-100" @click="saveRecord()">Save User Credentials</button>
                 </div>
             </div>
         </div>
+        {{ formData }}
     </modal-sm>
+    <loader :title="formData.id == 0 ? 'Saving User Record...' : 'Updating User Record...'" :warning="true" :create="true"
+        v-if="savingFlag" />
 </template>
 
 <script lang="ts">
@@ -197,7 +206,7 @@ export default defineComponent({
         Toast
     },
     setup() {
-
+        const toast = useToast()
         const formSearch = ref({
             email: "",
             lname: "",
@@ -259,9 +268,41 @@ export default defineComponent({
         })
 
         const addUser = () => {
-            // store.commit('resetFormPhysician')
+            store.commit('resetFormUser')
             modalDetails.value.show = true
             modalDetails.value.title = 'Add New Physician'
+        }
+
+        const resetter = () => {
+            savingFlag.value = false;
+            saveSubmitted.value = false;
+        }
+
+        const swal = inject("$swal");
+        const formData = computed(() => store.getters.getFormUser);
+        const savingFlag = ref(false);
+        const saveSubmitted = ref(false);
+        const saveRecord = async () => {
+            saveSubmitted.value = true;
+            // const errors = await validateFields(toast, formData.value, 0);
+
+            // if (errors.value == 0) {
+            const confirmMessage = formData.value.id == 0 ? 'save' : 'update';
+            const message = formData.value.id == 0 ? 'added' : 'updated';
+            swalConfirmation(swal, 'Confirmation', `Are you sure to ${confirmMessage} user record?`, 'question').then(async (res) => {
+                if (res.isConfirmed) {
+                    savingFlag.value = true
+                    await store.dispatch('saveUser', formData.value)
+                    modalDetails.value.show = false
+                    resetter();
+                    swalMessage(swal, 'Information', `User ${message} successfully!`, 'success').then(() => {
+                        refresh()
+                    })
+                }
+            })
+            //     console.log('response save', response.value)
+            // }
+
         }
 
         onMounted(async () => {
@@ -277,7 +318,12 @@ export default defineComponent({
             search,
             refresh,
             modalDetails,
-            addUser
+            //saving
+            addUser,
+            formData,
+            savingFlag,
+            saveSubmitted,
+            saveRecord
 
         }
     }

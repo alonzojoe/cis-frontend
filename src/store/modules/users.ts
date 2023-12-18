@@ -1,6 +1,7 @@
 import api from '@/api';
 import { buildQueryParams } from '@/service'
 import moment from 'moment';
+import { deCrypto } from '@/service'
 
 
 const state = {
@@ -18,6 +19,16 @@ const state = {
         loginForm: {
             email: "",
             password: "",
+        },
+
+        formUser: {
+            id: 0,
+            lname: "",
+            fname: "",
+            mname: "",
+            email: "",
+            bool: "",
+            conf: "",
         },
 
         users: [],
@@ -67,6 +78,30 @@ const mutations = {
     setPaginatedUsers: (state: any, payload: any) => {
         state.data.paginatedUsers = payload
     },
+
+    setFormUser: (state: any, payload) => {
+        state.data.formUser = {
+            id: payload.id,
+            lname: payload.lname,
+            fname: payload.fname,
+            mname: payload.mname,
+            email: payload.email,
+            bool: deCrypto(payload.bool),
+            conf: deCrypto(payload.bool),
+        }
+    },
+
+    resetFormUser: (state: any) => {
+        state.data.formUser = {
+            id: 0,
+            lname: "",
+            fname: "",
+            mname: "",
+            email: "",
+            bool: "",
+            conf: "",
+        }
+    }
 }
 
 const actions = {
@@ -79,6 +114,29 @@ const actions = {
             commit('setPaginatedUsers', response.data.total_pages)
         }
     },
+
+    async saveUser({ commit }, payload) {
+        const id = payload.id
+
+        if (id == 0) {
+            await api.post('/user/create', {
+                email: payload.email,
+                lname: payload.lname,
+                fname: payload.fname,
+                mname: payload.mname,
+                password: payload.bool,
+            })
+        } else {
+            await api.put(`/user/${id}`, {
+                email: payload.email,
+                lname: payload.lname,
+                fname: payload.fname,
+                mname: payload.mname,
+                password: payload.bool,
+            })
+        }
+
+    },
 }
 
 const getters = {
@@ -86,7 +144,8 @@ const getters = {
     getLoginForm: state => state.data.loginForm,
     getUsers: state => state.data.users,
     getTotalUsers: state => state.data.totalUsers,
-    getPaginatedUsers: state => state.data.paginatedUsers
+    getPaginatedUsers: state => state.data.paginatedUsers,
+    getFormUser: state => state.data.formUser
 }
 
 export default {
