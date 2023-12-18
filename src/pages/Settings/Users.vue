@@ -69,7 +69,7 @@
                             {{ u.updated_at }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm" @click="zxc">Update User</button>
+                            <button class="btn btn-warning btn-sm" @click="updateRecord(u)">Update User</button>
                         </td>
                     </tr>
                     <tr v-if="!users.length && !isLoading">
@@ -135,7 +135,7 @@
                         <div>
                             <label class="form-label fs-6 mb-2 fw-semibold">Email <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
-                                v-model="formData.email" />
+                                v-model="formData.email" :disabled="formData.id != 0" />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
@@ -143,9 +143,11 @@
                             <label class="form-label fs-6 mb-2 fw-semibold">Password <span
                                     class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm custom-font" v-model="formData.bool">
-                                <span id="basic-default-password2" class="input-group-text cursor-pointer">
-                                    <i class="ti ti-eye"></i>
+                                <input :type="eyedPw ? 'text' : 'password'" class="form-control form-control-sm custom-font"
+                                    v-model="formData.bool">
+                                <span id="basic-default-password2" class="input-group-text cursor-pointer"
+                                    @click="eyedPw = !eyedPw">
+                                    <i class="ti " :class="eyedPw ? 'ti-eye' : 'ti-eye-off'"></i>
                                 </span>
                             </div>
                         </div>
@@ -155,9 +157,11 @@
                             <label class="form-label fs-6 mb-2 fw-semibold">Confirm Password <span
                                     class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm custom-font" v-model="formData.conf">
-                                <span id="basic-default-password2" class="input-group-text cursor-pointer">
-                                    <i class="ti ti-eye"></i>
+                                <input :type="eyedCf ? 'text' : 'password'" class="form-control form-control-sm custom-font"
+                                    v-model="formData.conf">
+                                <span id="basic-default-password2" class="input-group-text cursor-pointer"
+                                    @click="eyedCf = !eyedCf">
+                                    <i class="ti " :class="eyedCf ? 'ti-eye' : 'ti-eye-off'"></i>
                                 </span>
                             </div>
                         </div>
@@ -172,7 +176,6 @@
                 </div>
             </div>
         </div>
-        {{ formData }}
     </modal-sm>
     <loader :title="formData.id == 0 ? 'Saving User Record...' : 'Updating User Record...'" :warning="true" :create="true"
         v-if="savingFlag" />
@@ -257,6 +260,7 @@ export default defineComponent({
             await fetchUsers(1, formSearch.value)
         }
 
+
         const refresh = () => {
             resetSearch();
             search();
@@ -270,10 +274,15 @@ export default defineComponent({
         const addUser = () => {
             store.commit('resetFormUser')
             modalDetails.value.show = true
-            modalDetails.value.title = 'Add New Physician'
+            modalDetails.value.title = 'Add New User'
         }
 
+        const eyedPw = ref(false)
+        const eyedCf = ref(false)
+
         const resetter = () => {
+            eyedPw.value = false;
+            eyedCf.value = false;
             savingFlag.value = false;
             saveSubmitted.value = false;
         }
@@ -305,6 +314,13 @@ export default defineComponent({
 
         }
 
+        const updateRecord = async (user) => {
+            resetter();
+            await store.commit('setFormUser', user)
+            modalDetails.value.show = true
+            modalDetails.value.title = 'Update User Record'
+        }
+
         onMounted(async () => {
             await fetchUsers(1, formSearch.value);
         });
@@ -323,7 +339,10 @@ export default defineComponent({
             formData,
             savingFlag,
             saveSubmitted,
-            saveRecord
+            saveRecord,
+            updateRecord,
+            eyedPw,
+            eyedCf
 
         }
     }

@@ -127,7 +127,7 @@ const actions = {
                 password: payload.bool,
             })
         } else {
-            await api.put(`/user/${id}`, {
+            await api.patch(`/user/${id}`, {
                 email: payload.email,
                 lname: payload.lname,
                 fname: payload.fname,
