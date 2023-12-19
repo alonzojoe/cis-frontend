@@ -6,6 +6,7 @@
         </div>
     </div>
 
+
     <div class="row mt-6">
         <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
             <div data-bs-spy="scroll" data-bs-target="#side-sections" data-bs-root-margin="0px 0px -40%">
@@ -38,6 +39,7 @@
             </div>
         </div>
     </div>
+    {{ dataType }}
 </template>
 
 <script lang="ts">
@@ -52,6 +54,11 @@ import SocialHistory from "./chart-components/SocialHistory.vue";
 import Vaccination from "./chart-components/Vaccination.vue";
 import Soap from "./chart-components/Soap.vue"
 import Physician from "./chart-components/Physician.vue";
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast";
+import { encryptData, decryptData, NumericOnly } from "@/service";
+import { useStore } from "vuex";
+import { useRoute, useRouter, swalMessage, swalConfirmation } from "vue-router";
 export default defineComponent({
     name: "PatientChart",
     components: {
@@ -64,19 +71,34 @@ export default defineComponent({
         SocialHistory,
         Vaccination,
         Soap,
-        Physician
+        Physician,
+        Toast
     },
     setup() {
         // const isLock = inject("isLock");
         // const calculateWidth = computed(() => {
         //     return isLock.value ? "calc(100% - 16.25rem)" : "calc(100% - 5.25rem)";
         // });
-        onMounted(() => {
+        const store = useStore();
+        const route = useRoute();
+        const router = useRouter();
+        const swal = inject("$swal");
+        const toast = useToast();
+
+        const uriParams = decodeURIComponent(route.params.data);
+        const dataType = ref({})
+        const decrypURLparams = async () => {
+            dataType.value = await decryptData(uriParams);
+        };
+        onMounted(async () => {
+            await decrypURLparams();
             const scrollSpy = new bootstrap.ScrollSpy(document.body, {
                 target: "#side-sections",
             });
         });
-        return {};
+        return {
+            dataType
+        };
     },
 });
 </script>

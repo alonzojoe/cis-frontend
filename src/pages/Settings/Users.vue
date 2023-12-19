@@ -104,7 +104,7 @@
             <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                        <h4 class="text-center fw-bold">User Details</h4>
+                        <h4 class="fw-bold">User Details</h4>
                         <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.fname }">
                             <label class="form-label fs-6 mb-2 fw-semibold">Last Name <span
                                     class="text-danger">*</span></label>
@@ -132,7 +132,7 @@
             <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                        <h4 class="text-center fw-bold">User Credentials</h4>
+                        <h4 class="fw-bold">User Credentials</h4>
                         <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.email }">
                             <label class="form-label fs-6 mb-2 fw-semibold">Email <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"

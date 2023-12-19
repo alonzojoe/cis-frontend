@@ -53,7 +53,7 @@ const routes = [
                         meta: { title: 'Patient Master File' }
                     },
                     {
-                        path: 'chart',
+                        path: 'chart/:data?',
                         name: 'chart',
                         component: () => import('@/pages/Patient/PatientChart.vue'),
                         meta: { title: 'Patient Chart' }
