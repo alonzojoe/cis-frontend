@@ -1,4 +1,3 @@
-import { flattenDiagnosticMessageText } from "typescript"
 import { ref } from "vue"
 
 export const validationStatus = ref({

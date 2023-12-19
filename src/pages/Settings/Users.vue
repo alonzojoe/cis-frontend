@@ -1,5 +1,6 @@
 <template>
     <div class="card">
+        <Toast />
         <titled-card class="mb-3" title="Search User">
             <div class="row mt-4">
                 <div class="col-sm-12 col-md-6 col-lg-3">
@@ -104,7 +105,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <h4 class="text-center fw-bold">User Details</h4>
-                        <div>
+                        <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.fname }">
                             <label class="form-label fs-6 mb-2 fw-semibold">Last Name <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
@@ -112,7 +113,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                        <div>
+                        <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.fname }">
                             <label class="form-label fs-6 mb-2 fw-semibold">First Name <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
@@ -132,17 +133,19 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <h4 class="text-center fw-bold">User Credentials</h4>
-                        <div>
+                        <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.email }">
                             <label class="form-label fs-6 mb-2 fw-semibold">Email <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
                                 v-model="formData.email" :disabled="formData.id != 0" />
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                        <div>
+                        <div
+                            :class="{ 'group-invalid': (saveSubmitted && !validationStatus.bool) || (saveSubmitted && validationStatus.pwLength) || (saveSubmitted && validationStatus.mismatch) }">
                             <label class="form-label fs-6 mb-2 fw-semibold">Password <span
                                     class="text-danger">*</span></label>
-                            <div class="input-group">
+                            <div class="input-group"
+                                :class="{ 'group-invalid': (saveSubmitted && !validationStatus.bool) || (saveSubmitted && validationStatus.pwLength) || (saveSubmitted && validationStatus.mismatch) }">
                                 <input :type="eyedPw ? 'text' : 'password'" class="form-control form-control-sm custom-font"
                                     v-model="formData.bool">
                                 <span id="basic-default-password2" class="input-group-text cursor-pointer"
@@ -153,10 +156,12 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                        <div>
+                        <div
+                            :class="{ 'group-invalid': (saveSubmitted && !validationStatus.conf) || (saveSubmitted && validationStatus.pwLength) || (saveSubmitted && validationStatus.mismatch) }">
                             <label class="form-label fs-6 mb-2 fw-semibold">Confirm Password <span
                                     class="text-danger">*</span></label>
-                            <div class="input-group">
+                            <div class="input-group"
+                                :class="{ 'group-invalid': (saveSubmitted && !validationStatus.conf) || (saveSubmitted && validationStatus.pwLength) || (saveSubmitted && validationStatus.mismatch) }">
                                 <input :type="eyedCf ? 'text' : 'password'" class="form-control form-control-sm custom-font"
                                     v-model="formData.conf">
                                 <span id="basic-default-password2" class="input-group-text cursor-pointer"
@@ -199,6 +204,7 @@ import { swalMessage, swalConfirmation } from '@/service'
 import Loader from '@/components/Loaders/Loader.vue'
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
+import { validateFields, validationStatus } from "@/pages/Settings/Validations/usersValidation";
 export default defineComponent({
     name: "Users",
     components: {
@@ -293,24 +299,23 @@ export default defineComponent({
         const saveSubmitted = ref(false);
         const saveRecord = async () => {
             saveSubmitted.value = true;
-            // const errors = await validateFields(toast, formData.value, 0);
+            const errors = await validateFields(toast, formData.value, 0);
 
-            // if (errors.value == 0) {
-            const confirmMessage = formData.value.id == 0 ? 'save' : 'update';
-            const message = formData.value.id == 0 ? 'added' : 'updated';
-            swalConfirmation(swal, 'Confirmation', `Are you sure to ${confirmMessage} user record?`, 'question').then(async (res) => {
-                if (res.isConfirmed) {
-                    savingFlag.value = true
-                    await store.dispatch('saveUser', formData.value)
-                    modalDetails.value.show = false
-                    resetter();
-                    swalMessage(swal, 'Information', `User ${message} successfully!`, 'success').then(() => {
-                        refresh()
-                    })
-                }
-            })
-            //     console.log('response save', response.value)
-            // }
+            if (errors.value == 0) {
+                const confirmMessage = formData.value.id == 0 ? 'save' : 'update';
+                const message = formData.value.id == 0 ? 'added' : 'updated';
+                swalConfirmation(swal, 'Confirmation', `Are you sure to ${confirmMessage} user record?`, 'question').then(async (res) => {
+                    if (res.isConfirmed) {
+                        savingFlag.value = true
+                        await store.dispatch('saveUser', formData.value)
+                        modalDetails.value.show = false
+                        resetter();
+                        swalMessage(swal, 'Information', `User ${message} successfully!`, 'success').then(() => {
+                            refresh()
+                        })
+                    }
+                })
+            }
 
         }
 
@@ -320,6 +325,14 @@ export default defineComponent({
             modalDetails.value.show = true
             modalDetails.value.title = 'Update User Record'
         }
+
+        watch(() => {
+            formData.value;
+            if (saveSubmitted.value == true) {
+                validateFields(toast, formData.value, 1);
+                console.log('watcher is running')
+            }
+        }, { deep: true })
 
         onMounted(async () => {
             await fetchUsers(1, formSearch.value);
@@ -342,7 +355,8 @@ export default defineComponent({
             saveRecord,
             updateRecord,
             eyedPw,
-            eyedCf
+            eyedCf,
+            validationStatus
 
         }
     }

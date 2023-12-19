@@ -81,7 +81,7 @@
         <span class="menu-header-text">Auth</span>
       </li>
       <li class="menu-item">
-        <a href="javscript:void(0);" class="menu-link">
+        <a href="javascript:void(0);" class="menu-link" @click="logout()">
           <i class="menu-icon tf-icons ti ti-logout"></i>
           <div data-i18n="logout">Logout</div>
         </a>
@@ -105,6 +105,8 @@
 import { defineComponent, ref, watch, computed, provide } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import api from "@/api";
+import Cookies from "js-cookie";
 export default defineComponent({
   setup() {
     const hoverNav = (type) => {
@@ -170,6 +172,19 @@ export default defineComponent({
 
     const currentRoute = ref(route.name);
 
+    const logout = async () => {
+      try {
+        api.post("/auth/logout");
+        api.defaults.headers.common["Authorization"] = "";
+        Cookies.remove("auth_token");
+        localStorage.removeItem("userData");
+        router.push({ name: "auth" });
+      } catch (error) {
+        router.push({ name: "auth" });
+      }
+    };
+
+
     return {
       hoverNav,
       isLock,
@@ -179,6 +194,7 @@ export default defineComponent({
       menuItems,
       currentRoute,
       route,
+      logout
     };
   },
 });

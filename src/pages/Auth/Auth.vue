@@ -1,13 +1,9 @@
 <template>
   <div class="authentication-wrapper authentication-cover authentication-bg">
     <div class="authentication-inner row">
-      <div
-        class="d-none d-lg-flex col-lg-8 p-0 bg-left align-items-center justify-content-center"
-        style="background: #7367f0"
-      >
-        <div
-          class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center"
-        >
+      <div class="d-none d-lg-flex col-lg-8 p-0 bg-left align-items-center justify-content-center"
+        style="background: #7367f0">
+        <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
           <!-- <img
             src="../../assets/images/bg.jpg"
             alt="auth-login-cover"
@@ -18,18 +14,11 @@
         </div>
       </div>
 
-      <div
-        class="d-flex col-12 col-lg-4 align-items-center p-sm-5 p-4 login-form"
-      >
+      <div class="d-flex col-12 col-lg-4 align-items-center p-sm-5 p-4 login-form">
         <div class="w-px-400 mx-auto">
           <div class="app-brand mb-4">
             <a href="javascript:void(0);" class="app-brand-link gap-2">
-              <img
-                src="../../assets/logos/clinic-logo.png"
-                height="60px"
-                width="60px"
-                class="img-fluid"
-              />
+              <img src="../../assets/logos/clinic-logo.png" height="60px" width="60px" class="img-fluid" />
             </a>
           </div>
 
@@ -39,38 +28,27 @@
           <form class="mb-3" @submit.prevent="login()">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                id="email"
-                name="email-username"
-                v-model="formData.email"
-              />
+              <input type="text" class="form-control" id="email" name="email-username" v-model="formData.email" />
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
                 <label class="form-label" for="password">Password</label>
-                <a href="auth-forgot-password-cover.html">
+                <!-- <a href="auth-forgot-password-cover.html">
                   <small>Forgot Password?</small>
-                </a>
+                </a> -->
               </div>
-              <div class="input-group input-group-merge">
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control"
-                  name="password"
-                  aria-describedby="password"
-                  v-model="formData.password"
-                />
-                <span class="input-group-text cursor-pointer"
-                  ><i class="ti ti-eye-off"></i
-                ></span>
+              <div class="mb-3 input-group input-group-merge">
+                <input :type="eyed ? 'text' : 'password'" id="password" class="form-control" name="password"
+                  aria-describedby="password" v-model="formData.password" />
+                <span class="input-group-text cursor-pointer" @click="eyed = !eyed"><i class="ti"
+                    :class="eyed ? 'ti-eye' : 'ti-eye-off'"></i></span>
               </div>
             </div>
 
-            <button type="submit" class="mt-3 btn btn-primary d-grid w-100">
-              Sign in
+
+            <button type="submit" class="mt-2 btn btn-primary waves-effect waves-light w-100 gap-1" :disabled="isLoading">
+              <span v-if="isLoading" class="spinner-border me-1" role="status" aria-hidden="true"></span>
+              {{ isLoading ? "Logging In..." : "Login" }}
             </button>
           </form>
         </div>
@@ -150,20 +128,25 @@ export default defineComponent({
       }
     };
 
+    const eyed = ref(false);
+
     onMounted(() => {
+      isLoading.value = false
       store.commit("resetLoginForm");
     });
 
-    return { formData, login };
+    return { formData, login, isLoading, eyed };
   },
 });
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 .bg-left {
   background-color: #7367f0 !important;
 }
+
 .auth-cover-bg {
   margin: 2rem !important;
   background: url("../../assets/images/bg-2.jpg");
