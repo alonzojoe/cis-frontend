@@ -293,7 +293,7 @@ const mutations = {
 
 const actions = {
     async saveChart({ commit }, payload) {
-        const response = await api.post('/patient/chart/create', {
+        const response = await api.post('/chart/new/create', {
             //pastHistory
             unremarkable: payload.unremarkable,
             blood_disease: payload.blood_disease,
