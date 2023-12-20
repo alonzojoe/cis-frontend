@@ -16,7 +16,8 @@ const state = {
             mname: "",
             status: 0
         },
-        physicianResponse: ""
+        physicianResponse: "",
+        allPhysicians: []
     }
 }
 
@@ -67,6 +68,10 @@ const mutations = {
 
     setPhysicianResponse: (state: any, payload: any) => {
         state.data.physicianResponse = payload
+    },
+
+    setAllPhysicians: (state: any, payload: any) => {
+        state.data.allPhysicians = payload
     }
 }
 
@@ -113,6 +118,11 @@ const actions = {
             await api.patch(`/physician/inactive/${payload.id}`)
         }
 
+    },
+
+    async fetchAllPhysicians({ commit }) {
+        const response = await api.get('/physician/all');
+        commit('setAllPhysicians', response.data.data);
     }
 }
 
@@ -121,7 +131,8 @@ const getters = {
     getTotalPhysicians: state => state.data.totalPhysicians,
     getPaginatedPhysicians: state => state.data.paginatedPhysicians,
     getFormPhysician: state => state.data.formPhysician,
-    getPhysicianResponse: state => state.data.physicianResponse
+    getPhysicianResponse: state => state.data.physicianResponse,
+    getAllPhysicians: state => state.data.allPhysicians
 }
 
 export default {

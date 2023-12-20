@@ -6,7 +6,9 @@
                     <label class="form-label fs-5 mb-2 fw-semibold">Select Consulting Physician</label>
                     <select class="form-control form-select">
                         <option value="">Please Select</option>
-                        <option value="">asdasds</option>
+                        <option :value="p.id" v-for="p in physicians" :key="p.id">
+                            {{ p.lname }}, {{ p.fname }} {{ p.mname }}, MD
+                        </option>
                     </select>
                 </div>
             </div>
@@ -15,9 +17,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, computed } from "vue";
 import TitledCard from "@/components/Cards/TitledCard.vue";
 import Textarea from "primevue/textarea";
+import { useStore } from "vuex";
 export default defineComponent({
     name: "Physician",
     components: {
@@ -25,8 +28,11 @@ export default defineComponent({
         Textarea,
     },
     setup() {
-
-        return {};
+        const store = useStore();
+        const physicians = computed(() => store.getters.getAllPhysicians);
+        return {
+            physicians
+        };
     },
 });
 </script>

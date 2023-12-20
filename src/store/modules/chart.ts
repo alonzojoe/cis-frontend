@@ -83,6 +83,7 @@ const state = {
             bp_f: '',
             bp_s: '',
             oxygen_saturation: '',
+            temperature: '',
             respiratory_rate: '',
             pulse_rate: '',
             cbg: '',
@@ -175,7 +176,7 @@ const mutations = {
     },
 
     setVitalSigns: (state, payload) => {
-        state.data.getVitalSigns = {
+        state.data.vitalSigns = {
             id: payload.id,
             consultation_id: payload.consultation_id,
             height: payload.height,
@@ -184,6 +185,7 @@ const mutations = {
             bp_f: payload.bp_f,
             bp_s: payload.bp_s,
             oxygen_saturation: payload.oxygen_saturation,
+            temperature: payload.temperature,
             respiratory_rate: payload.respiratory_rate,
             pulse_rate: payload.pulse_rate,
             cbg: payload.cbg,
@@ -280,6 +282,7 @@ const mutations = {
             bp_f: '',
             bp_s: '',
             oxygen_saturation: '',
+            temperature: '',
             respiratory_rate: '',
             pulse_rate: '',
             cbg: '',
@@ -352,6 +355,7 @@ const actions = {
             bp_f: payload.bp_f,
             bp_s: payload.bp_s,
             oxygen_saturation: payload.oxygen_saturation,
+            temperature: payload.temperature,
             respiratory_rate: payload.respiratory_rate,
             pulse_rate: payload.pulse_rate,
             cbg: payload.cbg,
@@ -366,7 +370,7 @@ const getters = {
     getFamilyHistory: state => state.data.familyHistory,
     getSocialHistory: state => state.data.socialHistory,
     getPatient: state => state.data.patient,
-    getConsultation: state => state.data.consultation,
+    getConsultationHistory: state => state.data.consultation,
     getVitalSigns: state => state.data.vitalSigns
 }
 

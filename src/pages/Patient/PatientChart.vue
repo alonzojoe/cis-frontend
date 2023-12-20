@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, inject, ref } from "vue";
+import { defineComponent, onMounted, inject, ref, computed, watch, watchEffect } from "vue";
 import TitledCard from "@/components/Cards/TitledCard.vue";
 import Textarea from "primevue/textarea";
 import PatientInformation from "./chart-components/PatientInformation.vue";
@@ -90,14 +90,25 @@ export default defineComponent({
         const decrypURLparams = async () => {
             dataType.value = await decryptData(uriParams);
         };
+
+        const physicians = computed(() => store.getters.getAllPhysicians);
+        const patient = computed(() => store.getters.getPatient);
+        const consultation = computed(() => store.getters.getConsultationHistory);
+        const vitalSigns = computed(() => store.getters.getVitalSigns);
+        const pastHistory = computed(() => store.getters.getPastHistory);
+        const familyHistory = computed(() => store.getters.getFamilyHistory);
+        const socialHistory = computed(() => store.getters.getSocialHistory);
+
         onMounted(async () => {
             await decrypURLparams();
+            await store.dispatch('fetchAllPhysicians');
             const scrollSpy = new bootstrap.ScrollSpy(document.body, {
                 target: "#side-sections",
             });
         });
         return {
-            dataType
+            dataType,
+            physicians
         };
     },
 });
