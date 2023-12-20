@@ -1,3 +1,7 @@
+import api from '@/api';
+import { buildQueryParams } from '@/service'
+import moment from 'moment';
+
 const state = {
     data: {
         pastHistory: {
@@ -17,18 +21,18 @@ const state = {
 
         familyHistory: {
             id: 0,
-            unremarkable: '',
+            f_unremarkable: '',
             hcvd: '',
             chd: '',
-            cva: '',
-            gut_disease: '',
+            f_cva: '',
+            f_gut_disease: '',
             blood_dyscrasia: '',
             allergy: '',
             dm: '',
-            git_disease: '',
-            pulmo_disease: '',
+            f_git_disease: '',
+            f_pulmo_disease: '',
             ca: '',
-            other_findings: '',
+            f_other_findings: '',
         },
 
         socialHistory: {
@@ -82,13 +86,15 @@ const state = {
             respiratory_rate: '',
             pulse_rate: '',
             cbg: '',
-        }
+        },
+
+        chartResponse: {}
 
     }
 }
 
 const mutations = {
-    setPastHistry: (state, payload) => {
+    setPastHistory: (state, payload) => {
         state.data.pastHistory = {
             id: payload.id,
             unremarkable: payload.unremarkable,
@@ -108,18 +114,18 @@ const mutations = {
     setFamilyHistory: (state, payload) => {
         state.data.familyHistory = {
             id: payload.id,
-            unremarkable: payload.unremarkable,
+            f_unremarkable: payload.unremarkable,
             hcvd: payload.hcvd,
             chd: payload.chd,
-            cva: payload.cva,
-            gut_disease: payload.gut_disease,
+            f_cva: payload.cva,
+            f_gut_disease: payload.gut_disease,
             blood_dyscrasia: payload.blood_dyscrasia,
             allergy: payload.allergy,
             dm: payload.dm,
-            git_disease: payload.git_disease,
-            pulmo_disease: payload.pulmo_disease,
+            f_git_disease: payload.git_disease,
+            f_pulmo_disease: payload.pulmo_disease,
             ca: payload.ca,
-            other_findings: payload.other_findings,
+            f_other_findings: payload.other_findings,
         }
     },
 
@@ -184,7 +190,7 @@ const mutations = {
         }
     },
 
-    setPastHistryEmpty: (state) => {
+    setPastHistoryEmpty: (state) => {
         state.data.pastHistory = {
             id: 0,
             unremarkable: '',
@@ -204,22 +210,22 @@ const mutations = {
     setFamilyHistoryEmpty: (state) => {
         state.data.familyHistory = {
             id: 0,
-            unremarkable: '',
+            f_unremarkable: '',
             hcvd: '',
             chd: '',
-            cva: '',
-            gut_disease: '',
+            f_cva: '',
+            f_gut_disease: '',
             blood_dyscrasia: '',
             allergy: '',
             dm: '',
-            git_disease: '',
-            pulmo_disease: '',
+            f_git_disease: '',
+            f_pulmo_disease: '',
             ca: '',
-            other_findings: '',
+            f_other_findings: '',
         }
     },
 
-    setSocialHistoryEmpty: (state, payload) => {
+    setSocialHistoryEmpty: (state) => {
         state.data.socialHistory = {
             id: 0,
             smoking: '',
@@ -230,7 +236,7 @@ const mutations = {
         }
     },
 
-    setPatientEmpty: (state, payload) => {
+    setPatientEmpty: (state) => {
         state.data.patient = {
             id: 0,
             lname: '',
@@ -248,7 +254,7 @@ const mutations = {
         }
     },
 
-    setConsultationEmpty: (state, payload) => {
+    setConsultationEmpty: (state) => {
         state.data.consultation = {
             id: 0,
             patient_id: 0,
@@ -264,7 +270,7 @@ const mutations = {
         }
     },
 
-    setVitalSignsEmpty: (state, payload) => {
+    setVitalSignsEmpty: (state) => {
         state.data.vitalSigns = {
             id: 0,
             consultation_id: '',
@@ -278,20 +284,90 @@ const mutations = {
             pulse_rate: '',
             cbg: '',
         }
+    },
+
+    setChartResponse: (state, payload) => {
+        state.data.chartResponse = payload
     }
 }
 
 const actions = {
+    async saveChart({ commit }, payload) {
+        const response = await api.post('/patient/chart/create', {
+            //pastHistory
+            unremarkable: payload.unremarkable,
+            blood_disease: payload.blood_disease,
+            asthma: payload.asthma,
+            hypertension: payload.hypertension,
+            cva: payload.cva,
+            gut_disease: payload.gut_disease,
+            git_disease: payload.git_disease,
+            pulmo_disease: payload.pulmo_disease,
+            previous_or: payload.previous_or,
+            previous_hospitalization: payload.previous_hospitalization,
+            other_findings: payload.other_findings,
+            //familyHistory
+            f_unremarkable: payload.f_unremarkable,
+            hcvd: payload.hcvd,
+            chd: payload.chd,
+            f_cva: payload.f_cva,
+            f_gut_disease: payload.f_gut_disease,
+            blood_dyscrasia: payload.blood_dyscrasia,
+            allergy: payload.allergy,
+            dm: payload.dm,
+            f_git_disease: payload.f_git_disease,
+            f_pulmo_disease: payload.f_pulmo_disease,
+            ca: payload.ca,
+            f_other_findings: payload.f_other_findings,
+            //socialHistory
+            smoking: payload.smoking,
+            alcohol_intake: payload.alcohol_intake,
+            betel_nut_chewing: payload.betel_nut_chewing,
+            drug_food_allergy: payload.drug_food_allergy,
+            others: payload.others,
+            //patient
+            lname: payload.lname,
+            fname: payload.fname,
+            mname: payload.mname,
+            birthdate: payload.birthdate,
+            age: payload.age,
+            gender: payload.gender,
+            contact_no: payload.contact_no,
+            address: payload.address,
+            vaccination: payload.vaccination,
+            created_by: payload.created_by,
+            //consultation
+            physician_id: payload.physician_id,
+            consultation_datetime: payload.consultation_datetime,
+            payment_type: payload.payment_type,
+            chief_complaint: payload.chief_complaint,
+            subjective: payload.subjective,
+            objective: payload.objective,
+            assessment: payload.assessment,
+            plan: payload.plan,
+            //vitals
+            height: payload.height,
+            weight: payload.weight,
+            bmi: payload.bmi,
+            bp_f: payload.bp_f,
+            bp_s: payload.bp_s,
+            oxygen_saturation: payload.oxygen_saturation,
+            respiratory_rate: payload.respiratory_rate,
+            pulse_rate: payload.pulse_rate,
+            cbg: payload.cbg,
+        });
+        commit('setChartResponse', response.data.data);
+
+    }
+}
+
+const getters = {
     getPastHistory: state => state.data.pastHistory,
     getFamilyHistory: state => state.data.familyHistory,
     getSocialHistory: state => state.data.socialHistory,
     getPatient: state => state.data.patient,
     getConsultation: state => state.data.consultation,
     getVitalSigns: state => state.data.vitalSigns
-}
-
-const getters = {
-
 }
 
 export default {
