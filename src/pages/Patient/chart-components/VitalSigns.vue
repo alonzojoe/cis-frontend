@@ -41,7 +41,7 @@
             <div class="col-sm-12 col-md-6 col-lg-3">
                 <div>
                     <label class="form-label fs-6 mb-2 fw-semibold">Temperature (°C)</label>
-                    <input type="text" class="form-control form-control-sm custom-font" v-model="vitalSigns" />
+                    <input type="text" class="form-control form-control-sm custom-font" v-model="vitalSigns.temperature" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3">
