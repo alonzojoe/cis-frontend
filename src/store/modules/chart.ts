@@ -490,7 +490,33 @@ const actions = {
         });
     },
 
+    async saveExisting({ commit }, payload) {
+        const response = await api.post('/chart/existing/create', {
 
+            //consultation
+            physician_id: payload.physician_id,
+            consultation_datetime: payload.consultation_datetime,
+            payment_type: payload.payment_type,
+            chief_complaint: payload.chief_complaint,
+            subjective: payload.subjective,
+            objective: payload.objective,
+            assessment: payload.assessment,
+            plan: payload.plan,
+            created_by: payload.created_by,
+            //vitals
+            height: payload.height,
+            weight: payload.weight,
+            bmi: payload.bmi,
+            bp_f: payload.bp_f,
+            bp_s: payload.bp_s,
+            oxygen_saturation: payload.oxygen_saturation,
+            temperature: payload.temperature,
+            respiratory_rate: payload.respiratory_rate,
+            pulse_rate: payload.pulse_rate,
+            cbg: payload.cbg,
+        });
+        commit('setChartResponse', response.data.data);
+    }
 
 }
 
