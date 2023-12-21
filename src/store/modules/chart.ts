@@ -126,7 +126,7 @@ const mutations = {
             f_gut_disease: payload.gut_disease,
             blood_dyscrasia: payload.blood_dyscrasia,
             allergy: payload.allergy,
-            f_dm: payload.f_dm,
+            f_dm: payload.dm,
             f_git_disease: payload.git_disease,
             f_pulmo_disease: payload.pulmo_disease,
             ca: payload.ca,
@@ -370,7 +370,128 @@ const actions = {
         });
         commit('setChartResponse', response.data.data);
 
-    }
+    },
+
+    async fetchPastHistory({ commit }, payload) {
+        const response = await api.get(`/chart/past/${payload}`);
+        commit('setPastHistory', response.data.data)
+    },
+
+    async fetchFamilyHistory({ commit }, payload) {
+        const response = await api.get(`/chart/family/${payload}`);
+        commit('setFamilyHistory', response.data.data)
+    },
+
+    async fetchSocialHistory({ commit }, payload) {
+        const response = await api.get(`/chart/social/${payload}`);
+        commit('setSocialHistory', response.data.data)
+    },
+
+    async fetchPatient({ commit }, payload) {
+        const response = await api.get(`/chart/patient/${payload}`);
+        commit('setPatient', response.data.data)
+    },
+
+    async fetchConsultation({ commit }, payload) {
+        const response = await api.get(`/chart/consultation/${payload}`);
+        commit('setConsultation', response.data.data)
+    },
+
+    async fetchVitalSigns({ commit }, payload) {
+        const response = await api.get(`/chart/vital/${payload}`);
+        commit('setConsultation', response.data.data)
+    },
+
+    async updatePastHistory({ commit }, payload) {
+        await api.patch(`/chart/past/${payload.id}`, {
+            unremarkable: payload.unremarkable,
+            blood_disease: payload.blood_disease,
+            asthma: payload.asthma,
+            hypertension: payload.hypertension,
+            cva: payload.cva,
+            gut_disease: payload.gut_disease,
+            git_disease: payload.git_disease,
+            pulmo_disease: payload.pulmo_disease,
+            heart_disease: payload.heart_disease,
+            dm: payload.dm,
+            previous_or: payload.previous_or,
+            previous_hospitalization: payload.previous_hospitalization,
+            other_findings: payload.other_findings,
+        });
+    },
+
+    async updateFamilyHistory({ commit }, payload) {
+        await api.patch(`/chart/family/${payload.id}`, {
+            f_unremarkable: payload.f_unremarkable,
+            hcvd: payload.hcvd,
+            chd: payload.chd,
+            f_cva: payload.f_cva,
+            f_gut_disease: payload.f_gut_disease,
+            blood_dyscrasia: payload.blood_dyscrasia,
+            allergy: payload.allergy,
+            f_dm: payload.f_dm,
+            f_git_disease: payload.f_git_disease,
+            f_pulmo_disease: payload.f_pulmo_disease,
+            ca: payload.ca,
+            f_other_findings: payload.f_other_findings,
+        });
+    },
+
+    async updateSocialHistory({ commit }, payload) {
+        await api.patch(`/chart/social/${payload.id}`, {
+            smoking: payload.smoking,
+            alcohol_intake: payload.alcohol_intake,
+            betel_nut_chewing: payload.betel_nut_chewing,
+            drug_food_allergy: payload.drug_food_allergy,
+            others: payload.others,
+        });
+    },
+
+    async updatePatient({ commit }, payload) {
+        await api.patch(`/chart/patient/${payload.id}`, {
+            lname: payload.lname,
+            fname: payload.fname,
+            mname: payload.mname,
+            birthdate: payload.birthdate,
+            age: payload.age,
+            gender: payload.gender,
+            contact_no: payload.contact_no,
+            address: payload.address,
+            vaccination: payload.vaccination,
+            created_by: payload.created_by,
+        });
+    },
+
+    async updateConsultation({ commit }, payload) {
+        await api.patch(`/chart/consultation/${payload.id}`, {
+            physician_id: payload.physician_id,
+            consultation_datetime: payload.consultation_datetime,
+            payment_type: payload.payment_type,
+            chief_complaint: payload.chief_complaint,
+            subjective: payload.subjective,
+            objective: payload.objective,
+            assessment: payload.assessment,
+            plan: payload.plan,
+        });
+    },
+
+    async updateVitalSigns({ commit }, payload) {
+        await api.patch(`/chart/vital/${payload.id}`, {
+            height: payload.height,
+            weight: payload.weight,
+            bmi: payload.bmi,
+            bp_f: payload.bp_f,
+            bp_s: payload.bp_s,
+            oxygen_saturation: payload.oxygen_saturation,
+            temperature: payload.temperature,
+            respiratory_rate: payload.respiratory_rate,
+            pulse_rate: payload.pulse_rate,
+            cbg: payload.cbg,
+        });
+    },
+
+
+
 }
 
 const getters = {
