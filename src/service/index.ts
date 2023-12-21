@@ -1,7 +1,7 @@
 import { inject } from 'vue'
 import CryptoJS from 'crypto-js'
 import Cookies from 'js-cookie';
-
+import moment from 'moment';
 export function swalMessage(swal, title: String, text: String, icon: String) {
     return swal({
         title: title,
@@ -116,5 +116,13 @@ export const trimZeroes = (num) => {
     return parseInt(stringNumber);
 }
 
+export const calculateAge = (selectedDate) => {
+    const birthDate = moment(selectedDate);
+    const currentDate = moment();
 
+    const years = currentDate.diff(birthDate, 'years');
+    birthDate.add(years, 'years');
+
+    return years;
+}
 

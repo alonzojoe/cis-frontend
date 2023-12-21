@@ -163,6 +163,10 @@ const mutations = {
         }
     },
 
+    setAge: (state, payload) => {
+        state.data.patient.age = payload
+    },
+
     setConsultation: (state, payload) => {
         state.data.consultation = {
             id: payload.id,
