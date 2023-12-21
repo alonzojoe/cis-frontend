@@ -4,7 +4,7 @@
             <div class="col-sm-12 col-md-6 col-lg-3">
                 <div>
                     <label class="form-label fs-6 mb-2 fw-semibold">Height (cm)</label>
-                    <input type="text" class="form-control form-control-sm custom-font" v-model="vitalSigns.heigth" />
+                    <input type="text" class="form-control form-control-sm custom-font" v-model="vitalSigns.height" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3">
@@ -62,8 +62,7 @@
             <div class="col-sm-12 col-md-6 col-lg-3">
                 <div>
                     <label class="form-label fs-6 mb-2 fw-semibold">CBG (mg/dl)</label>
-                    <input type="text" class="form-control form-control-sm custom-font"
-                        v-model="vitalSigns.oxygen_saturation" />
+                    <input type="text" class="form-control form-control-sm custom-font" v-model="vitalSigns.cbg" />
                 </div>
             </div>
         </div>

@@ -19,6 +19,7 @@
     "moment": "^2.29.4",
     "npm": "^10.2.5",
     "primevue": "^3.43.0",
+    "tom-select": "^2.3.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
     "vue-sweetalert2": "^5.0.5",
