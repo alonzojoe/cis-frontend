@@ -3,7 +3,7 @@
         <div class="cst-modal-body2 bg-white rounded position-relative">
             <span class="position-absolute cst-close" @click.prevent="$emit('close-modal')"
                 style="font-size:20px;right:0;top:-4px;right:5px"><i class="fa fa-times" aria-hidden="true"></i></span>
-            <div class="position-relative border border-primary p-2 m-2 mt-4">
+            <div class="position-relative border border-primary rounded p-2 m-2 mt-4">
                 <div class="position-absolute bg-primary text-white px-2 rounded" style="top:-13px; left:5px;">
                     {{ details.title }}
                 </div>
@@ -277,6 +277,13 @@ export default defineComponent({
     }
 
 
+}
+
+@media screen and (max-width: 767px) {
+    .cst-modal-body2 {
+        width: 90vw;
+
+    }
 }
 
 .swal2-shown {

@@ -4,48 +4,30 @@
       <div class="row mt-4">
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
-            <label class="form-label fs-6 mb-2 fw-semibold"
-              >Consultation No.</label
-            >
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.consultation_no"
-              @keyup.enter="search()"
-            />
+            <label class="form-label fs-6 mb-2 fw-semibold">Consultation No.</label>
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.consultation_no"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.lname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.fname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.mname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.mname"
+              @keyup.enter="search()" />
           </div>
         </div>
       </div>
@@ -53,22 +35,15 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-            <input
-              type="date"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.birthdate"
-              @keyup.enter="search()"
-            />
+            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.birthdate"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Payment Type</label>
-            <select
-              class="form-control form-select-sm custom-font form-select"
-              v-model="formSearch.payment_type"
-              @keyup.enter="search()"
-            >
+            <select class="form-control form-select-sm custom-font form-select" v-model="formSearch.payment_type"
+              @keyup.enter="search()">
               <option value="">Please Select</option>
               <option value="CASH">CASH</option>
               <option value="HMO">HMO</option>
@@ -76,15 +51,8 @@
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
-          <div
-            class="d-flex gap-2 align-items-center"
-            style="margin-top: 1.7rem"
-          >
-            <button
-              class="btn btn-primary"
-              @click="search()"
-              @keyup.enter="search()"
-            >
+          <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
+            <button class="btn btn-primary" @click="search()" @keyup.enter="search()">
               Search
             </button>
             <button class="btn btn-danger" @click="refresh()">Refresh</button>
@@ -180,11 +148,8 @@
         </tbody>
       </table>
     </div>
-    <paginator
-      v-if="!isLoading && patients.length"
-      :data="paginationData"
-      @update:currentPage="updateCurrentPage($event)"
-    />
+    <paginator v-if="!isLoading && patients.length" :data="paginationData"
+      @update:currentPage="updateCurrentPage($event)" />
   </div>
   <modal-sm :details="modalDetails" @close-modal="modalDetails.show = false">
     <div class="d-flex align-items-center justify-content-center">
@@ -192,32 +157,21 @@
     </div>
     <div class="row mt-1 mb-3 px-4">
       <div class="col-sm-12 col-md-6 col-lg-6">
-        <div
-          class="form-check custom-option custom-option-icon"
-          :class="{ checked: patientType == 'old' }"
-          @click="chooseType('old')"
-        >
+        <div class="form-check custom-option custom-option-icon" :class="{ checked: patientType == 'old' }"
+          @click="chooseType('old')">
           <label class="form-check-label custom-option-content">
             <span class="custom-option-body">
               <i class="fa-solid fa-hospital-user"></i>
               <span class="custom-option-title">Old</span>
               <small> (Patient with existing clinic records) </small>
             </span>
-            <input
-              class="form-check-input"
-              type="radio"
-              value="old"
-              v-model="patientType"
-            />
+            <input class="form-check-input" type="radio" value="old" v-model="patientType" />
           </label>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6">
-        <div
-          class="form-check custom-option custom-option-icon"
-          :class="{ checked: patientType == 'new' }"
-          @click="chooseType('new')"
-        >
+        <div class="form-check custom-option custom-option-icon" :class="{ checked: patientType == 'new' }"
+          @click="chooseType('new')">
           <label class="form-check-label custom-option-content">
             <span class="custom-option-body">
               <i class="fa-solid fa-user-plus"></i>
@@ -225,12 +179,7 @@
               <span class="custom-option-title"> New </span>
               <small> (New patient without existing records) </small>
             </span>
-            <input
-              class="form-check-input"
-              type="radio"
-              value="new"
-              v-model="patientType"
-            />
+            <input class="form-check-input" type="radio" value="new" v-model="patientType" />
           </label>
         </div>
       </div>
@@ -238,13 +187,104 @@
     <div class="row px-4">
       <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
         <div>
-          <button class="btn btn-primary w-100" @click="proceed()">
+          <button class="btn btn-primary w-100" @click="proceed()" :disabled="!patientType">
             Select
           </button>
         </div>
       </div>
     </div>
   </modal-sm>
+  <modal-md :details="modalData" @close-modal="modalData.show = false">
+    <div class="mt-2 card px-5 mb-5">
+      <titled-card class="mt-4 mb-3 shadow">
+        <div class="row mt-1">
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div>
+              <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
+              <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.consultation_no"
+                @keyup.enter="search()" />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div>
+              <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
+              <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
+                @keyup.enter="search()" />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div>
+              <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
+              <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
+                @keyup.enter="search()" />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div>
+              <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
+              <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.birthdate"
+                @keyup.enter="search()" />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
+              <button class="btn btn-primary" @click="search()" @keyup.enter="search()">
+                Search
+              </button>
+              <button class="btn btn-danger" @click="refresh()">Refresh</button>
+            </div>
+          </div>
+        </div>
+      </titled-card>
+      <div class="table-responsive mt-3">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr style="text-transform: capitalize !important">
+              <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+                Patient Name
+              </th>
+              <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+                Gender
+              </th>
+              <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+                Birthdate
+              </th>
+              <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+                Options
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center align-middle fw-normal p-1 m-0">
+                DELA CRUZ, JUAN MEDINA JR.
+              </td>
+              <td class="text-center align-middle fw-normal p-1 m-0">
+                MALE
+              </td>
+              <td class="text-center align-middle fw-normal p-1 m-0">
+                December 1, 2000
+              </td>
+              <td class="text-center align-middle fw-normal p-1 m-0">
+                <button class="btn btn-warning btn-sm" @click="updateChart(p)">
+                  Add New Chart
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle fw-bold p-1 m-0" colspan="4">
+                No records found. <button class="ml-2 btn btn-warning btn-sm" @click="updateChart(p)">Add New Patient
+                  Instead?</button>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </modal-md>
 </template>
 
 <script lang="ts">
@@ -363,14 +403,26 @@ export default defineComponent({
       }
     };
 
+    //for old record
+    const modalData = ref({
+      title: 'Search Patient',
+      show: false
+    })
+
     const proceed = () => {
-      setParams(patientType.value, 0);
-      console.log(params.value);
-      const paramsString = encryptData(JSON.stringify(params.value));
-      router.push({
-        name: "chart",
-        params: { data: encodeURIComponent(paramsString) },
-      });
+      if (patientType.value != 'old') {
+        setParams(patientType.value, 0);
+        console.log(params.value);
+        const paramsString = encryptData(JSON.stringify(params.value));
+        router.push({
+          name: "chart",
+          params: { data: encodeURIComponent(paramsString) },
+        });
+      } else {
+        modalDetails.value.show = false
+        modalData.value.show = true
+      }
+
     };
 
     const updateChart = async (patient: object) => {
@@ -401,6 +453,7 @@ export default defineComponent({
       chooseType,
       proceed,
       updateChart,
+      modalData,
     };
   },
 });

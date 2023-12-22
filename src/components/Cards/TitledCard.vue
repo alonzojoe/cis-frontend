@@ -1,6 +1,6 @@
 <template>
     <div class="card border border-primary position-relative">
-        <span class="card-legend bg-primary text-white fw-bold rounded px-3 py-2">{{ title }}</span>
+        <span class="card-legend bg-primary text-white fw-bold rounded px-3 py-2" v-show="title">{{ title }}</span>
         <div class="card-body">
             <slot></slot>
         </div>
