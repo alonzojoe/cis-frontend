@@ -170,6 +170,10 @@ const mutations = {
         state.data.patient.age = payload
     },
 
+    setBMI: (state, payload) => {
+        state.data.vitalSigns.bmi = payload
+    },
+
     setConsultation: (state, payload) => {
         state.data.consultation = {
             id: payload.consultation_id,

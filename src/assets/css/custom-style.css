@@ -229,10 +229,14 @@ button:disabled {
   cursor: not-allowed !important;
 }
 
-.swal2-backdrop-show{
+.swal2-backdrop-show {
   z-index: 9999 !important;
 }
 
-.p-toast.p-component.p-toast-top-right.p-ripple-disabled{
+.p-toast.p-component.p-toast-top-right.p-ripple-disabled {
   z-index: 10000 !important;
+}
+
+.cst-capital {
+  text-transform: uppercase !important;
 }

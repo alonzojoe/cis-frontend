@@ -158,7 +158,7 @@
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Other Findings</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"

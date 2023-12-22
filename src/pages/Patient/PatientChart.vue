@@ -149,6 +149,12 @@ export default defineComponent({
         );
       } else if (dataType.value.type == "new") {
         store.commit("setConsultationObjectEmpty");
+        store.commit("setPastHistoryEmpty");
+        store.commit("setFamilyHistoryEmpty");
+        store.commit("setSocialHistoryEmpty");
+        store.commit("setPatientEmpty");
+        store.commit("setConsultationEmpty");
+        store.commit("setVitalSignsEmpty");
       }
     };
     const singleConsultation = computed(
@@ -263,6 +269,12 @@ export default defineComponent({
   width: calc(100% - 5.25rem);
   right: 0;
   z-index: 100;
+}
+
+@media screen and (max-width: 1199px) {
+  .fam-med {
+    width: 100%;
+  }
 }
 
 .mt-6 {

@@ -5,7 +5,7 @@
         <div>
           <label class="form-label fs-5 mb-2 fw-semibold">Subjective</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -19,7 +19,7 @@
         <div>
           <label class="form-label fs-5 mb-2 fw-semibold">Objective</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -33,7 +33,7 @@
         <div>
           <label class="form-label fs-5 mb-2 fw-semibold">Assessment</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -47,7 +47,7 @@
         <div>
           <label class="form-label fs-5 mb-2 fw-semibold">Plan</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"

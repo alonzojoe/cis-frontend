@@ -7,7 +7,7 @@
             >Vaccination Details</label
           >
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"

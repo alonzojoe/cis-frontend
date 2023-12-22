@@ -5,7 +5,7 @@
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Smoking</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -17,7 +17,7 @@
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Alcohol Intake</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -31,7 +31,7 @@
             >Betel Nut Chewing</label
           >
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -45,7 +45,7 @@
             >Drug / Food Allergy</label
           >
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -59,7 +59,7 @@
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Others</label>
           <Textarea
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"

@@ -49,7 +49,7 @@
           <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
           <input
             type="text"
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             maxlength="255"
             v-model="patient.lname"
           />
@@ -60,7 +60,7 @@
           <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
           <input
             type="text"
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             maxlength="255"
             v-model="patient.fname"
           />
@@ -71,7 +71,7 @@
           <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
           <input
             type="text"
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             maxlength="255"
             v-model="patient.mname"
           />
@@ -82,7 +82,7 @@
           <label class="form-label fs-6 mb-2 fw-semibold">Suffix</label>
           <input
             type="text"
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             maxlength="5"
             v-model="patient.suffix"
           />
@@ -144,7 +144,7 @@
           <label class="form-label fs-6 mb-2 fw-semibold">Address</label>
           <Textarea
             v-model="patient.address"
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
@@ -158,7 +158,7 @@
           >
           <Textarea
             v-model="consultation.chief_complaint"
-            class="form-control form-control-sm custom-font"
+            class="form-control form-control-sm custom-font cst-capital"
             autoResize
             rows="5"
             cols="30"
