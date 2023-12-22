@@ -63,6 +63,7 @@
       </div>
     </div>
   </div>
+  <loader :title="'Loading Patient Chart Data...'" v-if="isLoading" />
   {{ dataType }}
   <pre>{{ singleConsultation }}</pre>
 </template>
@@ -123,9 +124,11 @@ export default defineComponent({
 
     const uriParams = decodeURIComponent(route.params.data);
     const dataType = ref({});
+    const isLoading = ref(false);
     const decrypURLparams = async () => {
       dataType.value = await decryptData(uriParams);
       if (dataType.value.type == "update") {
+        isLoading.value = true;
         await store.dispatch(
           "fetchSingleConsultation",
           dataType.value.consultation_id
@@ -143,10 +146,11 @@ export default defineComponent({
           "fetchFamilyHistory",
           singleConsultation.value.family_history_id
         );
-        store.dispatch(
+        await store.dispatch(
           "fetchSocialHistory",
           singleConsultation.value.social_history_id
         );
+        isLoading.value = false;
       } else if (dataType.value.type == "new") {
         store.commit("setConsultationObjectEmpty");
         store.commit("setPastHistoryEmpty");
@@ -254,6 +258,7 @@ export default defineComponent({
       saveChart,
       singleConsultation,
       processChart,
+      isLoading,
     };
   },
 });
