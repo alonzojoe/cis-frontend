@@ -5,13 +5,15 @@ import Users from './modules/users'
 import Patients from './modules/patients'
 import Physicians from './modules/physicians'
 import Chart from './modules/chart'
+import Existing from './modules/existing';
 const store = createStore({
     modules: {
         Routes,
         Users,
         Patients,
         Physicians,
-        Chart
+        Chart,
+        Existing
     }
 });
 

@@ -195,8 +195,8 @@
     </div>
   </modal-sm>
   <modal-md :details="modalData" @close-modal="modalData.show = false">
-    <div class="mt-2 card px-5 mb-5">
-      <titled-card class="mt-4 mb-3 shadow">
+    <div class="mt-2 card px-5 mb-2">
+      <titled-card class="mt-4 mb-2 shadow">
         <div class="row mt-1">
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
@@ -227,13 +227,13 @@
             </div>
           </div>
         </div>
-        <div class="row mt-1">
+        <div class="row">
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
-              <button class="btn btn-primary" @click="search()" @keyup.enter="search()">
+              <button class="btn btn-primary btn-sm" @click="search()" @keyup.enter="search()">
                 Search
               </button>
-              <button class="btn btn-danger" @click="refresh()">Refresh</button>
+              <button class="btn btn-danger btn-sm" @click="refresh()">Refresh</button>
             </div>
           </div>
         </div>
@@ -275,7 +275,8 @@
             </tr>
             <tr>
               <td class="text-center align-middle fw-bold p-1 m-0" colspan="4">
-                No records found. <button class="ml-2 btn btn-warning btn-sm" @click="updateChart(p)">Add New Patient
+                <span>No records found.</span> <button class="ml-5 btn btn-warning btn-sm" @click="instead('new')">Add New
+                  Patient
                   Instead?</button>
               </td>
             </tr>
@@ -434,6 +435,11 @@ export default defineComponent({
       });
     };
 
+    const instead = (type) => {
+      chooseType(type);
+      proceed();
+    }
+
     onMounted(async () => {
       await fetchPatients(1, formSearch.value);
     });
@@ -454,6 +460,7 @@ export default defineComponent({
       proceed,
       updateChart,
       modalData,
+      instead
     };
   },
 });
