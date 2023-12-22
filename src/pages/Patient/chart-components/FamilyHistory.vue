@@ -168,6 +168,10 @@
       </div>
     </div>
   </titled-card>
+  <pre>
+    {{ familyHistory }}
+ </pre
+  >
 </template>
 
 <script lang="ts">

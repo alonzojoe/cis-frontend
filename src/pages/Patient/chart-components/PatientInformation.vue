@@ -3,9 +3,14 @@
     <div class="row mt-4">
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Date of Consultation</label>
-          <input type="datetime-local" class="form-control form-control-sm custom-font"
-            v-model="consultation.consultation_datetime" />
+          <label class="form-label fs-6 mb-2 fw-semibold"
+            >Date of Consultation</label
+          >
+          <input
+            type="datetime-local"
+            class="form-control form-control-sm custom-font"
+            v-model="consultation.consultation_datetime"
+          />
           <!-- <div id="defaultFormControlHelp" class="form-text">
                                 We'll never share your details with anyone else.
                             </div> -->
@@ -13,15 +18,24 @@
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3" v-if="chartType != 'new'">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Consultation No.</label>
-          <input type="text" class="form-control form-control-sm custom-font" v-model="consultation.consultation_no"
-            disabled />
+          <label class="form-label fs-6 mb-2 fw-semibold"
+            >Consultation No.</label
+          >
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            v-model="consultation.consultation_no"
+            disabled
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Payment Type</label>
-          <select class="form-control form-select-sm custom-font form-select" v-model="consultation.payment_type">
+          <select
+            class="form-control form-select-sm custom-font form-select"
+            v-model="consultation.payment_type"
+          >
             <option value="">Please Select</option>
             <option value="CASH">CASH</option>
             <option value="HMO">HMO</option>
@@ -33,25 +47,45 @@
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-          <input type="text" class="form-control form-control-sm custom-font" maxlength="11" v-model="patient.lname" />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            maxlength="255"
+            v-model="patient.lname"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-          <input type="text" class="form-control form-control-sm custom-font" maxlength="11" v-model="patient.fname" />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            maxlength="255"
+            v-model="patient.fname"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-          <input type="text" class="form-control form-control-sm custom-font" maxlength="11" v-model="patient.mname" />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            maxlength="255"
+            v-model="patient.mname"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Suffix</label>
-          <input type="text" class="form-control form-control-sm custom-font" maxlength="11" v-model="patient.suffix" />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            maxlength="5"
+            v-model="patient.suffix"
+          />
         </div>
       </div>
     </div>
@@ -59,20 +93,33 @@
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-          <input type="date" :max="currentDate" @change="calculateAges()" class="form-control form-control-sm custom-font"
-            v-model="patient.birthdate" />
+          <input
+            type="date"
+            :max="currentDate"
+            @change="calculateAges()"
+            class="form-control form-control-sm custom-font"
+            v-model="patient.birthdate"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Age</label>
-          <input type="text" class="form-control form-control-sm custom-font" v-model="patient.age" disabled />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            v-model="patient.age"
+            disabled
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Gender</label>
-          <select class="form-control form-select-sm custom-font form-select" v-model="patient.gender">
+          <select
+            class="form-control form-select-sm custom-font form-select"
+            v-model="patient.gender"
+          >
             <option value="">Please Select</option>
             <option value="MALE">MALE</option>
             <option value="FEMALE">FEMALE</option>
@@ -82,7 +129,12 @@
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Contact No.</label>
-          <input type="text" class="form-control form-control-sm custom-font" maxlength="11" v-model="patient.contact" />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            maxlength="11"
+            v-model="patient.contact_no"
+          />
         </div>
       </div>
     </div>
@@ -90,15 +142,27 @@
       <div class="col-sm-12 col-md-6 col-lg-6">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Address</label>
-          <Textarea v-model="patient.address" class="form-control form-control-sm custom-font" autoResize rows="5"
-            cols="30" />
+          <Textarea
+            v-model="patient.address"
+            class="form-control form-control-sm custom-font"
+            autoResize
+            rows="5"
+            cols="30"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Chief Complaint</label>
-          <Textarea v-model="consultation.chief_complaint" class="form-control form-control-sm custom-font" autoResize
-            rows="5" cols="30" />
+          <label class="form-label fs-6 mb-2 fw-semibold"
+            >Chief Complaint</label
+          >
+          <Textarea
+            v-model="consultation.chief_complaint"
+            class="form-control form-control-sm custom-font"
+            autoResize
+            rows="5"
+            cols="30"
+          />
         </div>
       </div>
     </div>

@@ -51,6 +51,7 @@ const state = {
             lname: '',
             fname: '',
             mname: '',
+            suffix: '',
             birthdate: '',
             age: '',
             gender: '',
@@ -91,7 +92,8 @@ const state = {
             cbg: '',
         },
 
-        chartResponse: {}
+        chartResponse: {},
+        consultationObject: {}
 
     }
 }
@@ -151,6 +153,7 @@ const mutations = {
             lname: payload.lname,
             fname: payload.fname,
             mname: payload.mname,
+            suffix: payload.suffix,
             birthdate: payload.birthdate,
             age: payload.age,
             gender: payload.gender,
@@ -169,7 +172,7 @@ const mutations = {
 
     setConsultation: (state, payload) => {
         state.data.consultation = {
-            id: payload.id,
+            id: payload.consultation_id,
             patient_id: payload.patient_id,
             physician_id: payload.physician_id,
             consultation_no: payload.consultation_no,
@@ -254,6 +257,7 @@ const mutations = {
             lname: '',
             fname: '',
             mname: '',
+            suffix: '',
             birthdate: '',
             age: '',
             gender: '',
@@ -301,6 +305,14 @@ const mutations = {
 
     setChartResponse: (state, payload) => {
         state.data.chartResponse = payload
+    },
+
+    setConsultationObject: (state, payload) => {
+        state.data.consultationObject = payload
+    },
+
+    setConsultationObjectEmpty: (state) => {
+        state.data.consultationObject = {}
     }
 }
 
@@ -403,7 +415,7 @@ const actions = {
 
     async fetchVitalSigns({ commit }, payload) {
         const response = await api.get(`/chart/vital/${payload}`);
-        commit('setConsultation', response.data.data)
+        commit('setVitalSigns', response.data.data)
     },
 
     async updatePastHistory({ commit }, payload) {
@@ -456,6 +468,7 @@ const actions = {
             lname: payload.lname,
             fname: payload.fname,
             mname: payload.mname,
+            suffix: payload.suffix,
             birthdate: payload.birthdate,
             age: payload.age,
             gender: payload.gender,
@@ -520,8 +533,13 @@ const actions = {
             cbg: payload.cbg,
         });
         commit('setChartResponse', response.data.data);
-    }
+    },
 
+    async fetchSingleConsultation({ commit }, payload) {
+        const response = await api.get(`/patient/consultation/${payload}`)
+        commit('setConsultationObject', response.data.data)
+        commit('setConsultation', response.data.data)
+    }
 }
 
 const getters = {
@@ -530,7 +548,8 @@ const getters = {
     getSocialHistory: state => state.data.socialHistory,
     getPatient: state => state.data.patient,
     getConsultationHistory: state => state.data.consultation,
-    getVitalSigns: state => state.data.vitalSigns
+    getVitalSigns: state => state.data.vitalSigns,
+    getSingleConsultation: state => state.data.consultationObject
 }
 
 export default {
