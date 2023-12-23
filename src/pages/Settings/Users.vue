@@ -278,6 +278,7 @@ export default defineComponent({
         })
 
         const addUser = () => {
+            resetter();
             store.commit('resetFormUser')
             modalDetails.value.show = true
             modalDetails.value.title = 'Add New User'
