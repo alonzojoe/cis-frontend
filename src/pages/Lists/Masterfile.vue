@@ -101,7 +101,7 @@
                             {{ p.physician }}
                         </td>
                         <td class="text-center align-middle fw-normal p-1 m-0">
-                            <button class="btn btn-warning btn-sm">Update Chart</button>
+                            <button class="btn btn-warning btn-sm" @click="updateChart(p)">Update Chart</button>
                         </td>
                     </tr>
                     <tr v-if="!patients.length && !isLoading">
@@ -147,6 +147,8 @@ import TitledCard from '@/components/Cards/TitledCard.vue';
 import Paginator from '@/components/Paginators/Paginator.vue';
 import ModalMd from '@/components/Modals/ModalMd.vue';
 import moment from 'moment';
+import { useRouter } from "vue-router";
+import { encryptData } from "@/service";
 export default defineComponent({
     name: "PatientMasterfile",
     components: {
@@ -233,6 +235,33 @@ export default defineComponent({
             search();
         }
 
+        const router = useRouter();
+
+        const params = ref({});
+
+        const setParams = (type, consultation_id) => {
+            if (type == "update") {
+                params.value = {
+                    type: type,
+                    consultation_id: consultation_id,
+                };
+            } else if (type == "new") {
+                params.value = {
+                    type: type,
+                    consultation_id: consultation_id,
+                };
+            }
+        };
+
+        const updateChart = async (patient: object) => {
+            setParams("update", patient.consultation_id);
+            const paramsString = encryptData(JSON.stringify(params.value));
+            router.push({
+                name: "chart",
+                params: { data: encodeURIComponent(paramsString) },
+            });
+        };
+
         onMounted(async () => {
             await fetchPatients(1, formSearch.value);
 
@@ -249,7 +278,8 @@ export default defineComponent({
             updateCurrentPage,
             search,
             refresh,
-            today
+            today,
+            updateChart
         }
     }
 })

@@ -512,9 +512,11 @@ const actions = {
     },
 
     async saveExisting({ commit }, payload) {
+      
         const response = await api.post('/chart/existing/create', {
 
             //consultation
+            patient_id: payload.patient_id,
             physician_id: payload.physician_id,
             consultation_datetime: payload.consultation_datetime,
             payment_type: payload.payment_type,

@@ -5,28 +5,28 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Consultation No.</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.consultation_no"
-              @keyup.enter="search()" />
+            <input type="text" class="form-control form-control-sm custom-font cst-capital"
+              v-model="formSearch.consultation_no" @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
+            <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formSearch.lname"
               @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
+            <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formSearch.fname"
               @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.mname"
+            <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formSearch.mname"
               @keyup.enter="search()" />
           </div>
         </div>
@@ -35,15 +35,15 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.birthdate"
-              @keyup.enter="search()" />
+            <input type="date" :max="currentData" class="form-control form-control-sm custom-font"
+              v-model="formSearch.birthdate" @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Payment Type</label>
-            <select class="form-control form-select-sm custom-font form-select" v-model="formSearch.payment_type"
-              @keyup.enter="search()">
+            <select class="form-control form-select-sm custom-font cst-capital form-select"
+              v-model="formSearch.payment_type" @keyup.enter="search()">
               <option value="">Please Select</option>
               <option value="CASH">CASH</option>
               <option value="HMO">HMO</option>
@@ -201,39 +201,39 @@
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
               <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-              <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.consultation_no"
-                @keyup.enter="search()" />
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formExisting.lname"
+                @keyup.enter="searchPatient()" />
             </div>
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
               <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-              <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
-                @keyup.enter="search()" />
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formExisting.fname"
+                @keyup.enter="searchPatient()" />
             </div>
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
               <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-              <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
-                @keyup.enter="search()" />
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formExisting.mname"
+                @keyup.enter="searchPatient()" />
             </div>
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
               <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-              <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.birthdate"
-                @keyup.enter="search()" />
+              <input type="date" :max="currentData" class="form-control form-control-sm custom-font"
+                v-model="formExisting.birthdate" @keyup.enter="searchPatient()" />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
-              <button class="btn btn-primary btn-sm" @click="search()" @keyup.enter="search()">
+              <button class="btn btn-primary btn-sm" @click="searchPatient()" @keyup.enter="searchPatient()">
                 Search
               </button>
-              <button class="btn btn-danger btn-sm" @click="refresh()">Refresh</button>
+              <button class="btn btn-danger btn-sm" @click="resetExisting()">Reset</button>
             </div>
           </div>
         </div>
@@ -257,32 +257,52 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="p in existingPatients" :key="p.id">
               <td class="text-center align-middle fw-normal p-1 m-0">
-                DELA CRUZ, JUAN MEDINA JR.
+                {{ p.lname }}, {{ p.fname }} {{ p.mname }} {{ suffix }}
               </td>
               <td class="text-center align-middle fw-normal p-1 m-0">
-                MALE
+                {{ p.gender }}
               </td>
               <td class="text-center align-middle fw-normal p-1 m-0">
-                December 1, 2000
+                {{ p.birthdate }}
               </td>
               <td class="text-center align-middle fw-normal p-1 m-0">
-                <button class="btn btn-warning btn-sm" @click="updateChart(p)">
+                <button class="btn btn-warning btn-sm" @click="addNewChart(p)">
                   Add New Chart
                 </button>
               </td>
             </tr>
-            <tr>
+            <tr v-if="!existingPatients.length && !loadingExisting">
               <td class="text-center align-middle fw-bold p-1 m-0" colspan="4">
-                <span>No records found.</span> <button class="ml-5 btn btn-warning btn-sm" @click="instead('new')">Add New
-                  Patient
-                  Instead?</button>
+                <span>No records found.</span>
+              </td>
+            </tr>
+            <tr v-if="loadingExisting">
+              <td colspan="4">
+                <div class="d-flex align-items-center justify-content-center">
+                  <div class="d-flex align-items-center jusitfy-content-center">
+                    <div class="sk-wave sk-primary">
+                      <div class="sk-wave-rect"></div>
+                      <div class="sk-wave-rect"></div>
+                      <div class="sk-wave-rect"></div>
+                      <div class="sk-wave-rect"></div>
+                      <div class="sk-wave-rect"></div>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>
 
         </table>
+      </div>
+      <div class="mt-3" v-if="triggerSearch && !existingPatients.length">
+        <span>No results found for <span class="fst-italic cst-capital">{{ formExisting.lname }}, {{ formExisting.fname
+        }}</span></span>
+        &nbsp;<button class="ml-5 btn btn-warning btn-sm" @click="instead('new')">Add New
+          Patient
+          Instead?</button>
       </div>
     </div>
   </modal-md>
@@ -304,7 +324,8 @@ import Paginator from "@/components/Paginators/Paginator.vue";
 import ModalMd from "@/components/Modals/ModalMd.vue";
 import ModalSm from "@/components/Modals/ModalSm.vue";
 import { useRouter } from "vue-router";
-import { encryptData } from "@/service";
+import { encryptData, swalMessage, swalConfirmation } from "@/service";
+import moment from "moment";
 export default defineComponent({
   name: "PatientConcierge",
   components: {
@@ -321,6 +342,8 @@ export default defineComponent({
 
     const router = useRouter();
     const addPatient = () => {
+      resetExisting();
+      triggerSearch.value = false;
       patientType.value = false;
       modalDetails.value.show = true;
     };
@@ -339,7 +362,7 @@ export default defineComponent({
         formSearch.value[key] = "";
       });
     };
-
+    const swal = inject("$swal");
     const store = useStore();
     const patients = computed(() => store.getters.getPatients);
     const totalPatients = computed(() => store.getters.getTotalPatients);
@@ -390,17 +413,23 @@ export default defineComponent({
 
     const params = ref({});
 
-    const setParams = (type, consultation_id) => {
+    const setParams = (type, patient) => {
       if (type == "update") {
         params.value = {
           type: type,
-          consultation_id: consultation_id,
+          consultation_id: patient.consultation_id,
         };
       } else if (type == "new") {
         params.value = {
           type: type,
-          consultation_id: consultation_id,
+          consultation_id: 0,
         };
+      } else if (type == 'existing') {
+        params.value = {
+          type: type,
+          consultation_id: 0,
+          patient_id: patient.id,
+        }
       }
     };
 
@@ -427,7 +456,7 @@ export default defineComponent({
     };
 
     const updateChart = async (patient: object) => {
-      setParams("update", patient.consultation_id);
+      setParams("update", patient);
       const paramsString = encryptData(JSON.stringify(params.value));
       router.push({
         name: "chart",
@@ -439,6 +468,51 @@ export default defineComponent({
       chooseType(type);
       proceed();
     }
+
+    const addNewChart = (patient) => {
+      setParams("existing", patient);
+      const paramsString = encryptData(JSON.stringify(params.value));
+      router.push({
+        name: "chart",
+        params: { data: encodeURIComponent(paramsString) },
+      });
+    }
+
+    const formExisting = computed(() => store.getters.getFormExisting);
+    const existingPatients = computed(() => store.getters.getExistingPatients)
+    const loadingExisting = ref(false);
+    const triggerSearch = ref(false);
+    const searchPatient = async () => {
+      if (validateSearch()) {
+        swalMessage(swal, 'Warrning', 'Please fill up search fields.', 'warning')
+        return;
+      }
+
+      store.commit('resetExistingPatients')
+      loadingExisting.value = true;
+      await store.dispatch('searchExisting', formExisting.value)
+      loadingExisting.value = false;
+      triggerSearch.value = true;
+    }
+
+    const validateSearch = () => {
+      for (const key in formExisting.value) {
+        if (formExisting.value[key] !== "") {
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    const resetExisting = () => {
+      store.commit('resetExistingPatients');
+      store.commit('resetFormExisting');
+      triggerSearch.value = false;
+
+    };
+
+    const currentDate = moment(Date.now()).format("yyyy-MM-DD");
 
     onMounted(async () => {
       await fetchPatients(1, formSearch.value);
@@ -460,7 +534,16 @@ export default defineComponent({
       proceed,
       updateChart,
       modalData,
-      instead
+      instead,
+      formExisting,
+      existingPatients,
+      loadingExisting,
+      searchPatient,
+      resetExisting,
+      currentDate,
+      triggerSearch,
+      addNewChart
+
     };
   },
 });

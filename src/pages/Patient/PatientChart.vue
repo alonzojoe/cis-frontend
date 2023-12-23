@@ -2,9 +2,7 @@
   <Toast />
   <div class="bg-primary fam-med p-2 px-3" style="top: 4rem">
     <div class="d-flex justify-content-between align-items-center">
-      <span class="fs-2 text-white fw-semibold"
-        >Family Medicine - Patient Chart</span
-      >
+      <span class="fs-2 text-white fw-semibold">Family Medicine - Patient Chart</span>
       <button class="btn btn-warning btn-sm" @click="processChart()">
         {{ dataType.type != "new" ? "Update" : "Save" }} Patient Chart
       </button>
@@ -13,11 +11,8 @@
 
   <div class="row mt-6">
     <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
-      <div
-        data-bs-spy="scroll"
-        data-bs-target="#side-sections"
-        data-bs-root-margin="0px 0px -40%"
-      >
+      <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections"
+        data-bs-root-margin="-10% 0px -70%">
         <patient-information id="pinfo" :chartType="dataType.type" />
         <vital-signs class="mt-5" id="vital" />
         <past-history class="mt-5" id="past" />
@@ -34,30 +29,14 @@
           <h5 class="card-title py-0 my-0 p-2 mb-1">Sections</h5>
           <hr class="mt-0" />
           <div class="list-group list-group-flush" id="side-sections">
-            <a href="#pinfo" class="list-group-item list-group-item-action"
-              >Patient Info</a
-            >
-            <a href="#vital" class="list-group-item list-group-item-action"
-              >Vital Signs</a
-            >
-            <a href="#past" class="list-group-item list-group-item-action"
-              >Past History</a
-            >
-            <a href="#fam" class="list-group-item list-group-item-action"
-              >Family History</a
-            >
-            <a href="#soc" class="list-group-item list-group-item-action"
-              >Social History</a
-            >
-            <a href="#vac" class="list-group-item list-group-item-action"
-              >Vaccination</a
-            >
-            <a href="#soap" class="list-group-item list-group-item-action"
-              >SOAP</a
-            >
-            <a href="#physician" class="list-group-item list-group-item-action"
-              >Physician</a
-            >
+            <a href="#pinfo" class="list-group-item list-group-item-action">Patient Info</a>
+            <a href="#vital" class="list-group-item list-group-item-action">Vital Signs</a>
+            <a href="#past" class="list-group-item list-group-item-action">Past History</a>
+            <a href="#fam" class="list-group-item list-group-item-action">Family History</a>
+            <a href="#soc" class="list-group-item list-group-item-action">Social History</a>
+            <a href="#vac" class="list-group-item list-group-item-action">Vaccination</a>
+            <a href="#soap" class="list-group-item list-group-item-action">SOAP</a>
+            <a href="#physician" class="list-group-item list-group-item-action">Physician</a>
           </div>
         </div>
       </div>
@@ -159,6 +138,23 @@ export default defineComponent({
         store.commit("setPatientEmpty");
         store.commit("setConsultationEmpty");
         store.commit("setVitalSignsEmpty");
+      } else if (dataType.value.type == "existing") {
+        await store.dispatch("fetchPatient", dataType.value.patient_id);
+        store.commit("setConsultationObjectEmpty");
+        store.commit("setConsultationEmpty");
+        store.commit("setVitalSignsEmpty");
+        store.dispatch(
+          "fetchPastHistory",
+          patient.value.past_history_id
+        );
+        store.dispatch(
+          "fetchFamilyHistory",
+          patient.value.family_history_id
+        );
+        await store.dispatch(
+          "fetchSocialHistory",
+          patient.value.social_history_id
+        );
       }
     };
     const singleConsultation = computed(
@@ -237,12 +233,54 @@ export default defineComponent({
       });
     };
 
+    const createNew = async () => {
+      swalConfirmation(
+        swal,
+        "Confirmation",
+        `Are you sure to save Patient Chart?`,
+        "question"
+      ).then(async (res: object) => {
+        if (res.isConfirmed) {
+          savingFlag.value = true;
+          await store.dispatch("updatePastHistory", pastHistory.value);
+          store.dispatch("updateFamilyHistory", familyHistory.value);
+          store.dispatch("updateSocialHistory", socialHistory.value);
+          store.dispatch("updatePatient", patient.value);
+          await store.dispatch("saveExisting", {
+            ...consultation.value,
+            ...vitalSigns.value,
+            created_by: authUser.value.id,
+            patient_id: patient.value.id,
+          });
+          resetter();
+          swalMessage(
+            swal,
+            "Information",
+            `Patient Chart Created Successfully!`,
+            "success"
+          ).then(() => {
+            router.push({ name: "concierge" });
+          });
+        }
+      });
+    }
+
     const processChart = async () => {
       if (dataType.value.type == "new") {
         await saveChart();
       } else if (dataType.value.type == "update") {
         await updateCart();
+      } else if (dataType.value.type == "existing") {
+        await createNew();
       }
+    };
+
+    const handleScroll = (event) => {
+      const headerHeight = 4 * 16; // 4rem in pixels
+      const scrollPosition = event.target.scrollTop;
+
+      // Adjust the scroll position
+      window.scrollTo(0, scrollPosition - headerHeight);
     };
 
     onMounted(async () => {
@@ -250,6 +288,7 @@ export default defineComponent({
       await store.dispatch("fetchAllPhysicians");
       const scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: "#side-sections",
+        smoothScroll: true,
       });
     });
     return {
@@ -259,6 +298,7 @@ export default defineComponent({
       singleConsultation,
       processChart,
       isLoading,
+      handleScroll,
     };
   },
 });
