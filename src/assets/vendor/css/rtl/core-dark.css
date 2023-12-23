@@ -26908,3 +26908,48 @@ a.bg-vimeo:focus {
 .navbar-nav a i {
   color: #cbcfe8 !important;
 }
+
+.layout-page nav {
+  background: #2f3348 !important;
+}
+
+.btn.btn-primary{
+  background: #6C4EEA !important;
+  color: #fff;
+}
+
+.lds-roller div:after{
+  background: #eee !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+  background: #2A3447 !important;
+}
+
+div:where(.swal2-container) h2:where(.swal2-title) {
+  color: #eaeff4 !important;
+}
+
+div:where(.swal2-container) .swal2-html-container {
+  /* semi light color */
+  color: #7c8fac !important;
+}
+
+.dark-color{
+  /* light color */
+  color: #eaeff4 !important;
+}
+
+.bg-white{
+  /* theme background */
+  background: #2A2C3F !important;
+}
+
+.loading{
+  background: #2A2C3F !important;
+}
+
+.cst-modal-body2 {
+  border-top: 10px solid #2A2C3F !important;
+  border-bottom: 10px solid #2A2C3F !important;
+}

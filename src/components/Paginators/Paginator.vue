@@ -1,6 +1,6 @@
 <template>
-    <div class="card w-100">
-        <div class="card-body m-0 p-3 d-flex justify-content-between align-items-center" id="card-body">
+    <div class="w-100">
+        <div class="m-0 p-3 d-flex justify-content-between align-items-center" id="card-body">
             <div>Total Records: {{ data.totalRecords }}</div>
             <div>
                 Page <span>{{ data.currentPage }} of {{ data.totalPages }}</span>
@@ -10,7 +10,7 @@
                 <ul class="pagination">
                     <li class="page-item" :class="{ disabled: data.currentPage == 1 }">
                         <a href="#" @click.prevent="goToPage(1)"
-                            class="page-link btn mb-1 waves-effect waves-light btn-outline-primary"
+                            class="page-link btn waves-effect waves-light btn-outline-primary rounded"
                             style="border-radius: 0px">
                             <span class="fa fa-angle-double-left"></span>
                         </a>
@@ -29,7 +29,7 @@
                     </li>
                     <li class="page-item" :class="{ disabled: data.currentPage == data.totalPages }">
                         <a href="#" @click.prevent="goToPage(data.totalPages)"
-                            class="page-link btn mb-1 waves-effect waves-light btn-outline-primary"
+                            class="page-link btn waves-effect waves-light btn-outline-primary rounded"
                             style="border-radius: 0px">
                             <span class="fa fa-angle-double-right"></span>
                         </a>
