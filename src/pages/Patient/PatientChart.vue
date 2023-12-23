@@ -43,8 +43,12 @@
     </div>
   </div>
   <loader :title="'Loading Patient Chart Data...'" v-if="isLoading" />
+  <loader
+    :title="dataType.type == 'update' ? 'Updating Patient Chart, Please wait...' : 'Creating Patient Chart, Please wait...'"
+    :warning="true" :create="true" v-if="savingFlag" />
   {{ dataType }}
   <pre>{{ singleConsultation }}</pre>
+  {{ isLock }}
 </template>
 
 <script lang="ts">
@@ -71,7 +75,7 @@ import Loader from "@/components/Loaders/Loader.vue";
 import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
 import { swalMessage, swalConfirmation } from "@/service";
-import { encryptData, decryptData, NumericOnly } from "@/service";
+import { encryptData, decryptData, NumericOnly, calculateAge } from "@/service";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 export default defineComponent({
@@ -91,11 +95,14 @@ export default defineComponent({
     Loader,
   },
   setup() {
-    // const isLock = inject("isLock");
-    // const calculateWidth = computed(() => {
-    //     return isLock.value ? "calc(100% - 16.25rem)" : "calc(100% - 5.25rem)";
-    // });
     const store = useStore();
+    const isLock = computed(() => store.getters.getSideLock);
+
+
+    const calculateWidth = computed(() => {
+      return isLock.value ? "calc(100% - 16.25rem)" : "calc(100% - 5.25rem)";
+    });
+
     const route = useRoute();
     const router = useRouter();
     const swal = inject("$swal");
@@ -104,6 +111,12 @@ export default defineComponent({
     const uriParams = decodeURIComponent(route.params.data);
     const dataType = ref({});
     const isLoading = ref(false);
+
+    const calculateAges = async () => {
+      const age = calculateAge(patient.value.birthdate);
+      store.commit("setAge", age);
+    };
+
     const decrypURLparams = async () => {
       dataType.value = await decryptData(uriParams);
       if (dataType.value.type == "update") {
@@ -129,6 +142,7 @@ export default defineComponent({
           "fetchSocialHistory",
           singleConsultation.value.social_history_id
         );
+        calculateAges();
         isLoading.value = false;
       } else if (dataType.value.type == "new") {
         store.commit("setConsultationObjectEmpty");
@@ -139,10 +153,12 @@ export default defineComponent({
         store.commit("setConsultationEmpty");
         store.commit("setVitalSignsEmpty");
       } else if (dataType.value.type == "existing") {
+        isLoading.value = true;
         await store.dispatch("fetchPatient", dataType.value.patient_id);
         store.commit("setConsultationObjectEmpty");
         store.commit("setConsultationEmpty");
         store.commit("setVitalSignsEmpty");
+        store.dispatch("fetchLatestVitals", patient.value.id)
         store.dispatch(
           "fetchPastHistory",
           patient.value.past_history_id
@@ -155,6 +171,8 @@ export default defineComponent({
           "fetchSocialHistory",
           patient.value.social_history_id
         );
+        calculateAges();
+        isLoading.value = false;
       }
     };
     const singleConsultation = computed(
@@ -299,6 +317,9 @@ export default defineComponent({
       processChart,
       isLoading,
       handleScroll,
+      savingFlag,
+      isLock,
+      calculateWidth
     };
   },
 });
@@ -311,7 +332,7 @@ export default defineComponent({
 
 .fam-med {
   position: fixed;
-  width: calc(100% - 5.25rem);
+  width: v-bind(calculateWidth);
   right: 0;
   z-index: 100;
 }

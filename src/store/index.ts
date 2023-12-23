@@ -6,6 +6,7 @@ import Patients from './modules/patients'
 import Physicians from './modules/physicians'
 import Chart from './modules/chart'
 import Existing from './modules/existing';
+import Settings from './modules/settings'
 const store = createStore({
     modules: {
         Routes,
@@ -13,7 +14,8 @@ const store = createStore({
         Patients,
         Physicians,
         Chart,
-        Existing
+        Existing,
+        Settings
     }
 });
 

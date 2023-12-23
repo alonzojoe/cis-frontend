@@ -92,6 +92,7 @@ const state = {
             cbg: '',
         },
 
+
         chartResponse: {},
         consultationObject: {}
 
@@ -317,6 +318,12 @@ const mutations = {
 
     setConsultationObjectEmpty: (state) => {
         state.data.consultationObject = {}
+    },
+
+    setLatestVitals: (state, payload) => {
+        state.data.vitalSigns.height = payload.height
+        state.data.vitalSigns.weight = payload.weight
+        state.data.vitalSigns.bmi = payload.bmi
     }
 }
 
@@ -512,7 +519,7 @@ const actions = {
     },
 
     async saveExisting({ commit }, payload) {
-      
+
         const response = await api.post('/chart/existing/create', {
 
             //consultation
@@ -545,6 +552,11 @@ const actions = {
         const response = await api.get(`/patient/consultation/${payload}`)
         commit('setConsultationObject', response.data.data)
         commit('setConsultation', response.data.data)
+    },
+
+    async fetchLatestVitals({commit}, payload) {
+        const response = await api.get(`/patient/latest/${payload}`);
+        commit('setLatestVitals', response.data.data);
     }
 }
 

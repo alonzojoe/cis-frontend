@@ -36,7 +36,9 @@
           <!-- Content -->
 
           <div class="flex-grow-1 container-p-y container-fluid my-0">
+
             <router-view />
+
           </div>
           <!-- / Content -->
 
@@ -81,7 +83,6 @@ export default defineComponent({
     const swal = inject("$swal");
     const router = useRouter();
     const route = useRoute();
-
     const hoverNav = (type) => {
       const htmlTag = document.querySelector("html");
       if (type == 1) {
