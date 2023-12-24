@@ -49,6 +49,31 @@
   {{ dataType }}
   <pre>{{ singleConsultation }}</pre>
   {{ isLock }}
+  <modal-sm :details="modalValidation" @close-modal="modalValidation.show = false">
+    <div class="px-5 row mt-3 mb-3">
+      <div class="col-12">
+        <div class="d-flex align-items-start gap-2">
+          <h3 class="mb-0">Validation Required </h3><i class="fs-2 ti ti-alert-triangle-filled text-warning"></i>
+        </div>
+        <hr />
+        <div class="col-12">
+          <div class="d-flex align-items-start flex-column">
+            <a href="#pinfo" @click="modalValidation.show = false" class="fs-5 fw-semibold text-success"><i
+                class="fa-solid fa-check"></i> Patient
+              Information</a>
+            <a href="#vital" @click="modalValidation.show = false" class="fs-5 fw-semibold text-danger"><i
+                class="fa-solid fa-xmark"></i> Vital Signs</a>
+            <a href="#soap" @click="modalValidation.show = false" class="fs-5 fw-semibold text-danger"><i
+                class="fa-solid fa-xmark"></i> SOAP</a>
+            <a href="#physician" @click="modalValidation.show = false" class="fs-5 fw-semibold text-danger"><i
+                class="fa-solid fa-xmark"></i> Consulting
+              Physician</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal-sm>
+  <button @click="modalValidation.show = true">dsadsa</button>
 </template>
 
 <script lang="ts">
@@ -73,6 +98,8 @@ import Soap from "./chart-components/Soap.vue";
 import Physician from "./chart-components/Physician.vue";
 import Loader from "@/components/Loaders/Loader.vue";
 import Toast from "primevue/toast";
+import ModalMd from "@/components/Modals/ModalMd.vue";
+import ModalSm from "@/components/Modals/ModalSm.vue";
 import { useToast } from "primevue/usetoast";
 import { swalMessage, swalConfirmation } from "@/service";
 import { encryptData, decryptData, NumericOnly, calculateAge } from "@/service";
@@ -93,6 +120,8 @@ export default defineComponent({
     Physician,
     Toast,
     Loader,
+    ModalMd,
+    ModalSm,
   },
   setup() {
     const store = useStore();
@@ -301,6 +330,11 @@ export default defineComponent({
       window.scrollTo(0, scrollPosition - headerHeight);
     };
 
+    const modalValidation = ref({
+      title: "Chart Validation",
+      show: true,
+    })
+
     onMounted(async () => {
       await decrypURLparams();
       await store.dispatch("fetchAllPhysicians");
@@ -319,7 +353,8 @@ export default defineComponent({
       handleScroll,
       savingFlag,
       isLock,
-      calculateWidth
+      calculateWidth,
+      modalValidation
     };
   },
 });

@@ -3,7 +3,7 @@
     <div class="row mt-4">
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Date of Consultation</label>
+          <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date & Time</label>
           <input type="datetime-local" class="form-control form-control-sm custom-font"
             v-model="consultation.consultation_datetime" />
           <!-- <div id="defaultFormControlHelp" class="form-text">
