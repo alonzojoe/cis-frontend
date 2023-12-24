@@ -74,9 +74,7 @@
         </div>
       </div>
     </div>
-    {{ validateVitals }}
   </titled-card>
-  <pre>{{ vitalSigns }}</pre>
 </template>
 
 <script lang="ts">

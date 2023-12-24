@@ -11,8 +11,8 @@
 
   <div class="row mt-6">
     <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
-      <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections"
-        data-bs-root-margin="-10% 0px -70%">
+      <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections" class="py-5 side-sections"
+        data-bs-root-margin="0% 0px -50%">
         <patient-information :validatePatient="validatePatient" :saveSubmitted="saveSubmitted" id="pinfo"
           :chartType="dataType.type" />
         <vital-signs :validateVitals="validateVitals" :saveSubmitted="saveSubmitted" class="mt-5" id="vital" />
@@ -48,9 +48,7 @@
   <loader
     :title="dataType.type == 'update' ? 'Updating Patient Chart, Please wait...' : 'Creating Patient Chart, Please wait...'"
     :warning="true" :create="true" v-if="savingFlag" />
-  {{ dataType }}
-  <pre>{{ singleConsultation }}</pre>
-  {{ isLock }}
+
   <modal-sm :details="modalValidation" @close-modal="modalValidation.show = false">
     <div class="px-5 row mt-3 mb-3">
       <div class="col-12">
@@ -59,7 +57,7 @@
         </div>
         <hr />
         <div class="col-12">
-          <div class="d-flex align-items-start flex-column">
+          <div class="d-flex align-items-start flex-column" id="side-sections">
             <a href="#pinfo" @click="modalValidation.show = false" class="fs-5 fw-semibold"
               :class="!chartErrors.patient ? 'text-danger' : 'text-success'"><i class="fa-solid"
                 :class="!chartErrors.patient ? 'fa-xmark' : 'fa-check'"></i> Patient
@@ -80,10 +78,7 @@
         </div>
       </div>
     </div>
-    {{ chartErrors }}
   </modal-sm>
-  <button @click="modalValidation.show = true">dsadsa</button>
-  {{ validatePatient }}
 </template>
 
 <script lang="ts">
@@ -378,6 +373,7 @@ export default defineComponent({
       await store.dispatch("fetchAllPhysicians");
       const scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: "#side-sections",
+        offset: 4 * 16,
         smoothScroll: true,
       });
     });
@@ -424,5 +420,12 @@ export default defineComponent({
 
 .mt-6 {
   margin-top: 5rem !important;
+}
+
+.side-sections {
+  position: relative;
+  height: 400rem;
+  overflow: auto;
+  z-index: 1,
 }
 </style>

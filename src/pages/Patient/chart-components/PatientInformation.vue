@@ -108,11 +108,7 @@
         </div>
       </div>
     </div>
-    {{ validatePatient }}
-    {{ saveSubmitted }}
   </titled-card>
-  <pre>{{ patient }}</pre>
-  <pre>{{ consultation }}</pre>
 </template>
 
 <script lang="ts">

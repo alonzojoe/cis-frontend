@@ -118,7 +118,7 @@ export const validateFields = async (toast, formData, type) => {
     const requiredFields = [
         { payload: 'consultation_datetime', message: 'Consultation Date & Time' },
         { payload: 'payment_type', message: 'Payment Type' },
-        { payload: 'lname', message: 'Middle Name' },
+        { payload: 'lname', message: 'Last Name' },
         { payload: 'fname', message: 'First Name' },
         { payload: 'birthdate', message: 'Birthdate' },
         { payload: 'height', message: 'Height' },
