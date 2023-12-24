@@ -2,8 +2,9 @@
   <titled-card class="mt-5 mb-5" title="Consulting Physician" id="physician">
     <div class="row mt-4">
       <div class="col-sm-12 col-md-12 col-lg-12">
-        <div>
-          <label class="form-label fs-5 mb-2 fw-semibold">Select Consulting Physician</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePhysician.physician_id }">
+          <label class="form-label fs-5 mb-2 fw-semibold">Select Consulting Physician <span
+              class="text-danger">*</span></label>
           <select class="form-control form-select" id="select-phy" ref="selectRef" v-model="consultation.physician_id"
             autocomplete="off">
             <option value="">Please Select</option>
@@ -27,6 +28,10 @@ import TomSelect from 'tom-select';
 import 'tom-select/dist/css/tom-select.bootstrap5.min.css';
 export default defineComponent({
   name: "Physician",
+  props: {
+    validatePhysician: Object,
+    saveSubmitted: Boolean,
+  },
   components: {
     TitledCard,
     Textarea,

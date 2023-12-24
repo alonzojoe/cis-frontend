@@ -13,14 +13,16 @@
     <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
       <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections"
         data-bs-root-margin="-10% 0px -70%">
-        <patient-information id="pinfo" :chartType="dataType.type" />
-        <vital-signs class="mt-5" id="vital" />
+        <patient-information :validatePatient="validatePatient" :saveSubmitted="saveSubmitted" id="pinfo"
+          :chartType="dataType.type" />
+        <vital-signs :validateVitals="validateVitals" :saveSubmitted="saveSubmitted" class="mt-5" id="vital" />
         <past-history class="mt-5" id="past" />
         <family-history class="mt-5" id="fam" />
         <social-history class="mt-5" id="soc" />
         <vaccination class="mt-5" id="vac" />
-        <soap class="mt-5" id="soap" />
-        <physician class="mt-5 mb-5" id="physician" />
+        <soap :validateSoap="validateSoap" :saveSubmitted="saveSubmitted" class="mt-5" id="soap" />
+        <physician :validatePhysician="validatePhysician" :saveSubmitted="saveSubmitted" class="mt-5 mb-5"
+          id="physician" />
       </div>
     </div>
     <div class="col-lg-1">
@@ -58,22 +60,30 @@
         <hr />
         <div class="col-12">
           <div class="d-flex align-items-start flex-column">
-            <a href="#pinfo" @click="modalValidation.show = false" class="fs-5 fw-semibold text-success"><i
-                class="fa-solid fa-check"></i> Patient
+            <a href="#pinfo" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+              :class="!chartErrors.patient ? 'text-danger' : 'text-success'"><i class="fa-solid"
+                :class="!chartErrors.patient ? 'fa-xmark' : 'fa-check'"></i> Patient
               Information</a>
-            <a href="#vital" @click="modalValidation.show = false" class="fs-5 fw-semibold text-danger"><i
-                class="fa-solid fa-xmark"></i> Vital Signs</a>
-            <a href="#soap" @click="modalValidation.show = false" class="fs-5 fw-semibold text-danger"><i
-                class="fa-solid fa-xmark"></i> SOAP</a>
-            <a href="#physician" @click="modalValidation.show = false" class="fs-5 fw-semibold text-danger"><i
-                class="fa-solid fa-xmark"></i> Consulting
+            <a href="#vital" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+              :class="!chartErrors.vitals ? 'text-danger' : 'text-success'"><i class="fa-solid"
+                :class="!chartErrors.vitals ? 'fa-xmark' : 'fa-check'"></i> Vital
+              Signs</a>
+            <a href="#soap" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+              :class="!chartErrors.soap ? 'text-danger' : 'text-success'"><i class="fa-solid"
+                :class="!chartErrors.soap ? 'fa-xmark' : 'fa-check'"></i> SOAP</a>
+            <a href="#physician" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+              :class="!chartErrors.physician ? 'text-danger' : 'text-success'"><i class="fa-solid"
+                :class="!chartErrors.physician ? 'fa-xmark' : 'fa-check'"></i>
+              Consulting
               Physician</a>
           </div>
         </div>
       </div>
     </div>
+    {{ chartErrors }}
   </modal-sm>
   <button @click="modalValidation.show = true">dsadsa</button>
+  {{ validatePatient }}
 </template>
 
 <script lang="ts">
@@ -105,6 +115,7 @@ import { swalMessage, swalConfirmation } from "@/service";
 import { encryptData, decryptData, NumericOnly, calculateAge } from "@/service";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
+import { validateFields, validatePatient, validateVitals, validateSoap, validatePhysician } from "./Validations/chartValidation"
 export default defineComponent({
   name: "PatientChart",
   components: {
@@ -312,15 +323,42 @@ export default defineComponent({
       });
     }
 
+    const saveSubmitted = ref(false);
+    const chartErrors = ref({})
     const processChart = async () => {
-      if (dataType.value.type == "new") {
-        await saveChart();
-      } else if (dataType.value.type == "update") {
-        await updateCart();
-      } else if (dataType.value.type == "existing") {
-        await createNew();
+      saveSubmitted.value = true
+      const errors = await validateFields(toast, {
+        ...patient.value,
+        ...consultation.value,
+        ...vitalSigns.value,
+      }, 0);
+      console.log(errors.value)
+      chartErrors.value = errors.value.sections
+      if (errors.value.count == 0) {
+        if (dataType.value.type == "new") {
+          await saveChart();
+        } else if (dataType.value.type == "update") {
+          await updateCart();
+        } else if (dataType.value.type == "existing") {
+          await createNew();
+        }
+      } else {
+        modalValidation.value.show = true
       }
     };
+
+    watch(() => {
+      patient.value;
+      consultation.value;
+      vitalSigns.value;
+      if (saveSubmitted.value == true) {
+        validateFields(toast, {
+          ...patient.value,
+          ...consultation.value,
+          ...vitalSigns.value,
+        }, 1);
+      }
+    }, { deep: true })
 
     const handleScroll = (event) => {
       const headerHeight = 4 * 16; // 4rem in pixels
@@ -332,7 +370,7 @@ export default defineComponent({
 
     const modalValidation = ref({
       title: "Chart Validation",
-      show: true,
+      show: false,
     })
 
     onMounted(async () => {
@@ -354,7 +392,13 @@ export default defineComponent({
       savingFlag,
       isLock,
       calculateWidth,
-      modalValidation
+      modalValidation,
+      validatePatient,
+      validateVitals,
+      validateSoap,
+      validatePhysician,
+      saveSubmitted,
+      chartErrors
     };
   },
 });

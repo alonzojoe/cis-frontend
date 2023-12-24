@@ -32,6 +32,9 @@
 }
 
 .group-invalid > input,
+.group-invalid > textarea,
+.group-invalid > TextArea,
+.group-invalid > .ts-wrapper,
 .group-invalid > select {
   animation: shake 0.4s 1; /* Shake for 0.2 seconds, 2 times */
   border-color: #ff0026 !important;

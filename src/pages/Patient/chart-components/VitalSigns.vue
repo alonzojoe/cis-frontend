@@ -2,62 +2,35 @@
   <titled-card class="mt-5" title="Vital Signs" id="vital">
     <div class="row mt-4">
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Height (cm)</label>
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.height"
-          />
+        <div :class="{ 'group-invalid': saveSubmitted && !validateVitals.height }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Height (cm) <span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.height" />
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <div :class="{ 'group-invalid': saveSubmitted && !validateVitals.weight }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Weight (kg) <span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.weight" />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Weight (kg)</label>
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.weight"
-          />
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold"
-            >BMI (Body Mass Index)</label
-          >
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.bmi"
-          />
+          <label class="form-label fs-6 mb-2 fw-semibold">BMI (Body Mass Index)</label>
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.bmi" />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Blood Pressure</label>
           <div class="d-flex gap-1">
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              @keypress="NumericOnly"
-              @paste="handlePaste"
-              v-model="vitalSigns.bp_f"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly"
+              @paste="handlePaste" v-model="vitalSigns.bp_f" />
             <span>/</span>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              @keypress="NumericOnly"
-              @paste="handlePaste"
-              v-model="vitalSigns.bp_s"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly"
+              @paste="handlePaste" v-model="vitalSigns.bp_s" />
           </div>
         </div>
       </div>
@@ -65,58 +38,30 @@
     <div class="row mt-3">
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold"
-            >Oxygen Saturation</label
-          >
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.oxygen_saturation"
-          />
+          <label class="form-label fs-6 mb-2 fw-semibold">Oxygen Saturation</label>
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.oxygen_saturation" />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold"
-            >Temperature (°C)</label
-          >
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.temperature"
-          />
+          <label class="form-label fs-6 mb-2 fw-semibold">Temperature (°C)</label>
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.temperature" />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold"
-            >Respiratory Rate (RR)</label
-          >
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.respiratory_rate"
-          />
+          <label class="form-label fs-6 mb-2 fw-semibold">Respiratory Rate (RR)</label>
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.respiratory_rate" />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
-          <label class="form-label fs-6 mb-2 fw-semibold"
-            >Pulse Rate (PR)</label
-          >
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.pulse_rate"
-          />
+          <label class="form-label fs-6 mb-2 fw-semibold">Pulse Rate (PR)</label>
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.pulse_rate" />
         </div>
       </div>
     </div>
@@ -124,16 +69,12 @@
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">CBG (mg/dl)</label>
-          <input
-            type="text"
-            class="form-control form-control-sm custom-font"
-            @keypress="NumericOnly"
-            @paste="handlePaste"
-            v-model="vitalSigns.cbg"
-          />
+          <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
+            v-model="vitalSigns.cbg" />
         </div>
       </div>
     </div>
+    {{ validateVitals }}
   </titled-card>
   <pre>{{ vitalSigns }}</pre>
 </template>
@@ -152,6 +93,10 @@ import {
 import moment from "moment";
 export default defineComponent({
   name: "VitalSigns",
+  props: {
+    validateVitals: Object,
+    saveSubmitted: Boolean,
+  },
   components: {
     TitledCard,
     Textarea,

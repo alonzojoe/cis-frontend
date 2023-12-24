@@ -163,7 +163,7 @@ export const trimZeroes = (num) => {
 export const calculateAge = (selectedDate) => {
     const birthDate = moment(selectedDate);
     const currentDate = moment();
-
+    
     const years = currentDate.diff(birthDate, 'years');
     birthDate.add(years, 'years');
 

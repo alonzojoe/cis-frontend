@@ -2,8 +2,9 @@
   <titled-card title="Patient Information" id="pinfo">
     <div class="row mt-4">
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date & Time</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePatient.consultation_datetime }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date & Time <span
+              class="text-danger">*</span></label>
           <input type="datetime-local" class="form-control form-control-sm custom-font"
             v-model="consultation.consultation_datetime" />
           <!-- <div id="defaultFormControlHelp" class="form-text">
@@ -19,8 +20,8 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Payment Type</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePatient.payment_type }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Payment Type <span class="text-danger">*</span></label>
           <select class="form-control form-select-sm custom-font form-select" v-model="consultation.payment_type">
             <option value="">Please Select</option>
             <option value="CASH">CASH</option>
@@ -31,15 +32,15 @@
     </div>
     <div class="row mt-3">
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePatient.lname }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Last Name <span class="text-danger">*</span></label>
           <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
             v-model="patient.lname" />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePatient.fname }">
+          <label class="form-label fs-6 mb-2 fw-semibold">First Name <span class="text-danger">*</span></label>
           <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
             v-model="patient.fname" />
         </div>
@@ -61,8 +62,8 @@
     </div>
     <div class="row mt-3">
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePatient.birthdate }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Birthdate <span class="text-danger">*</span></label>
           <input type="date" :max="currentDate" @change="calculateAges()" class="form-control form-control-sm custom-font"
             v-model="patient.birthdate" />
         </div>
@@ -74,8 +75,8 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Gender</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePatient.gender }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Gender <span class="text-danger">*</span></label>
           <select class="form-control form-select-sm custom-font form-select" v-model="patient.gender">
             <option value="">Please Select</option>
             <option value="MALE">MALE</option>
@@ -100,13 +101,15 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6">
-        <div>
-          <label class="form-label fs-6 mb-2 fw-semibold">Chief Complaint</label>
+        <div :class="{ 'group-invalid': saveSubmitted && !validatePatient.chief_complaint }">
+          <label class="form-label fs-6 mb-2 fw-semibold">Chief Complaint <span class="text-danger">*</span></label>
           <Textarea v-model="consultation.chief_complaint" class="form-control form-control-sm custom-font cst-capital"
             autoResize rows="5" cols="30" />
         </div>
       </div>
     </div>
+    {{ validatePatient }}
+    {{ saveSubmitted }}
   </titled-card>
   <pre>{{ patient }}</pre>
   <pre>{{ consultation }}</pre>
@@ -123,6 +126,8 @@ export default defineComponent({
   name: "PatientInformation",
   props: {
     chartType: String,
+    validatePatient: Object,
+    saveSubmitted: Boolean,
   },
   components: {
     TitledCard,
@@ -135,8 +140,11 @@ export default defineComponent({
     const currentDate = moment(Date.now()).format("yyyy-MM-DD");
 
     const calculateAges = async () => {
-      const age = calculateAge(patient.value.birthdate);
-      store.commit("setAge", age);
+      if (patient.value.birthdate) {
+        const age = calculateAge(patient.value.birthdate);
+        store.commit("setAge", age);
+      }
+
     };
 
     onMounted(async () => {
