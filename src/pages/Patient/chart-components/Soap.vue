@@ -4,7 +4,7 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div :class="{ 'group-invalid': saveSubmitted && !validateSoap.subjective }">
           <label class="form-label fs-5 mb-2 fw-semibold">Subjective <span class="text-danger">*</span></label>
-          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="5" cols="30"
+          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="4" cols="30"
             v-model="consultation.subjective" />
         </div>
       </div>
@@ -13,7 +13,7 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div :class="{ 'group-invalid': saveSubmitted && !validateSoap.objective }">
           <label class="form-label fs-5 mb-2 fw-semibold">Objective <span class="text-danger">*</span></label>
-          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="5" cols="30"
+          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="4" cols="30"
             v-model="consultation.objective" />
         </div>
       </div>
@@ -22,7 +22,7 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div :class="{ 'group-invalid': saveSubmitted && !validateSoap.assessment }">
           <label class="form-label fs-5 mb-2 fw-semibold">Assessment <span class="text-danger">*</span></label>
-          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="5" cols="30"
+          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="4" cols="30"
             v-model="consultation.assessment" />
         </div>
       </div>
@@ -31,7 +31,7 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div :class="{ 'group-invalid': saveSubmitted && !validateSoap.plan }">
           <label class="form-label fs-5 mb-2 fw-semibold">Plan <span class="text-danger">*</span></label>
-          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="5" cols="30"
+          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="4" cols="30"
             v-model="consultation.plan" />
         </div>
       </div>

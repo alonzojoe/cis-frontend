@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-3 mb-5">
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">CBG (mg/dl)</label>
@@ -73,6 +73,10 @@
             v-model="vitalSigns.cbg" />
         </div>
       </div>
+      <div class="mb-5">
+        <span></span>
+      </div>
+      <span></span>
     </div>
   </titled-card>
 </template>

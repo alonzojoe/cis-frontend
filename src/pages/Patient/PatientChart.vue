@@ -12,7 +12,7 @@
   <div class="row mt-6">
     <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
       <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections" class="py-5 side-sections"
-        data-bs-root-margin="0% 0px -50%">
+        data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true">
         <patient-information :validatePatient="validatePatient" :saveSubmitted="saveSubmitted" id="pinfo"
           :chartType="dataType.type" />
         <vital-signs :validateVitals="validateVitals" :saveSubmitted="saveSubmitted" class="mt-5" id="vital" />
@@ -28,17 +28,19 @@
     <div class="col-lg-1">
       <div class="card position-fixed w-100">
         <div class="card-body p-2">
+          <button @click="scrollingDown()">tick</button>
+
           <h5 class="card-title py-0 my-0 p-2 mb-1">Sections</h5>
           <hr class="mt-0" />
           <div class="list-group list-group-flush" id="side-sections">
-            <a href="#pinfo" class="list-group-item list-group-item-action">Patient Info</a>
-            <a href="#vital" class="list-group-item list-group-item-action">Vital Signs</a>
+            <a ref="linkPinfo" href="#pinfo" class="list-group-item list-group-item-action">Patient Info</a>
+            <a ref="linkVital" href="#vital" class="list-group-item list-group-item-action">Vital Signs</a>
             <a href="#past" class="list-group-item list-group-item-action">Past History</a>
             <a href="#fam" class="list-group-item list-group-item-action">Family History</a>
             <a href="#soc" class="list-group-item list-group-item-action">Social History</a>
             <a href="#vac" class="list-group-item list-group-item-action">Vaccination</a>
-            <a href="#soap" class="list-group-item list-group-item-action">SOAP</a>
-            <a href="#physician" class="list-group-item list-group-item-action">Physician</a>
+            <a ref="linkSoap" href="#soap" class="list-group-item list-group-item-action">SOAP</a>
+            <a ref="linkPhy" href="#physician" class="list-group-item list-group-item-action">Physician</a>
           </div>
         </div>
       </div>
@@ -58,18 +60,18 @@
         <hr />
         <div class="col-12">
           <div class="d-flex align-items-start flex-column" id="side-sections">
-            <a href="#pinfo" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+            <a href="javascript:void(0);" @click="scrollingDown('pinfo')" class="fs-5 fw-semibold"
               :class="!chartErrors.patient ? 'text-danger' : 'text-success'"><i class="fa-solid"
                 :class="!chartErrors.patient ? 'fa-xmark' : 'fa-check'"></i> Patient
               Information</a>
-            <a href="#vital" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+            <a href="javascript:void(0);" @click="scrollingDown('vital')" class="fs-5 fw-semibold"
               :class="!chartErrors.vitals ? 'text-danger' : 'text-success'"><i class="fa-solid"
                 :class="!chartErrors.vitals ? 'fa-xmark' : 'fa-check'"></i> Vital
               Signs</a>
-            <a href="#soap" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+            <a href="javascript:void(0);" @click="scrollingDown('soap')" class="fs-5 fw-semibold"
               :class="!chartErrors.soap ? 'text-danger' : 'text-success'"><i class="fa-solid"
                 :class="!chartErrors.soap ? 'fa-xmark' : 'fa-check'"></i> SOAP</a>
-            <a href="#physician" @click="modalValidation.show = false" class="fs-5 fw-semibold"
+            <a href="javascript:void(0);" @click="scrollingDown('physician')" class="fs-5 fw-semibold"
               :class="!chartErrors.physician ? 'text-danger' : 'text-success'"><i class="fa-solid"
                 :class="!chartErrors.physician ? 'fa-xmark' : 'fa-check'"></i>
               Consulting
@@ -223,6 +225,8 @@ export default defineComponent({
     const socialHistory = computed(() => store.getters.getSocialHistory);
     const savingFlag = ref(false);
     const resetter = () => {
+      modalValidation.show = false
+      saveSubmitted.value = false
       savingFlag.value = false;
     };
     const saveChart = async () => {
@@ -368,14 +372,52 @@ export default defineComponent({
       show: false,
     })
 
+    const linkPhy = ref(null)
+    const linkPinfo = ref(null)
+    const linkSoap = ref(null)
+    const linkVital = ref(null)
+    const scrollTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth', // Use smooth scroll behavior if supported
+      });
+    }
+    const scrollingDown = async (type) => {
+      // linkPhy.value.click();
+
+
+
+      setTimeout(() => {
+        if (type == 'pinfo') {
+          linkPinfo.value.click();
+        } else if (type == 'vital') {
+          scrollTop()
+          linkVital.value.click();
+        } else if (type == 'soap') {
+          scrollTop()
+          linkSoap.value.click();
+        } else if (type == 'physician') {
+          scrollTop();
+          linkPhy.value.click();
+
+        }
+
+        modalValidation.value.show = false
+      }, 200);
+
+    }
+
     onMounted(async () => {
+      resetter();
       await decrypURLparams();
       await store.dispatch("fetchAllPhysicians");
       const scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: "#side-sections",
         offset: 4 * 16,
         smoothScroll: true,
+        threshold: [0.1, 0.5, 1]
       });
+
     });
     return {
       dataType,
@@ -394,7 +436,12 @@ export default defineComponent({
       validateSoap,
       validatePhysician,
       saveSubmitted,
-      chartErrors
+      chartErrors,
+      linkPhy,
+      scrollingDown,
+      linkPinfo,
+      linkSoap,
+      linkVital,
     };
   },
 });
@@ -424,7 +471,7 @@ export default defineComponent({
 
 .side-sections {
   position: relative;
-  height: 400rem;
+  height: 300rem;
   overflow: auto;
   z-index: 1,
 }

@@ -3,19 +3,16 @@
     <div class="row mt-4">
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div>
-          <label class="form-label fs-5 mb-2 fw-semibold"
-            >Vaccination Details</label
-          >
-          <Textarea
-            class="form-control form-control-sm custom-font cst-capital"
-            autoResize
-            rows="5"
-            cols="30"
-            v-model="patient.vaccination"
-          />
+          <label class="form-label fs-5 mb-2 fw-semibold">Vaccination Details</label>
+          <Textarea class="form-control form-control-sm custom-font cst-capital" autoResize rows="7" cols="30"
+            v-model="patient.vaccination" />
         </div>
       </div>
     </div>
+    <div class="mb-5">
+      <span></span>
+    </div>
+    <span></span>
   </titled-card>
 </template>
 
