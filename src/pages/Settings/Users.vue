@@ -299,7 +299,7 @@ export default defineComponent({
             if (form.id == 0) {
                 const res = await api.get(`/user/check/${form.email}`);
                 if (res.data.data != 0) {
-                    swalMessage(swal, 'Warning', `Email is already exists.`, 'warning')
+                    swalMessage(swal, 'Warning', `Email already exists.`, 'warning')
                 }
                 return res.data.data === 0;
             }
