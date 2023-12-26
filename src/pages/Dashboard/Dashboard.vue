@@ -151,7 +151,7 @@
                     <i class="ti ti-check ti-sm"></i>
                   </div>
                   <div>
-                    <h6 class="mb-0 text-nowrap fs-5">Total No of Active Consultation</h6>
+                    <h6 class="mb-0 text-nowrap fs-5">Total No of Consultation</h6>
                     <span class="fs-5">{{ count.active }}</span>
                   </div>
                 </li>

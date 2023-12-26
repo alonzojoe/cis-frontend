@@ -205,6 +205,7 @@ import Loader from '@/components/Loaders/Loader.vue'
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
 import { validateFields, validationStatus } from "@/pages/Settings/Validations/usersValidation";
+import api from "@/api"
 export default defineComponent({
     name: "Users",
     components: {
@@ -294,6 +295,17 @@ export default defineComponent({
             saveSubmitted.value = false;
         }
 
+        const checkEmail = async (form) => {
+            if (form.id == 0) {
+                const res = await api.get(`/user/check/${form.email}`);
+                if (res.data.data != 0) {
+                    swalMessage(swal, 'Warning', `Email is already exists.`, 'warning')
+                }
+                return res.data.data === 0;
+            }
+            return true;
+        };
+
         const swal = inject("$swal");
         const formData = computed(() => store.getters.getFormUser);
         const savingFlag = ref(false);
@@ -303,6 +315,10 @@ export default defineComponent({
             const errors = await validateFields(toast, formData.value, 0);
 
             if (errors.value == 0) {
+                const validateEmail = await checkEmail(formData.value);
+                if (!validateEmail) {
+                    return;
+                }
                 const confirmMessage = formData.value.id == 0 ? 'save' : 'update';
                 const message = formData.value.id == 0 ? 'added' : 'updated';
                 swalConfirmation(swal, 'Confirmation', `Are you sure to ${confirmMessage} user record?`, 'question').then(async (res) => {
