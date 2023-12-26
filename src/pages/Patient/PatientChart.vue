@@ -1,6 +1,6 @@
 <template>
   <Toast />
-  <div class="bg-primary fam-med p-2 px-3" style="top: 4rem">
+  <div class="bg-primary fam-med p-2 px-3" style="top: 3.8rem">
     <div class="d-flex justify-content-between align-items-center">
       <span class="fs-2 text-white fw-semibold">Family Medicine - Patient Chart</span>
       <button class="btn btn-warning btn-sm" @click="processChart()">
@@ -385,25 +385,27 @@ export default defineComponent({
     const scrollingDown = async (type) => {
       // linkPhy.value.click();
 
+      scrollTop();
+      if (type == 'pinfo') {
+        linkPinfo.value.click();
+      } else if (type == 'vital') {
+        scrollTop()
+        linkVital.value.click();
+      } else if (type == 'soap') {
+        scrollTop()
+        linkSoap.value.click();
+      } else if (type == 'physician') {
+        await scrollTop();
+        linkPhy.value.click();
+
+      }
+
+      modalValidation.value.show = false
 
 
-      setTimeout(() => {
-        if (type == 'pinfo') {
-          linkPinfo.value.click();
-        } else if (type == 'vital') {
-          scrollTop()
-          linkVital.value.click();
-        } else if (type == 'soap') {
-          scrollTop()
-          linkSoap.value.click();
-        } else if (type == 'physician') {
-          scrollTop();
-          linkPhy.value.click();
 
-        }
-
-        modalValidation.value.show = false
-      }, 200);
+      // setTimeout(async () => {
+      // }, 200);
 
     }
 
