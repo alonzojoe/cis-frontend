@@ -1,6 +1,7 @@
 <template>
+  {{ count }}
   <div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-4 mb-4">
       <div class="swiper-container swiper-container-horizontal swiper swiper-card-advance-bg"
         id="swiper-with-pagination-cards">
         <div class="swiper-wrapper">
@@ -49,13 +50,13 @@
         </div>
       </div>
     </div>
-    <!--/ Website Analytics -->
-    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+
+    <div class="col-sm-12 col-md-12 col-lg-4 mb-4">
       <div class="card">
         <div class="card-body pb-0">
           <div class="d-flex align-items-center justify-content-between">
             <div class="card-text">
-              <h3 class="card-title mb-0 mt-2 mb-3">97.5k</h3>
+              <h3 class="card-title mb-0 mt-2 mb-3 fs-1">{{ count.users }}</h3>
               <span class="fs-4">Total No. of Registered User</span>
               <div class="mb-5">
                 <span></span>
@@ -68,18 +69,15 @@
             </div>
           </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center mb-3">
-          <!-- <img src="../../assets/logos/line.webp" class="img-fluid" width="100%" /> -->
-        </div>
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-4 mb-4">
       <div class="card">
         <div class="card-body pb-0">
           <div class="d-flex align-items-center justify-content-between">
             <div class="card-text">
-              <h3 class="card-title mb-0 mt-2 mb-3">97.5k</h3>
+              <h3 class="card-title mb-0 mt-2 mb-3 fs-1">{{ count.physicians }}</h3>
               <span class="fs-4">Total No. of Physicians</span>
               <div class="mb-5">
                 <span></span>
@@ -92,15 +90,12 @@
             </div>
           </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center mb-3">
-          <!-- <img src="../../assets/logos/line.webp" class="img-fluid" width="100%" /> -->
-        </div>
       </div>
     </div>
 
 
     <!-- Earning Reports -->
-    <div class="col-lg-8 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-8 mb-4">
       <div class="card h-100">
         <div class="card-header pb-0 d-flex justify-content-between mb-lg-n4">
           <div class="card-title mb-0">
@@ -116,7 +111,7 @@
     <!--/ Earning Reports -->
 
     <!-- Support Tracker -->
-    <div class="col-lg-4 mb-4">
+    <div class="col-sm12 col-md-12 col-lg-4 mb-4">
       <div class="card h-100">
         <div class="card-header d-flex justify-content-between pb-0">
           <div class="card-title mb-0">
@@ -138,7 +133,7 @@
           <div class="row">
             <div class="col-12 col-sm-4 col-md-12 col-lg-4">
               <div class="mt-lg-4 mt-lg-2 mb-lg-4 mb-2 pt-1">
-                <h1 class="mb-0">164</h1>
+                <h1 class="mb-0">{{ count.tracker }}</h1>
                 <p class="mb-0 fs-3">Total</p>
               </div>
               <ul class="p-0 m-0">
@@ -148,25 +143,25 @@
                   </div>
                   <div>
                     <h6 class="mb-0 text-nowrap fs-5">Total No of Registered Patients</h6>
-                    <span class="fs-5">142</span>
+                    <span class="fs-5">{{ count.patients }}</span>
                   </div>
                 </li>
                 <li class="d-flex gap-3 align-items-center mb-lg-3 pb-1">
-                  <div class="badge rounded bg-label-info p-1">
-                    <i class="ti ti-circle-check ti-sm"></i>
+                  <div class="badge rounded bg-label-success p-1">
+                    <i class="ti ti-check ti-sm"></i>
                   </div>
                   <div>
                     <h6 class="mb-0 text-nowrap fs-5">Total No of Active Consultation</h6>
-                    <span class="fs-5">28</span>
+                    <span class="fs-5">{{ count.active }}</span>
                   </div>
                 </li>
                 <li class="d-flex gap-3 align-items-center pb-1">
-                  <div class="badge rounded bg-label-warning p-1">
+                  <div class="badge rounded bg-label-danger p-1">
                     <i class="ti ti-clock ti-sm"></i>
                   </div>
                   <div>
                     <h6 class="mb-0 text-nowrap fs-5">Total No of Inactive Consultation</h6>
-                    <span class="fs-5">23</span>
+                    <span class="fs-5">{{ count.inactive }}</span>
                   </div>
                 </li>
               </ul>
@@ -183,9 +178,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
 import TitledCard from "@/components/Cards/TitledCard.vue"
 import Chart from 'primevue/chart';
+import { useStore } from "vuex";
 export default defineComponent({
   name: 'Dashboard',
   components: {
@@ -196,13 +192,19 @@ export default defineComponent({
 
     const chartData = ref();
     const chartOptions = ref();
+    const store = useStore();
+    const count = computed(() => store.getters.getCounts)
+
+    const fetchDashboard = async () => {
+      await store.dispatch('getDashboardData')
+    }
 
     const setChartData = () => {
       return {
         labels: ['Q1', 'Q2', 'Q3', 'Q4'],
         datasets: [
           {
-            label: 'Sales',
+            label: 'No. of Patients',
             data: [540, 325, 702, 620],
             backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
             borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
@@ -247,14 +249,16 @@ export default defineComponent({
       };
     }
 
-    onMounted(() => {
+    onMounted(async () => {
+      await fetchDashboard();
       chartData.value = setChartData();
       chartOptions.value = setChartOptions();
     });
 
     return {
       chartData,
-      chartOptions
+      chartOptions,
+      count
     };
   },
 });
