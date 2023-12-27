@@ -247,9 +247,9 @@ export default defineComponent({
     const setChartData = () => {
       return {
         labels: [
-          "No. of Registered Patients",
-          "No. of Consultation",
-          "No. of Inactive Consultation",
+          "Registered Patients",
+          "Consultation",
+          "Inactive Consultation",
         ],
         datasets: [
           {
@@ -323,4 +323,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.swiper-card-advance-bg {
+  background: #19b8f1 !important;
+}
+</style>
