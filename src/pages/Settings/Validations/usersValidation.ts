@@ -44,6 +44,23 @@ export const validateFields = async (toast, formData, type) => {
         delete validationStatus.value.mismatch
     }
 
+    // Email validation
+    const emailFormat = /\S+@\S+\.\S+/;
+    const emailMismatch = { payload: 'email', message: 'Invalid email format' };
+    // if (!emailFormat.test(formData.email)) {
+    //     requiredFields.push(emailMismatch);
+    //     validationStatus.value.validEmail = true;
+    //     if (type !== 1) {
+    //         toast.add({
+    //             severity: 'error',
+    //             summary: 'Validation Error:',
+    //             detail: 'Invalid email format',
+    //             life: 3000,
+    //         });
+    //     }
+    // } else {
+    //     delete validationStatus.value.validEmail;
+    // }
 
 
     validateChecker(formData)
@@ -57,6 +74,20 @@ export const validateFields = async (toast, formData, type) => {
                 toast.add({ severity: 'error', summary: 'Field Required:', detail: `${r.message}`, life: 3000 });
             }
             return false;
+        } else if (!emailFormat.test(formData.email)) {
+            requiredFields.push(emailMismatch);
+            errors.value++
+            if (type !== 1) {
+                toast.add({
+                    severity: 'error',
+                    summary: 'Validation Error:',
+                    detail: 'Invalid email format',
+                    life: 3000,
+                });
+            }
+            return false;
+
+
         }
         return true;
     })
