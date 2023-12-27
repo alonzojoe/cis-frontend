@@ -20,7 +20,7 @@
               <img src="../../assets/logos/camarin-logo.png" height="90px" width="90px" class="img-fluid" />
             </a>
           </div>
-          <p class="cdh-text fw-bolder fs-3 mb-1">Camarin Doctos Hospital</p>
+          <p class="cdh-text fw-bolder fs-3 mb-1">Camarin Doctors Hospital</p>
           <h3 class="mb-2 fw-bold">Clinic Information System</h3>
           <p class="mb-3">Please login your account.</p>
 

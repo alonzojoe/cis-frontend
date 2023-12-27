@@ -20,7 +20,7 @@
               d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
               fill="#7367F0"></path>
           </svg> -->
-          <img src="../../assets/logos/clinic-logo.png" height="22" width="22" alt="" />
+          <img src="../../assets/logos/camarin-logo.png" class="bg-white" height="22" width="22" alt="" />
         </span>
         <span class="app-brand-text demo menu-text fw-bold">V-CIS</span>
       </router-link>
