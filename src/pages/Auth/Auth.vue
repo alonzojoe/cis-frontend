@@ -1,8 +1,7 @@
 <template>
   <div class="authentication-wrapper authentication-cover authentication-bg">
     <div class="authentication-inner row">
-      <div class="d-none d-lg-flex col-lg-8 p-0 bg-left align-items-center justify-content-center"
-        style="background: #7367f0">
+      <div class="d-none d-lg-flex col-lg-8 p-0 bg-left align-items-center justify-content-center">
         <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
           <!-- <img
             src="../../assets/images/bg.jpg"
@@ -18,12 +17,12 @@
         <div class="w-px-400 mx-auto">
           <div class="app-brand mb-4">
             <a href="javascript:void(0);" class="app-brand-link gap-2">
-              <img src="../../assets/logos/clinic-logo.png" height="60px" width="60px" class="img-fluid" />
+              <img src="../../assets/logos/camarin-logo.png" height="90px" width="90px" class="img-fluid" />
             </a>
           </div>
-
-          <h3 class="mb-1 fw-bold">Welcome to CIS! 👋</h3>
-          <p class="mb-4">Please sign-in to your account.</p>
+          <p class="cdh-text fw-bolder fs-3 mb-1">Camarin Doctos Hospital</p>
+          <h3 class="mb-2 fw-bold">Clinic Information System</h3>
+          <p class="mb-3">Please login your account.</p>
 
           <form class="mb-3" @submit.prevent="login()">
             <div class="mb-3">
@@ -46,7 +45,7 @@
             </div>
 
 
-            <button type="submit" class="mt-2 btn btn-primary waves-effect waves-light w-100 gap-1" :disabled="isLoading">
+            <button type="submit" class="mt-2 btn btn-twitter w-100 gap-1" :disabled="isLoading">
               <span v-if="isLoading" class="spinner-border me-1" role="status" aria-hidden="true"></span>
               {{ isLoading ? "Logging In..." : "Login" }}
             </button>
@@ -144,16 +143,20 @@ export default defineComponent({
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 .bg-left {
-  background-color: #7367f0 !important;
+  background-color: #43BDF5 !important;
 }
 
 .auth-cover-bg {
   margin: 2rem !important;
-  background: url("../../assets/images/bg-2.jpg");
+  background: url("../../assets/images/cdh-bg.png");
   background-size: cover;
   background-position: center;
   box-shadow: 10px 10px 31px -1px rgba(0, 0, 0, 0.52);
   -webkit-box-shadow: 10px 10px 31px -1px rgba(0, 0, 0, 0.52);
   -moz-box-shadow: 10px 10px 31px -1px rgba(0, 0, 0, 0.52);
+}
+
+.cdh-text {
+  color: #2E478A;
 }
 </style>

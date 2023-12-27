@@ -4,38 +4,19 @@
       <div class="row mt-4">
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
-            <label class="form-label fs-6 mb-2 fw-semibold"
-              >Consultation Date From</label
-            >
-            <input
-              type="date"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.date_from"
-            />
+            <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date From</label>
+            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.date_from" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
-            <label class="form-label fs-6 mb-2 fw-semibold"
-              >Consultation Date To</label
-            >
-            <input
-              type="date"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.date_to"
-            />
+            <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date To</label>
+            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.date_to" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
-          <div
-            class="d-flex gap-2 align-items-center"
-            style="margin-top: 1.7rem"
-          >
-            <button
-              class="btn btn-primary"
-              @click="generateReport()"
-              @keyup.enter="generateReport()"
-            >
+          <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
+            <button class="btn btn-primary" @click="generateReport()" @keyup.enter="generateReport()">
               Generate & Download Report
             </button>
             <button class="btn btn-danger" @click="refresh()">Refresh</button>
@@ -173,10 +154,10 @@ export default defineComponent({
       };
 
       let totalPages = 0;
-      let startY = 40;
+      let startY = 45;
 
-      const logoWidth = 20;
-      const logoHeight = 20;
+      const logoWidth = 25;
+      const logoHeight = 25;
 
       doc.autoTable({
         head: [tableColumn],
@@ -189,7 +170,7 @@ export default defineComponent({
           // Only add header on the first page
           if (data.pageNumber === 1) {
             doc.addImage(
-              "/src/assets/logos/cdh.png",
+              "/src/assets/logos/camarin-logo.png",
               "PNG",
               10,
               10,
@@ -200,7 +181,7 @@ export default defineComponent({
             // Right Logo
             const rightLogoX = doc.internal.pageSize.width - logoWidth - 10;
             doc.addImage(
-              "/src/assets/logos/cdh.png",
+              "/src/assets/logos/camarin-logo.png",
               "PNG",
               rightLogoX,
               10,
@@ -208,7 +189,7 @@ export default defineComponent({
               logoHeight
             );
 
-            const titleText = `CAMARIN DOCTORS HOSPITAL \n Room 401, 4th Floor, Camarin Doctors Hospital, Camarin Road, Brgy 172, Camarin, Caloocan City, Philippines \n Contact No. (0960-600-2697) \n Generated Report \n From ${dateFrom} To ${dateTo}`;
+            const titleText = `CAMARIN DOCTORS HOSPITAL \n Room 401, 4th Floor, Camarin Doctors Hospital, Camarin Road, Brgy 172, Camarin, Caloocan City, Philippines \n Contact No. +63(960)-600-2697 \n Generated Report \n From ${dateFrom} To ${dateTo}`;
 
             doc.setFontSize(12);
             doc.setTextColor("#00000");
