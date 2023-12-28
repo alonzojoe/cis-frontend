@@ -1,56 +1,39 @@
 <template>
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-4 mb-4">
-      <div class="swiper-container swiper-container-horizontal swiper swiper-card-advance-bg"
-        id="swiper-with-pagination-cards">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="row">
-              <div class="col-12">
-                <h4 class="text-white mb-0 mt-1">
-                  Welcome to Camarin Doctors Hospital &nbsp;&nbsp;
-                  <img src="../../assets/logos/camarin-logo.png" class="img-fluid" height="50" width="50" />
-                </h4>
-                <h3 class="text-white">
-                  Hello, <span class="fw-bold">Joenell Alonzo</span>
-                </h3>
-
-                <span class="text-white fs-5">See Dashboard Analytics</span>
-              </div>
-              <!-- <div class="row">
-                <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1">
-                  <h6 class="text-white mt-0 mt-md-3 mb-3">
-                    Traffic
-                  </h6>
-                  <div class="row">
-                    <div class="col-6">
-                      <ul class="list-unstyled mb-0">
-                        <li class="d-flex mb-4 align-items-center">
-                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg">
-                            28%
-                          </p>
-                          <p class="mb-0">Sessions</p>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-6">
-                      <ul class="list-unstyled mb-0">
-                        <li class="d-flex mb-4 align-items-center">
-                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg">
-                            3.1k
-                          </p>
-                          <p class="mb-0">Page Views</p>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+      <div class="card">
+        <div class="card-body pb-0 swiper-card-advance-bg rounded">
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex align-items-center gap-2">
+                <div>
+                  <h4 class="text-white mb-0 mt-1">
+                    Welcome to Camarin Doctors Hospital &nbsp;&nbsp;
+                    <small class="d-block fs-5">Clinic Information System</small>
+                  </h4>
                 </div>
-              </div> -->
+                <div>
+                  <img src="../../assets/logos/camarin-logo.png" class="img-fluid" height="50" width="50" />
+                </div>
+              </div>
+
+
+
+              <h4 class="text-white mt-2">
+                Hello, <span class="fw-bold">{{ authUser.fname }} {{ authUser.lname }}</span>
+              </h4>
+
+
+              <span class="text-white fs-6">Dashboard Analytics</span>
+              <div>
+                <span>&nbsp;</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
 
     <div class="col-sm-12 col-md-12 col-lg-4 mb-4">
       <div class="card">
@@ -196,6 +179,7 @@ export default defineComponent({
     const chartOptions = ref();
     const store = useStore();
     const count = computed(() => store.getters.getCounts);
+    const authUser = computed(() => store.getters.getAuthenticatedUser)
     const dataSet = ref([
       count.value.patients,
       count.value.active,
@@ -291,6 +275,7 @@ export default defineComponent({
       chartData,
       chartOptions,
       count,
+      authUser
     };
   },
 });
