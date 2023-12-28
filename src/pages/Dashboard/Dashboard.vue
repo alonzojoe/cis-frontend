@@ -1,28 +1,21 @@
 <template>
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-4 mb-4">
-      <div
-        class="swiper-container swiper-container-horizontal swiper swiper-card-advance-bg"
-        id="swiper-with-pagination-cards"
-      >
+      <div class="swiper-container swiper-container-horizontal swiper swiper-card-advance-bg"
+        id="swiper-with-pagination-cards">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="row">
               <div class="col-12">
-                <h4 class="text-white mb-0 mt-2">
-                  Welcome to Clinic Information System!
-                  <img
-                    src="../../assets/logos/clinic-logo.png"
-                    class="img-fluid"
-                    height="50"
-                    width="50"
-                  />
+                <h4 class="text-white mb-0 mt-1">
+                  Welcome to Camarin Doctors Hospital &nbsp;&nbsp;
+                  <img src="../../assets/logos/camarin-logo.png" class="img-fluid" height="50" width="50" />
                 </h4>
                 <h3 class="text-white">
                   Hello, <span class="fw-bold">Joenell Alonzo</span>
                 </h3>
 
-                <span class="text-white fs-4">See Dashboard Analytics</span>
+                <span class="text-white fs-5">See Dashboard Analytics</span>
               </div>
               <!-- <div class="row">
                 <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1">
@@ -103,52 +96,32 @@
       </div>
     </div>
 
-    <!-- Earning Reports -->
     <div class="col-sm-12 col-md-12 col-lg-8 mb-4">
       <div class="card h-100">
         <div class="card-header pb-0 d-flex justify-content-between mb-lg-n4">
           <div class="card-title mb-0">
             <h5 class="mb-0 fs-3">Chart Analytics</h5>
-            <span class="text-muted fs-5"
-              >Total Number of Consulted Patients</span
-            >
+            <!-- <span class="text-muted fs-5">Total Number of Consulted Patients</span> -->
           </div>
         </div>
         <div class="card-body">
-          <Chart
-            class="mt-2"
-            type="bar"
-            :data="chartData"
-            :options="chartOptions"
-          />
+          <Chart class="mt-2" type="bar" :data="chartData" :options="chartOptions" />
         </div>
       </div>
     </div>
-    <!--/ Earning Reports -->
 
-    <!-- Support Tracker -->
     <div class="col-sm12 col-md-12 col-lg-4 mb-4">
       <div class="card h-100">
         <div class="card-header d-flex justify-content-between pb-0">
           <div class="card-title mb-0">
-            <h5 class="mb-0">Patient Count Tracker</h5>
-            <small class="text-muted">As of December 2023</small>
+            <h4 class="mb-0">Patient Count Tracker</h4>
           </div>
           <div class="dropdown">
-            <button
-              class="btn p-0"
-              type="button"
-              id="supportTrackerMenu"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+            <button class="btn p-0" type="button" id="supportTrackerMenu" data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               <i class="ti ti-dots-vertical ti-sm text-muted"></i>
             </button>
-            <div
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="supportTrackerMenu"
-            >
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="supportTrackerMenu">
               <a class="dropdown-item" href="javascript:void(0);">View More</a>
               <a class="dropdown-item" href="javascript:void(0);">Delete</a>
             </div>
@@ -164,7 +137,7 @@
               <ul class="p-0 m-0">
                 <li class="d-flex gap-3 align-items-center mb-lg-3 pt-2 pb-1">
                   <div class="badge rounded bg-label-primary p-1">
-                    <i class="ti ti-ticket ti-sm"></i>
+                    <i class="ti ti-users-group ti-sm"></i>
                   </div>
                   <div>
                     <h6 class="mb-0 text-nowrap fs-5">
@@ -186,7 +159,7 @@
                 </li>
                 <li class="d-flex gap-3 align-items-center pb-1">
                   <div class="badge rounded bg-label-danger p-1">
-                    <i class="ti ti-clock ti-sm"></i>
+                    <i class="ti ti-arrow-down ti-sm"></i>
                   </div>
                   <div>
                     <h6 class="mb-0 text-nowrap fs-5">
@@ -247,9 +220,9 @@ export default defineComponent({
     const setChartData = () => {
       return {
         labels: [
-          "Registered Patients",
-          "Consultation",
-          "Inactive Consultation",
+          "Total No. of Registered Patients",
+          "Total No. of Consultation",
+          "Total No. of Inactive Consultation",
         ],
         datasets: [
           {
@@ -272,11 +245,11 @@ export default defineComponent({
     };
     const setChartOptions = () => {
       const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue("--text-color");
+      const textColor = documentStyle.getPropertyValue("--bs-dark");
       const textColorSecondary = documentStyle.getPropertyValue(
-        "--text-color-secondary"
+        "--bs-secondary"
       );
-      const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+      const surfaceBorder = documentStyle.getPropertyValue("--bs-border");
 
       return {
         plugins: {

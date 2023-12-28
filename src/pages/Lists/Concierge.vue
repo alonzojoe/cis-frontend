@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <div class="card">
     <titled-card class="mb-3" title="Search Patient">
       <div class="row mt-4">
@@ -150,6 +151,7 @@
     </div>
     <paginator v-if="!isLoading && patients.length" :data="paginationData"
       @update:currentPage="updateCurrentPage($event)" />
+
   </div>
   <modal-sm :details="modalDetails" @close-modal="modalDetails.show = false">
     <div class="d-flex align-items-center justify-content-center">
@@ -306,6 +308,7 @@
         </button>
       </div>
     </div>
+
   </modal-md>
 </template>
 
@@ -327,6 +330,11 @@ import ModalSm from "@/components/Modals/ModalSm.vue";
 import { useRouter } from "vue-router";
 import { encryptData, swalMessage, swalConfirmation } from "@/service";
 import moment from "moment";
+import ConfirmPopup from 'primevue/confirmpopup';
+import Toast from "primevue/toast";
+import { useConfirm } from "primevue/useconfirm";
+import { useToast } from "primevue/usetoast";
+
 export default defineComponent({
   name: "PatientConcierge",
   components: {
@@ -334,12 +342,32 @@ export default defineComponent({
     Paginator,
     ModalMd,
     ModalSm,
+    ConfirmPopup,
+    Toast
   },
   setup() {
     const modalDetails = ref({
       show: false,
       title: "New Consultation",
     });
+
+    const confirm = useConfirm();
+    const toast = useToast();
+
+    const confirm1 = (event) => {
+      confirm.require({
+        target: event.currentTarget,
+        message: 'Are you sure you want to proceed?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        },
+        reject: () => {
+          toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+      });
+    };
+
 
     const router = useRouter();
     const addPatient = () => {
@@ -547,6 +575,7 @@ export default defineComponent({
       currentDate,
       triggerSearch,
       addNewChart,
+      confirm1
     };
   },
 });

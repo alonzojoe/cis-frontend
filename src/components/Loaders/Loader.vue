@@ -87,7 +87,7 @@ export default defineComponent({
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #615dff;
+    background: #29ACED;
     margin: -4px 0 0 -4px;
 }
 
@@ -175,4 +175,5 @@ export default defineComponent({
     100% {
         transform: rotate(360deg);
     }
-}</style>
+}
+</style>

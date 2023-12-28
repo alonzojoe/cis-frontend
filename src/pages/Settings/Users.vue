@@ -6,59 +6,36 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Email</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.email"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.email"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.lname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.fname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.mname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.mname"
+              @keyup.enter="search()" />
           </div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-sm-12 col-md-6 col-lg-3">
-          <div
-            class="d-flex gap-2 align-items-center"
-            style="margin-top: 1.7rem"
-          >
-            <button
-              class="btn btn-primary"
-              @keyup.enter="search()"
-              @click.prevent="search()"
-            >
+          <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
+            <button class="btn btn-primary" @keyup.enter="search()" @click.prevent="search()">
               Search
             </button>
             <button class="btn btn-danger" @click.prevent="refresh()">
@@ -135,11 +112,7 @@
         </tbody>
       </table>
     </div>
-    <paginator
-      v-if="!isLoading && users.length"
-      :data="paginationData"
-      @update:currentPage="updateCurrentPage($event)"
-    />
+    <paginator v-if="!isLoading && users.length" :data="paginationData" @update:currentPage="updateCurrentPage($event)" />
   </div>
   <modal-sm :details="modalDetails" @close-modal="modalDetails.show = false">
     <div class="row mt-4 px-5">
@@ -147,50 +120,29 @@
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
             <h4 class="fw-bold">User Details</h4>
-            <div
-              :class="{
-                'group-invalid': saveSubmitted && !validationStatus.fname,
-              }"
-            >
-              <label class="form-label fs-6 mb-2 fw-semibold"
-                >Last Name <span class="text-danger">*</span></label
-              >
-              <input
-                type="text"
-                class="form-control form-control-sm custom-font cst-capital"
-                maxlength="255"
-                v-model="formData.lname"
-              />
+            <div :class="{
+              'group-invalid': saveSubmitted && !validationStatus.lname,
+            }">
+              <label class="form-label fs-6 mb-2 fw-semibold">Last Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
+                v-model="formData.lname" />
             </div>
           </div>
           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-            <div
-              :class="{
-                'group-invalid': saveSubmitted && !validationStatus.fname,
-              }"
-            >
-              <label class="form-label fs-6 mb-2 fw-semibold"
-                >First Name <span class="text-danger">*</span></label
-              >
-              <input
-                type="text"
-                class="form-control form-control-sm custom-font cst-capital"
-                maxlength="255"
-                v-model="formData.fname"
-              />
+            <div :class="{
+              'group-invalid': saveSubmitted && !validationStatus.fname,
+            }">
+              <label class="form-label fs-6 mb-2 fw-semibold">First Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
+                v-model="formData.fname" />
             </div>
           </div>
           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
             <div>
-              <label class="form-label fs-6 mb-2 fw-semibold"
-                >Middle Name
+              <label class="form-label fs-6 mb-2 fw-semibold">Middle Name
               </label>
-              <input
-                type="text"
-                class="form-control form-control-sm custom-font cst-capital"
-                maxlength="255"
-                v-model="formData.mname"
-              />
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
+                v-model="formData.mname" />
             </div>
           </div>
         </div>
@@ -199,90 +151,53 @@
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
             <h4 class="fw-bold">User Credentials</h4>
-            <div
-              :class="{
-                'group-invalid': saveSubmitted && !validationStatus.email,
-              }"
-            >
-              <label class="form-label fs-6 mb-2 fw-semibold"
-                >Email <span class="text-danger">*</span></label
-              >
-              <input
-                type="text"
-                class="form-control form-control-sm custom-font"
-                maxlength="255"
-                v-model="formData.email"
-                :disabled="formData.id != 0"
-              />
+            <div :class="{
+              'group-invalid': saveSubmitted && !validationStatus.email,
+            }">
+              <label class="form-label fs-6 mb-2 fw-semibold">Email <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm custom-font" maxlength="255" v-model="formData.email"
+                :disabled="formData.id != 0" />
             </div>
           </div>
           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-            <div
-              :class="{
+            <div :class="{
+              'group-invalid':
+                (saveSubmitted && !validationStatus.bool) ||
+                (saveSubmitted && validationStatus.pwLength) ||
+                (saveSubmitted && validationStatus.mismatch),
+            }">
+              <label class="form-label fs-6 mb-2 fw-semibold">Password <span class="text-danger">*</span></label>
+              <div class="input-group" :class="{
                 'group-invalid':
                   (saveSubmitted && !validationStatus.bool) ||
                   (saveSubmitted && validationStatus.pwLength) ||
                   (saveSubmitted && validationStatus.mismatch),
-              }"
-            >
-              <label class="form-label fs-6 mb-2 fw-semibold"
-                >Password <span class="text-danger">*</span></label
-              >
-              <div
-                class="input-group"
-                :class="{
-                  'group-invalid':
-                    (saveSubmitted && !validationStatus.bool) ||
-                    (saveSubmitted && validationStatus.pwLength) ||
-                    (saveSubmitted && validationStatus.mismatch),
-                }"
-              >
-                <input
-                  :type="eyedPw ? 'text' : 'password'"
-                  class="form-control form-control-sm custom-font"
-                  v-model="formData.bool"
-                />
-                <span
-                  id="basic-default-password2"
-                  class="input-group-text cursor-pointer"
-                  @click="eyedPw = !eyedPw"
-                >
+              }">
+                <input :type="eyedPw ? 'text' : 'password'" class="form-control form-control-sm custom-font"
+                  v-model="formData.bool" />
+                <span id="basic-default-password2" class="input-group-text cursor-pointer" @click="eyedPw = !eyedPw">
                   <i class="ti" :class="eyedPw ? 'ti-eye' : 'ti-eye-off'"></i>
                 </span>
               </div>
             </div>
           </div>
           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-            <div
-              :class="{
+            <div :class="{
+              'group-invalid':
+                (saveSubmitted && !validationStatus.conf) ||
+                (saveSubmitted && validationStatus.pwLength) ||
+                (saveSubmitted && validationStatus.mismatch),
+            }">
+              <label class="form-label fs-6 mb-2 fw-semibold">Confirm Password <span class="text-danger">*</span></label>
+              <div class="input-group" :class="{
                 'group-invalid':
                   (saveSubmitted && !validationStatus.conf) ||
                   (saveSubmitted && validationStatus.pwLength) ||
                   (saveSubmitted && validationStatus.mismatch),
-              }"
-            >
-              <label class="form-label fs-6 mb-2 fw-semibold"
-                >Confirm Password <span class="text-danger">*</span></label
-              >
-              <div
-                class="input-group"
-                :class="{
-                  'group-invalid':
-                    (saveSubmitted && !validationStatus.conf) ||
-                    (saveSubmitted && validationStatus.pwLength) ||
-                    (saveSubmitted && validationStatus.mismatch),
-                }"
-              >
-                <input
-                  :type="eyedCf ? 'text' : 'password'"
-                  class="form-control form-control-sm custom-font"
-                  v-model="formData.conf"
-                />
-                <span
-                  id="basic-default-password2"
-                  class="input-group-text cursor-pointer"
-                  @click="eyedCf = !eyedCf"
-                >
+              }">
+                <input :type="eyedCf ? 'text' : 'password'" class="form-control form-control-sm custom-font"
+                  v-model="formData.conf" />
+                <span id="basic-default-password2" class="input-group-text cursor-pointer" @click="eyedCf = !eyedCf">
                   <i class="ti" :class="eyedCf ? 'ti-eye' : 'ti-eye-off'"></i>
                 </span>
               </div>
@@ -301,14 +216,8 @@
       </div>
     </div>
   </modal-sm>
-  <loader
-    :title="
-      formData.id == 0 ? 'Saving User Record...' : 'Updating User Record...'
-    "
-    :warning="true"
-    :create="true"
-    v-if="savingFlag"
-  />
+  <loader :title="formData.id == 0 ? 'Saving User Record...' : 'Updating User Record...'
+    " :warning="true" :create="true" v-if="savingFlag" />
 </template>
 
 <script lang="ts">
@@ -455,6 +364,9 @@ export default defineComponent({
           "question"
         ).then(async (res) => {
           if (res.isConfirmed) {
+            if (savingFlag.value) {
+              return;
+            }
             savingFlag.value = true;
             await store.dispatch("saveUser", formData.value);
             modalDetails.value.show = false;

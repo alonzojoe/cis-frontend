@@ -38,7 +38,10 @@ import 'bootstrap/dist/js/bootstrap.js'
 import '@/assets/vendor/css/pages/app-email.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import '@/assets/vendor/libs/spinkit/spinkit.css'
+import 'primevue/resources/themes/lara-light-cyan/theme.css';
+import 'primevue/resources/primevue.min.css'; /* Deprecated */
 import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 import { registerScrollSpy } from 'vue3-scroll-spy';
 const app = createApp(App)
 app.component('Loading', Loading);
@@ -46,6 +49,7 @@ registerScrollSpy(app);
 app.use(VueSweetalert2);
 app.use(PrimeVue)
 app.use(ToastService)
+app.use(ConfirmationService)
 app.use(store)
 app.use(router)
 app.mount('#app')

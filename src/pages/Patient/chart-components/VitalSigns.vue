@@ -19,7 +19,7 @@
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">BMI (Body Mass Index)</label>
           <input type="text" class="form-control form-control-sm custom-font" @keypress="NumericOnly" @paste="handlePaste"
-            v-model="vitalSigns.bmi" />
+            v-model="vitalSigns.bmi" disabled />
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
