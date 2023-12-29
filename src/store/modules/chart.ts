@@ -557,7 +557,18 @@ const actions = {
     async fetchLatestVitals({ commit }, payload) {
         const response = await api.get(`/patient/latest/${payload}`);
         commit('setLatestVitals', response.data.data);
-    }
+    },
+
+    async changeChartStatus({ state }, payload) {
+        const status = payload.consultation_status
+
+        if (status == 0) {
+            await api.patch(`/patient/active/${payload.consultation_id}`)
+        } else {
+            await api.patch(`/patient/inactive/${payload.consultation_id}`)
+        }
+
+    },
 }
 
 const getters = {

@@ -140,7 +140,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const isLock = computed(() => store.getters.getSideLock);
-
+    const isLocked = localStorage.getItem('isLock')
     const calculateWidth = computed(() => {
       return isLock.value ? "calc(100% - 16.25rem)" : "calc(100% - 5.25rem)";
     });

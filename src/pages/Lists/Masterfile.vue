@@ -1,4 +1,5 @@
 <template>
+    <Toast />
     <div class="card">
         <titled-card class="mb-3" title="Search Patient">
             <div class="row mt-4">
@@ -75,6 +76,9 @@
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Payment Type</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Physician</th>
                         <th class="text-center bg-primary text-white fw-bold p-1 m-0">Options</th>
+                        <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+                            Status
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,14 +107,20 @@
                         <td class="text-center align-middle fw-normal p-1 m-0">
                             <button class="btn btn-warning btn-sm" @click="updateChart(p)">Update Chart</button>
                         </td>
+                        <td class="text-center align-middle fw-normal p-1 m-0">
+                            <button class="btn btn-sm" :class="p.consultation_status == 0 ? 'btn-success' : 'btn-danger'"
+                                @click="changeStatus(p)">
+                                Set {{ p.consultation_status == 0 ? "Active" : "Inactive" }}
+                            </button>
+                        </td>
                     </tr>
                     <tr v-if="!patients.length && !isLoading">
-                        <td class="text-center align-middle fw-bold p-1 m-0" colspan="8">
+                        <td class="text-center align-middle fw-bold p-1 m-0" colspan="9">
                             No records found.
                         </td>
                     </tr>
                     <tr v-if="isLoading">
-                        <td colspan="8">
+                        <td colspan="9">
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="d-flex align-items-center jusitfy-content-center">
                                     <div class="sk-wave sk-primary">
@@ -130,6 +140,7 @@
         <paginator v-if="!isLoading && patients.length" :data="paginationData"
             @update:currentPage="updateCurrentPage($event)" />
     </div>
+    <loader :title="statusMessage" :warning="true" :create="true" v-if="statusFlag" />
 </template>
 
 <script lang="ts">
@@ -148,19 +159,24 @@ import Paginator from '@/components/Paginators/Paginator.vue';
 import ModalMd from '@/components/Modals/ModalMd.vue';
 import moment from 'moment';
 import { useRouter } from "vue-router";
-import { encryptData } from "@/service";
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
+import { encryptData, swalMessage, swalConfirmation } from "@/service";
+import Loader from "@/components/Loaders/Loader.vue";
 export default defineComponent({
     name: "PatientMasterfile",
     components: {
         TitledCard,
-        Paginator
+        Paginator,
+        Toast,
+        Loader
     },
     setup() {
         const modalDetails = ref({
             show: false,
             title: 'Patient Registry',
         })
-
+        const toast = useToast();
 
 
         const addPatient = () => {
@@ -192,7 +208,7 @@ export default defineComponent({
                 }
             })
         }
-
+        const swal = inject("$swal");
         const store = useStore();
         const patients = computed(() => store.getters.getPatients);
         const totalPatients = computed(() => store.getters.getTotalPatients)
@@ -262,6 +278,37 @@ export default defineComponent({
             });
         };
 
+        const statusFlag = ref(false);
+        const statusMessage = ref("");
+        const changeStatus = async (patient) => {
+            const message = patient.consultation_status == 1 ? "Inactive" : "Active";
+            statusMessage.value =
+                patient.status == 1
+                    ? "Patient is being set to inactive..."
+                    : "Patient is being set to active...";
+            swalConfirmation(
+                swal,
+                "Confirmation",
+                `Are you sure to set this Patient ${message}?`,
+                "question"
+            ).then(async (res) => {
+                if (res.isConfirmed) {
+                    statusFlag.value = true;
+                    await store.dispatch("changeChartStatus", patient);
+                    statusFlag.value = false;
+
+                    toast.add({
+                        severity: "success",
+                        summary: "Information",
+                        detail: `Patient to ${message}!`,
+                        life: 3000,
+                    });
+                    refresh();
+
+                }
+            });
+        };
+
         onMounted(async () => {
             await fetchPatients(1, formSearch.value);
 
@@ -279,7 +326,10 @@ export default defineComponent({
             search,
             refresh,
             today,
-            updateChart
+            updateChart,
+            changeStatus,
+            statusFlag,
+            statusMessage
         }
     }
 })

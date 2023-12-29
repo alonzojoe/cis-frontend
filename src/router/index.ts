@@ -68,7 +68,7 @@ const routes = [
                         path: '',
                         name: 'users',
                         component: () => import('@/pages/Settings/Users.vue'),
-                        meta: { title: 'User Management' }
+                        meta: { title: 'User Management', requireAuthId: 1 }
                     },
                     {
                         path: 'physicians',
@@ -121,46 +121,42 @@ router.beforeEach((to, from) => {
 
         Cookies.remove('auth_token');
         return { name: 'auth' };
+
+    } else if (to.meta.requireAuthId) {
+
+
+        if (authenticated) {
+
+
+            try {
+                const authUser = decryptData(localStorage.getItem('userData'))
+                const currentId = authUser.id
+
+                if (to.meta.requireAuthId == currentId) {
+
+                    return;
+                } else {
+
+                    return { name: 'unauthorized' };
+                }
+            } catch (error) {
+                return { name: 'auth' }
+            }
+
+
+
+        } else {
+
+            return { name: 'auth' };
+        }
+
+
     } else {
 
         return;
 
     }
-    // else if (to.meta.requireRole) {
 
-
-    //     if (authenticated) {
-
-
-    //         try {
-    //             const authUser = decryptData(localStorage.getItem('userData'))
-    //             const currentRole = authUser.role
-    //             const requiredRoles = to.meta.requireRole;
-
-    //             const userRole = currentRole;
-
-    //             if (requiredRoles.includes(userRole)) {
-
-    //                 return;
-    //             } else {
-
-    //                 return { name: 'unauthorized' }; // Redirect to an unauthorized page
-    //             }
-    //         } catch (error) {
-    //             return { name: 'auth' }
-    //         }
-
-
-
-    //     } else {
-
-    //         return { name: 'auth' }; // Redirect to the login page
-    //     }
-    // } else {
-
-    //     return;
-
-    // }
 
 
 })

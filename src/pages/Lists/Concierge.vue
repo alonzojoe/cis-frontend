@@ -94,6 +94,9 @@
             <th class="text-center bg-primary text-white fw-bold p-1 m-0">
               Options
             </th>
+            <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+              Status
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -125,14 +128,20 @@
                 Update Chart
               </button>
             </td>
+            <td class="text-center align-middle fw-normal p-1 m-0">
+              <button class="btn btn-sm" :class="p.consultation_status == 0 ? 'btn-success' : 'btn-danger'"
+                @click="changeStatus(p)">
+                Set {{ p.consultation_status == 0 ? "Active" : "Inactive" }}
+              </button>
+            </td>
           </tr>
           <tr v-if="!patients.length && !isLoading">
-            <td class="text-center align-middle fw-bold p-1 m-0" colspan="8">
+            <td class="text-center align-middle fw-bold p-1 m-0" colspan="9">
               No records found.
             </td>
           </tr>
           <tr v-if="isLoading">
-            <td colspan="8">
+            <td colspan="9">
               <div class="d-flex align-items-center justify-content-center">
                 <div class="d-flex align-items-center jusitfy-content-center">
                   <div class="sk-wave sk-primary">
@@ -310,6 +319,7 @@
     </div>
 
   </modal-md>
+  <loader :title="statusMessage" :warning="true" :create="true" v-if="statusFlag" />
 </template>
 
 <script lang="ts">
@@ -334,7 +344,7 @@ import ConfirmPopup from 'primevue/confirmpopup';
 import Toast from "primevue/toast";
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
-
+import Loader from "@/components/Loaders/Loader.vue";
 export default defineComponent({
   name: "PatientConcierge",
   components: {
@@ -343,7 +353,8 @@ export default defineComponent({
     ModalMd,
     ModalSm,
     ConfirmPopup,
-    Toast
+    Toast,
+    Loader
   },
   setup() {
     const modalDetails = ref({
@@ -546,6 +557,37 @@ export default defineComponent({
 
     const currentDate = moment(Date.now()).format("yyyy-MM-DD");
 
+
+    const statusFlag = ref(false);
+    const statusMessage = ref("");
+    const changeStatus = async (patient) => {
+      const message = patient.consultation_status == 1 ? "Inactive" : "Active";
+      statusMessage.value =
+        patient.status == 1
+          ? "Patient is being set to inactive..."
+          : "Patient is being set to active...";
+      swalConfirmation(
+        swal,
+        "Confirmation",
+        `Are you sure to set this Patient ${message}?`,
+        "question"
+      ).then(async (res) => {
+        if (res.isConfirmed) {
+          statusFlag.value = true;
+          await store.dispatch("changeChartStatus", patient);
+          statusFlag.value = false;
+
+          toast.add({
+            severity: "success",
+            summary: "Information",
+            detail: `Patient to ${message}!`,
+            life: 3000,
+          });
+          refresh();
+        }
+      });
+    };
+
     onMounted(async () => {
       await fetchPatients(1, formSearch.value);
     });
@@ -575,7 +617,10 @@ export default defineComponent({
       currentDate,
       triggerSearch,
       addNewChart,
-      confirm1
+      confirm1,
+      changeStatus,
+      statusFlag,
+      statusMessage
     };
   },
 });

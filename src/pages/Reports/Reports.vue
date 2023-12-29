@@ -11,7 +11,8 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date To</label>
-            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.date_to" />
+            <input type="date" :min="formSearch.date_from" class="form-control form-control-sm custom-font"
+              v-model="formSearch.date_to" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
@@ -170,7 +171,7 @@ export default defineComponent({
           // Only add header on the first page
           if (data.pageNumber === 1) {
             doc.addImage(
-              "/src/assets/logos/camarin-logo.png",
+              "/src/assets/logos/camarin-logo-white.png",
               "PNG",
               10,
               10,
@@ -181,7 +182,7 @@ export default defineComponent({
             // Right Logo
             const rightLogoX = doc.internal.pageSize.width - logoWidth - 10;
             doc.addImage(
-              "/src/assets/logos/camarin-logo.png",
+              "/src/assets/logos/camarin-logo-white.png",
               "PNG",
               rightLogoX,
               10,
@@ -214,7 +215,7 @@ export default defineComponent({
         },
         headStyles: { fillColor: "#5D87FF" },
         columnStyles: {
-          3: { fontSize: 7, halign: "left" }, // 4 is the index of the "storedBy" column (0-based index)
+          3: { fontSize: 7, halign: "left" },
         },
         didParseCell: (data) => {
           // Increase totalPages on each new page

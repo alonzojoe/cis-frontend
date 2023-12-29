@@ -104,7 +104,7 @@ export default defineComponent({
         htmlTag.classList.remove("layout-menu-collapsed");
         htmlTag.classList.remove("layout-menu");
         // localStorage.setItem("isLock", isLock.value);
-        // store.commit("setSideLock", isLock.value);
+        store.commit("setSideLock", isLock.value);
       }
     });
 
@@ -171,6 +171,8 @@ export default defineComponent({
       isLock.value = savedLock ? JSON.parse(savedLock) : false;
     }
 
+    const authUser = computed(() => store.getters.getAuthenticatedUser);
+
     onMounted(() => {
 
       mountedLock();
@@ -186,7 +188,8 @@ export default defineComponent({
       currentRoute,
       route,
       logout,
-      toggleLock
+      toggleLock,
+      authUser
     };
   },
 });
