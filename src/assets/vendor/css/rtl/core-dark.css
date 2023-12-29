@@ -26953,3 +26953,13 @@ div:where(.swal2-container) .swal2-html-container {
   border-top: 10px solid #2A2C3F !important;
   border-bottom: 10px solid #2A2C3F !important;
 }
+
+.group-invalid.dark-mode > input,
+.group-invalid.dark-mode > textarea,
+.group-invalid.dark-mode > TextArea,
+.group-invalid.dark-mode > .ts-wrapper,
+.group-invalid.dark-mode > select {
+    animation: shake 0.4s 1;
+    border-color: #ff0026 !important;
+    background-color: #990000 !important; /* Darker red background in dark mode */
+}

@@ -376,7 +376,7 @@ const actions = {
             created_by: payload.created_by,
             //consultation
             physician_id: payload.physician_id,
-            consultation_datetime: moment(payload.consultation_datetime).format('yyyy-MM-DD HH:mm'),
+            consultation_datetime: moment(payload.consultation_datetime).format('yyyy-MM-DD HH:mm:ss'),
             payment_type: payload.payment_type,
             chief_complaint: payload.chief_complaint,
             subjective: payload.subjective,
@@ -493,7 +493,7 @@ const actions = {
     async updateConsultation({ commit }, payload) {
         await api.patch(`/chart/consultation/${payload.id}`, {
             physician_id: payload.physician_id,
-            consultation_datetime: moment(payload.consultation_datetime).format('yyyy-MM-DD HH:mm'),
+            consultation_datetime: moment(payload.consultation_datetime).format('yyyy-MM-DD HH:mm:ss'),
             payment_type: payload.payment_type,
             chief_complaint: payload.chief_complaint,
             subjective: payload.subjective,
@@ -525,7 +525,7 @@ const actions = {
             //consultation
             patient_id: payload.patient_id,
             physician_id: payload.physician_id,
-            consultation_datetime: moment(payload.consultation_datetime).format('yyyy-MM-DD HH:mm'),
+            consultation_datetime: moment(payload.consultation_datetime).format('yyyy-MM-DD HH:mm:ss'),
             payment_type: payload.payment_type,
             chief_complaint: payload.chief_complaint,
             subjective: payload.subjective,

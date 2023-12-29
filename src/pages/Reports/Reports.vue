@@ -189,7 +189,7 @@ export default defineComponent({
               logoHeight
             );
 
-            const titleText = `CAMARIN DOCTORS HOSPITAL \n Room 401, 4th Floor, Camarin Doctors Hospital, Camarin Road, Brgy 172, Camarin, Caloocan City, Philippines \n Contact No. +63(960)-600-2697 \n Generated Report \n From ${dateFrom} To ${dateTo}`;
+            const titleText = `CAMARIN DOCTORS HOSPITAL \n Room 401, 4th Floor, Camarin Doctors Hospital, Camarin Road, Brgy 172, Camarin, Caloocan City, Philippines \n Contact No. 09606002697 \n Generated Report \n From ${dateFrom} To ${dateTo}`;
 
             doc.setFontSize(12);
             doc.setTextColor("#00000");
