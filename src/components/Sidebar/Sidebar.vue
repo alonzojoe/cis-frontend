@@ -114,6 +114,7 @@ export default defineComponent({
         localStorage.setItem("isLock", cbo);
       } else {
         localStorage.setItem("isLock", cbo);
+        store.commit("setSideLock", cbo);
       }
     }
 
@@ -165,14 +166,14 @@ export default defineComponent({
       }
     };
 
-    const mountedLock = (storage) => {
-      isLock.value = JSON.parse(storage);
-
+    const mountedLock = () => {
+      const savedLock = localStorage.getItem('isLock')
+      isLock.value = savedLock ? JSON.parse(savedLock) : false;
     }
 
     onMounted(() => {
-      const savedLock = localStorage.getItem('isLock')
-      mountedLock(savedLock);
+
+      mountedLock();
     })
 
     return {

@@ -101,6 +101,7 @@ export default defineComponent({
     };
     const store = useStore();
     onMounted(async () => {
+
       const token = Cookies.get("auth_token");
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 

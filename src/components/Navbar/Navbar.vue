@@ -27,7 +27,9 @@
             )
             ">
             <i class="ti rounded-circle ti-md" :class="appTheme == 'dark-theme' ? 'ti-sun-filled' : 'ti-moon-filled'
-              "></i>
+              ">
+
+            </i>
           </a>
         </li>
 
@@ -54,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, watchEffect, computed } from "vue";
+import { defineComponent, ref, watch, watchEffect, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex"
 export default defineComponent({
@@ -88,6 +90,7 @@ export default defineComponent({
     const appTheme = ref("");
     const body = document.body;
     const toggleChangeTheme = async (theme) => {
+
       appTheme.value = theme;
       localStorage.setItem("app-theme", theme);
       body.classList.add("fade-effect", "fade-out");
@@ -95,6 +98,7 @@ export default defineComponent({
         addDarkTheme();
       } else {
         removeDarkTheme();
+        // location.reload();
       }
 
       // setTimeout(() => {
@@ -117,19 +121,25 @@ export default defineComponent({
 
     let styleTag = null;
     const addDarkTheme = () => {
-      const linkTag = document.createElement("link");
-      linkTag.id = "dark-mode";
-      linkTag.rel = "stylesheet";
-      linkTag.href = `${darkCss}`;
+      const existingLinkTag = document.getElementById("dark-mode");
 
-      document.head.appendChild(linkTag);
+      if (!existingLinkTag) {
+        const linkTag = document.createElement("link");
+        linkTag.id = "dark-mode";
+        linkTag.rel = "stylesheet";
+        linkTag.href = `${darkCss}`;
+
+        document.head.appendChild(linkTag);
+      }
     };
+
 
     const removeDarkTheme = () => {
       const linkTag = document.getElementById("dark-mode");
       if (linkTag) {
         document.head.removeChild(linkTag);
       }
+
     };
 
     const title = ref("");
@@ -140,6 +150,13 @@ export default defineComponent({
         title.value = newTitle;
       }
     );
+
+    onMounted(() => {
+      const theme = localStorage.getItem("app-theme");
+      theme == null || theme == "white-theme"
+        ? toggleChangeTheme("white-theme")
+        : toggleChangeTheme("dark-theme");
+    })
 
     return {
       isExpanded,

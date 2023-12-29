@@ -26963,3 +26963,7 @@ div:where(.swal2-container) .swal2-html-container {
     border-color: #ff0026 !important;
     background-color: #990000 !important; /* Darker red background in dark mode */
 }
+
+.cdh-login-text{
+  color: #43BDF5 !important;
+}
