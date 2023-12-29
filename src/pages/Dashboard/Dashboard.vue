@@ -9,20 +9,27 @@
                 <div>
                   <h4 class="text-white mb-0 mt-1">
                     Welcome to Camarin Doctors Hospital &nbsp;&nbsp;
-                    <small class="d-block fs-5">Clinic Information System</small>
+                    <small class="d-block fs-5"
+                      >Clinic Information System</small
+                    >
                   </h4>
                 </div>
                 <div>
-                  <img src="../../assets/logos/camarin-logo.png" class="img-fluid" height="50" width="50" />
+                  <img
+                    src="../../assets/logos/camarin-logo-white.png"
+                    class="img-fluid"
+                    height="60"
+                    width="60"
+                  />
                 </div>
               </div>
 
-
-
               <h4 class="text-white mt-2">
-                Hello, <span class="fw-bold">{{ authUser.fname }} {{ authUser.lname }}</span>
+                Hello,
+                <span class="fw-bold"
+                  >{{ authUser.fname }} {{ authUser.lname }}</span
+                >
               </h4>
-
 
               <span class="text-white fs-6">Dashboard Analytics</span>
               <div>
@@ -33,7 +40,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="col-sm-12 col-md-12 col-lg-4 mb-4">
       <div class="card">
@@ -88,7 +94,12 @@
           </div>
         </div>
         <div class="card-body">
-          <Chart class="mt-2" type="bar" :data="chartData" :options="chartOptions" />
+          <Chart
+            class="mt-2"
+            type="bar"
+            :data="chartData"
+            :options="chartOptions"
+          />
         </div>
       </div>
     </div>
@@ -100,11 +111,20 @@
             <h4 class="mb-0">Patient Count Tracker</h4>
           </div>
           <div class="dropdown">
-            <button class="btn p-0" type="button" id="supportTrackerMenu" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+            <button
+              class="btn p-0"
+              type="button"
+              id="supportTrackerMenu"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               <i class="ti ti-dots-vertical ti-sm text-muted"></i>
             </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="supportTrackerMenu">
+            <div
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="supportTrackerMenu"
+            >
               <a class="dropdown-item" href="javascript:void(0);">View More</a>
               <a class="dropdown-item" href="javascript:void(0);">Delete</a>
             </div>
@@ -179,7 +199,7 @@ export default defineComponent({
     const chartOptions = ref();
     const store = useStore();
     const count = computed(() => store.getters.getCounts);
-    const authUser = computed(() => store.getters.getAuthenticatedUser)
+    const authUser = computed(() => store.getters.getAuthenticatedUser);
     const dataSet = ref([
       count.value.patients,
       count.value.active,
@@ -230,9 +250,8 @@ export default defineComponent({
     const setChartOptions = () => {
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue("--bs-dark");
-      const textColorSecondary = documentStyle.getPropertyValue(
-        "--bs-secondary"
-      );
+      const textColorSecondary =
+        documentStyle.getPropertyValue("--bs-secondary");
       const surfaceBorder = documentStyle.getPropertyValue("--bs-border");
 
       return {
@@ -275,7 +294,7 @@ export default defineComponent({
       chartData,
       chartOptions,
       count,
-      authUser
+      authUser,
     };
   },
 });

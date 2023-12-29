@@ -33,6 +33,7 @@ import '@/assets/vendor/js/menu.js'
 
 import '@/assets/vendor/js/main.js'
 import '@/assets/css/custom-style.css'
+import '@/assets/vendor/css/pages/page-misc.css'
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import '@/assets/vendor/css/pages/app-email.css'

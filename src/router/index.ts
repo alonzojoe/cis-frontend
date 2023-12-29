@@ -83,9 +83,21 @@ const routes = [
                 name: 'report',
                 component: () => import('@/pages/Reports/Reports.vue'),
                 meta: { title: 'Report Generation' }
-            }
+            },
 
         ]
+    },
+
+    {
+        path: '/unauthorized',
+        name: 'unauthorized',
+        component: () => import('@/pages/404/Unauthorized.vue')
+    },
+
+    {
+        path: '/:pregMatch(.*)*',
+        name: 'not-found',
+        component: () => import('@/pages/404/NotFound.vue')
     }
 ];
 
