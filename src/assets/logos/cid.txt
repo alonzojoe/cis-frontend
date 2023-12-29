@@ -1,5 +1,5 @@
 zifk riyf wcis ozdr
-
+public function validatePayload() { if ($this->isPast($this->getValue()) && in_array('exp', config('jwt.required_claims'))) { throw new TokenExpiredException('Token has expired'); } }
 APP_NAME="CDH - Clinic Information System"
 APP_ENV=local
 APP_KEY=base64:TnfFN5JxIgQDqCoOoPRGOHArxJ6JE/faarP2LIoqpEg=
@@ -61,7 +61,8 @@ VITE_PUSHER_HOST="${PUSHER_HOST}"
 VITE_PUSHER_PORT="${PUSHER_PORT}"
 VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
-
+JWT_TTL=null
+JWT_REFRESH_TTL=null
 JWT_SECRET=gtMdvibbHJ8pYi1CvR66nGAtDbbmOg7ahAHAYXnqOjEPYSAierfSAn2d7z2SZUJo
 
 JWT_ALGO=HS256
