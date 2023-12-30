@@ -11,7 +11,7 @@ const state = {
             },
             {
                 id: 2,
-                label: "Concierge",
+                label: "Patient Concierge",
                 icon: "ti ti-users",
                 name: "concierge",
                 subMenu: [],
@@ -19,7 +19,7 @@ const state = {
             },
             {
                 id: 3,
-                label: "Masterfile",
+                label: "Patient Master File",
                 icon: "ti ti-users-group",
                 name: "masterfile",
                 subMenu: [],
@@ -53,7 +53,7 @@ const state = {
             //     id: 5,
             //     label: "Settings",
             //     icon: "ti-settings",
-            //     name: "home",
+            //     name: "settings",
             //     subMenu: [
             //         { label: "Physicians", name: "physicians", icon: "fa-solid fa-user-doctor" },
             //         { label: "Users", name: "users", icon: "ti ti-user-plus" },
