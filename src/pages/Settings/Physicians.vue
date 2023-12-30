@@ -6,36 +6,59 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">License No.</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.license_no"
-              @keyup.enter="search()" />
+            <input
+              type="text"
+              class="form-control form-control-sm custom-font"
+              v-model="formSearch.license_no"
+              @keyup.enter="search()"
+            />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
-              @keyup.enter="search()" />
+            <input
+              type="text"
+              class="form-control form-control-sm custom-font"
+              v-model="formSearch.lname"
+              @keyup.enter="search()"
+            />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
-              @keyup.enter="search()" />
+            <input
+              type="text"
+              class="form-control form-control-sm custom-font"
+              v-model="formSearch.fname"
+              @keyup.enter="search()"
+            />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.mname"
-              @keyup.enter="search()" />
+            <input
+              type="text"
+              class="form-control form-control-sm custom-font"
+              v-model="formSearch.mname"
+              @keyup.enter="search()"
+            />
           </div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-sm-12 col-md-6 col-lg-3">
-          <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
-            <button class="btn btn-primary" @keyup.enter="search()" @click.prevent="search()">
+          <div
+            class="d-flex gap-2 align-items-center"
+            style="margin-top: 1.7rem"
+          >
+            <button
+              class="btn btn-primary"
+              @keyup.enter="search()"
+              @click.prevent="search()"
+            >
               Search
             </button>
             <button class="btn btn-danger" @click.prevent="refresh()">
@@ -94,7 +117,11 @@
               </button>
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
-              <button class="btn btn-sm" :class="p.status == 0 ? 'btn-success' : 'btn-danger'" @click="changeStatus(p)">
+              <button
+                class="btn btn-sm"
+                :class="p.status == 0 ? 'btn-success' : 'btn-danger'"
+                @click="changeStatus(p)"
+              >
                 Set {{ p.status == 0 ? "Active" : "Inactive" }}
               </button>
             </td>
@@ -122,8 +149,11 @@
         </tbody>
       </table>
     </div>
-    <paginator v-if="!isLoading && physicians.length" :data="paginationData"
-      @update:currentPage="updateCurrentPage($event)" />
+    <paginator
+      v-if="!isLoading && physicians.length"
+      :data="paginationData"
+      @update:currentPage="updateCurrentPage($event)"
+    />
   </div>
   <modal-sm :details="modalDetails" @close-modal="modalDetails.show = false">
     <!-- <div class="d-flex align-items-center justify-content-center mt-4">
@@ -140,29 +170,53 @@
         <h4 class="text-center fw-bold">Physician Details</h4>
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">License No. </label>
-          <input type="text" class="form-control form-control-sm custom-font" maxlength="255"
-            v-model="formData.license_no" />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font"
+            maxlength="255"
+            v-model="formData.license_no"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-        <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.lname }">
-          <label class="form-label fs-6 mb-2 fw-semibold">Last Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
-            v-model="formData.lname" />
+        <div
+          :class="{ 'group-invalid': saveSubmitted && !validationStatus.lname }"
+        >
+          <label class="form-label fs-6 mb-2 fw-semibold"
+            >Last Name <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font cst-capital"
+            maxlength="255"
+            v-model="formData.lname"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-        <div :class="{ 'group-invalid': saveSubmitted && !validationStatus.fname }">
-          <label class="form-label fs-6 mb-2 fw-semibold">First Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
-            v-model="formData.fname" />
+        <div
+          :class="{ 'group-invalid': saveSubmitted && !validationStatus.fname }"
+        >
+          <label class="form-label fs-6 mb-2 fw-semibold"
+            >First Name <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font cst-capital"
+            maxlength="255"
+            v-model="formData.fname"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
         <div>
           <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-          <input type="text" class="form-control form-control-sm custom-font cst-capital" maxlength="255"
-            v-model="formData.mname" />
+          <input
+            type="text"
+            class="form-control form-control-sm custom-font cst-capital"
+            maxlength="255"
+            v-model="formData.mname"
+          />
         </div>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
@@ -174,11 +228,22 @@
       </div>
     </div>
   </modal-sm>
-  <loader :title="formData.id == 0
-    ? 'Saving Physician Record...'
-    : 'Updating Physician Record...'
-    " :warning="true" :create="true" v-if="savingFlag" />
-  <loader :title="statusMessage" :warning="true" :create="true" v-if="statusFlag" />
+  <loader
+    :title="
+      formData.id == 0
+        ? 'Saving Physician Record...'
+        : 'Updating Physician Record...'
+    "
+    :warning="true"
+    :create="true"
+    v-if="savingFlag"
+  />
+  <loader
+    :title="statusMessage"
+    :warning="true"
+    :create="true"
+    v-if="statusFlag"
+  />
 </template>
 
 <script lang="ts">
@@ -326,7 +391,7 @@ export default defineComponent({
             });
           }
         });
-        console.log("response save", response.value);
+        // console.log("response save", response.value);
       }
     };
 

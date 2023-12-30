@@ -124,7 +124,7 @@ export function decryptData(data) {
             const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
             return decryptedData;
         } else {
-            console.error("Decryption failed. Invalid key / data.");
+            // console.error("Decryption failed. Invalid key / data.");
             return "Invalid data"; // Return an "invalid data" string
         }
     } catch (error) {
@@ -163,7 +163,7 @@ export const trimZeroes = (num) => {
 export const calculateAge = (selectedDate) => {
     const birthDate = moment(selectedDate);
     const currentDate = moment();
-    
+
     const years = currentDate.diff(birthDate, 'years');
     birthDate.add(years, 'years');
 

@@ -261,7 +261,7 @@ export default defineComponent({
               userData,
               password
             ).toString();
-            console.log(encryptedData);
+            // console.log(encryptedData);
             Cookies.set("auth_token", token);
             localStorage.setItem("ajioasdmianc8a79sdy0", token);
             localStorage.setItem("userData", encryptedData);
@@ -269,7 +269,7 @@ export default defineComponent({
             router.push({ name: "dashboard" });
             isLoading.value = false;
           } catch (error) {
-            console.error("Error storing token in cookie:", error);
+            // console.error("Error storing token in cookie:", error);
           }
         }
       } catch (error) {
@@ -307,7 +307,7 @@ export default defineComponent({
       forgotResetter();
       modalDetails.value.show = true;
       step.value = 1;
-      console.log(modalDetails.value);
+      // console.log(modalDetails.value);
     };
 
     const isLoadingOtp = ref(false);

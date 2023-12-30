@@ -27,16 +27,6 @@ const routes = [
                 meta: { title: "Dashboard" }
             },
             {
-                path: 'home',
-                name: 'home',
-                component: () => import('@/pages/Dashboard/Home.vue'),
-            },
-            {
-                path: 'ecommerce',
-                name: 'ecommerce',
-                component: () => import('@/pages/Dashboard/Ecommerce.vue'),
-            },
-            {
                 path: 'patients',
                 component: () => import('@/components/RouterBypass/RouterBypass.vue'),
                 children: [
@@ -142,7 +132,6 @@ router.beforeEach((to, from) => {
             } catch (error) {
                 return { name: 'auth' }
             }
-
 
 
         } else {

@@ -588,7 +588,7 @@ export default defineComponent({
     const proceed = () => {
       if (patientType.value != "old") {
         setParams(patientType.value, 0);
-        console.log(params.value);
+        // console.log(params.value);
         const paramsString = encryptData(JSON.stringify(params.value));
         router.push({
           name: "chart",
