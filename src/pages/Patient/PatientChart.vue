@@ -2,8 +2,10 @@
   <Toast />
   <div class="bg-primary fam-med p-2 px-3" style="top: 3.8rem">
     <div class="d-flex justify-content-between align-items-center">
-      <span class="fs-2 text-white fw-semibold">Family Medicine - Patient Chart</span>
-      <button class="btn btn-warning btn-sm" @click="processChart()">
+      <span class="fs-2 text-white fw-semibold">
+        <span class="fam-med-text">Family and Community Medicine - </span> <span>Patient Chart</span>
+      </span>
+      <button class="btn btn-warning" @click="processChart()">
         {{ dataType.type != "new" ? "Update" : "Save" }} Patient Chart
       </button>
     </div>
@@ -481,6 +483,12 @@ export default defineComponent({
 @media screen and (max-width: 1199px) {
   .fam-med {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 899px) {
+  .fam-med-text {
+    display: none;
   }
 }
 
