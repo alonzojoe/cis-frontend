@@ -19,7 +19,7 @@ api.interceptors.response.use((resp) => resp, async (error) => {
             });
             if (response.status === 200) {
                 const newToken = response.data.authorization.token;
-                Cookies.set("auth_token", newToken, { expires: 1 / 24 });
+                Cookies.set("auth_token", newToken, { expires: 365 });
                 localStorage.setItem("ajioasdmianc8a79sdy0", newToken);
                 api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
                 return api(error.config);
