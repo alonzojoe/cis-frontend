@@ -27,7 +27,7 @@ const state = {
             },
             {
                 id: 4,
-                label: "Reports",
+                label: "Report Generation",
                 icon: "ti ti-file-text",
                 name: "report",
                 subMenu: [],

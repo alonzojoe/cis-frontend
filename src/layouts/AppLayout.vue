@@ -1,62 +1,27 @@
 <template>
-  <!-- <div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
-      <sidebar />
-      <div class="layout-page">
-        <navbar />
-        <div class="content-wrapper">
-          <div class="container-xxl flex-grow-1 container-p-y">
-            <router-view></router-view>
-          </div>
-        </div>
-      </div>
-
-      <div class="layout-overlay layout-menu-toggle"></div>
-      <div class="drag-target"></div>
-    </div>
-  </div> -->
-  <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-      <!-- Menu -->
-
+      <!-- Sidebar -->
       <sidebar @close-expanded="updateExpanded" />
-      <!-- / Menu -->
-
-      <!-- Layout container -->
+      <!-- / Sidebar -->
       <div class="layout-page">
         <!-- Navbar -->
-
         <navbar :expanded="navExpanded" ref="navbar" />
-
         <!-- / Navbar -->
-
         <!-- Content wrapper -->
         <div class="content-wrapper">
-          <!-- Content -->
-
+   
           <div class="flex-grow-1 container-p-y container-fluid my-0">
-
             <router-view />
-
           </div>
-          <!-- / Content -->
-
           <!-- Footer -->
-          <footer />
           <!-- / Footer -->
-
           <div class="content-backdrop fade"></div>
         </div>
         <!-- Content wrapper -->
       </div>
-      <!-- / Layout page -->
     </div>
-
-    <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
-
-    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
     <div class="drag-target"></div>
   </div>
 </template>
@@ -109,11 +74,11 @@ export default defineComponent({
         const response = await api.post("/auth/me");
 
         if (response.data.user) {
-          console.log("current user response", response.data.user);
+          // console.log("current user response", response.data.user);
         }
       } catch (error) {
-        console.log(error.response.status);
-        console.log(error.response.statusText);
+        // console.log(error.response.status);
+        // console.log(error.response.statusText);
 
         api.defaults.headers.common["Authorization"] = "";
         Cookies.remove("auth_token");
@@ -130,12 +95,12 @@ export default defineComponent({
           const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
           provide("user", decryptedData);
           store.commit("setAuthenticatedUser", decryptedData);
-          console.log("app layout setup");
+          // console.log("app layout setup");
         } else {
-          console.error("Decryption failed. Invalid password or data.");
+          // console.error("Decryption failed. Invalid password or data.");
         }
       } catch (error) {
-        console.error("Error decrypting data:", error);
+        // console.error("Error decrypting data:", error);
       }
 
     })

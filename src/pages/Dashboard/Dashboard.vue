@@ -47,7 +47,7 @@
           <div class="d-flex align-items-center justify-content-between">
             <div class="card-text">
               <h3 class="card-title mb-0 mt-2 mb-3 fs-1">{{ count.users }}</h3>
-              <span class="fs-4">Total No. of Registered User</span>
+              <span class="fs-4">Total No. of Registered Users</span>
               <div class="mb-5">
                 <span></span>
               </div>
@@ -155,7 +155,7 @@
                   </div>
                   <div>
                     <h6 class="mb-0 text-nowrap fs-5">
-                      Total No of Consultation
+                      Total No of Consultations
                     </h6>
                     <span class="fs-5">{{ count.active }}</span>
                   </div>
@@ -166,7 +166,7 @@
                   </div>
                   <div>
                     <h6 class="mb-0 text-nowrap fs-5">
-                      Total No of Inactive Consultation
+                      Total No of Inactive Consultations
                     </h6>
                     <span class="fs-5">{{ count.inactive }}</span>
                   </div>
@@ -225,8 +225,8 @@ export default defineComponent({
       return {
         labels: [
           "Total No. of Registered Patients",
-          "Total No. of Consultation",
-          "Total No. of Inactive Consultation",
+          "Total No. of Consultations",
+          "Total No. of Inactive Consultations",
         ],
         datasets: [
           {

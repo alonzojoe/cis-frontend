@@ -1,25 +1,44 @@
 <template>
   <div class="authentication-wrapper authentication-cover authentication-bg">
     <div class="authentication-inner row">
-      <div class="d-none d-lg-flex col-lg-8 p-0 bg-left align-items-center justify-content-center">
-        <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center"></div>
+      <div
+        class="d-none d-lg-flex col-lg-8 p-0 bg-left align-items-center justify-content-center"
+      >
+        <div
+          class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center"
+        ></div>
       </div>
 
-      <div class="d-flex col-12 col-lg-4 align-items-center p-sm-5 p-4 login-form bg-white">
+      <div
+        class="d-flex col-12 col-lg-4 align-items-center p-sm-5 p-4 login-form bg-white"
+      >
         <div class="w-px-400 mx-auto">
           <div class="app-brand mb-4">
             <a href="javascript:void(0);" class="app-brand-link gap-2">
-              <img src="../../assets/logos/camarin-logo-white.png" height="90px" width="90px" class="img-fluid" />
+              <img
+                src="../../assets/logos/camarin-logo-white.png"
+                height="90px"
+                width="90px"
+                class="img-fluid"
+              />
             </a>
           </div>
-          <p class="cdh-text fw-bolder fs-3 mb-1 cdh-login-text">Camarin Doctors Hospital</p>
+          <p class="cdh-text fw-bolder fs-3 mb-1 cdh-login-text">
+            Camarin Doctors Hospital
+          </p>
           <h3 class="mb-2 fw-bold">Clinic Information System</h3>
           <p class="mb-3">Please login your account.</p>
 
           <form class="mb-3" @submit.prevent="login()">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="text" class="form-control" id="email" name="email-username" v-model="formData.email" />
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                name="email-username"
+                v-model="formData.email"
+              />
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
@@ -29,15 +48,33 @@
                 </a>
               </div>
               <div class="mb-3 input-group input-group-merge">
-                <input :type="eyedPw ? 'text' : 'password'" id="password" class="form-control" name="password"
-                  aria-describedby="password" v-model="formData.password" />
-                <span class="input-group-text cursor-pointer" @click="eyedPw = !eyedPw"><i class="ti"
-                    :class="eyedPw ? 'ti-eye' : 'ti-eye-off'"></i></span>
+                <input
+                  :type="eyedPw ? 'text' : 'password'"
+                  id="password"
+                  class="form-control"
+                  name="password"
+                  aria-describedby="password"
+                  v-model="formData.password"
+                />
+                <span
+                  class="input-group-text cursor-pointer"
+                  @click="eyedPw = !eyedPw"
+                  ><i class="ti" :class="eyedPw ? 'ti-eye-off' : 'ti-eye'"></i
+                ></span>
               </div>
             </div>
 
-            <button type="submit" class="mt-2 btn btn-twitter w-100 gap-1" :disabled="isLoading">
-              <span v-if="isLoading" class="spinner-border me-1" role="status" aria-hidden="true"></span>
+            <button
+              type="submit"
+              class="mt-2 btn btn-twitter w-100 gap-1"
+              :disabled="isLoading"
+            >
+              <span
+                v-if="isLoading"
+                class="spinner-border me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
               {{ isLoading ? "Logging In..." : "Login" }}
             </button>
           </form>
@@ -51,13 +88,26 @@
         <form class="mx-5" v-if="step == 1">
           <div class="mb-3">
             <label for="exampleInputEmail2" class="form-label">Email</label>
-            <input type="email" v-model="forgotEmail" class="form-control" id="exampleInputEmail2"
-              aria-describedby="emailHelp" />
+            <input
+              type="email"
+              v-model="forgotEmail"
+              class="form-control"
+              id="exampleInputEmail2"
+              aria-describedby="emailHelp"
+            />
           </div>
 
-          <button @click.prevent="sendOTP()" type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2"
-            :disabled="isLoadingOtp">
-            <div v-if="isLoadingOtp" class="spinner-border spinner-border-sm text-light" role="status"></div>
+          <button
+            @click.prevent="sendOTP()"
+            type="submit"
+            class="btn btn-primary w-100 py-8 mb-4 rounded-2"
+            :disabled="isLoadingOtp"
+          >
+            <div
+              v-if="isLoadingOtp"
+              class="spinner-border spinner-border-sm text-light"
+              role="status"
+            ></div>
             <span class="text-text-light ml-1">{{
               isLoadingOtp ? "Sending, Please Wait ...." : "Send OTP"
             }}</span>
@@ -66,39 +116,90 @@
         <form class="mx-5" v-else-if="step == 2">
           <div class="mb-3">
             <label for="exampleInputEmail2" class="form-label">Email</label>
-            <input type="email" v-model="formChange.email" class="form-control" id="exampleInputEmail2"
-              aria-describedby="emailHelp" disabled required />
+            <input
+              type="email"
+              v-model="formChange.email"
+              class="form-control"
+              id="exampleInputEmail2"
+              aria-describedby="emailHelp"
+              disabled
+            />
           </div>
           <div class="mb-4">
             <label for="exampleInputPassword3" class="form-label">OTP</label>
-            <input type="text" v-model="formChange.otp" maxlength="6" class="form-control" id="exampleInputPassword3"
-              required />
+            <input
+              type="text"
+              v-model="formChange.otp"
+              maxlength="6"
+              class="form-control"
+              id="exampleInputPassword3"
+            />
           </div>
           <div class="mb-4">
-            <label for="exampleInputPassword3" class="form-label">New Password
-              <span class="text-danger fs-6">&nbsp;&nbsp;&nbsp;(minimum 6 characters)</span></label>
+            <label for="exampleInputPassword3" class="form-label"
+              >New Password
+              <span class="text-danger fs-6"
+                >&nbsp;&nbsp;&nbsp;(minimum 6 characters)</span
+              ></label
+            >
             <div class="input-group">
-              <input :type="eyed.fpass ? 'text' : 'password'" class="form-control" v-model="formChange.password"
-                placeholder="" aria-label="" aria-describedby="basic-addon1" required />
-              <button class="btn btn-light-primary text-primary" type="button" @click="eyed.fpass = !eyed.fpass">
-                <i class="ti fs-6" :class="eyed.fpass ? 'ti-eye-off' : 'ti-eye'"></i>
+              <input
+                :type="eyed.fpass ? 'text' : 'password'"
+                class="form-control"
+                v-model="formChange.password"
+                placeholder=""
+                aria-label=""
+                aria-describedby="basic-addon1"
+              />
+              <button
+                class="btn btn-light-primary text-primary"
+                type="button"
+                @click="eyed.fpass = !eyed.fpass"
+              >
+                <i
+                  class="ti fs-6"
+                  :class="eyed.fpass ? 'ti-eye-off' : 'ti-eye'"
+                ></i>
               </button>
             </div>
           </div>
           <div class="mb-4">
-            <label for="exampleInputPassword3" class="form-label">Confirm Password</label>
+            <label for="exampleInputPassword3" class="form-label"
+              >Confirm Password</label
+            >
             <div class="input-group">
-              <input :type="eyed.fconf ? 'text' : 'password'" class="form-control" v-model="formChange.confirm"
-                placeholder="" aria-label="" aria-describedby="basic-addon1" required />
-              <button class="btn btn-light-primary text-primary" type="button" @click="eyed.fconf = !eyed.fconf">
-                <i class="ti fs-6" :class="eyed.fconf ? 'ti-eye-off' : 'ti-eye'"></i>
+              <input
+                :type="eyed.fconf ? 'text' : 'password'"
+                class="form-control"
+                v-model="formChange.confirm"
+                placeholder=""
+                aria-label=""
+                aria-describedby="basic-addon1"
+              />
+              <button
+                class="btn btn-light-primary text-primary"
+                type="button"
+                @click="eyed.fconf = !eyed.fconf"
+              >
+                <i
+                  class="ti fs-6"
+                  :class="eyed.fconf ? 'ti-eye-off' : 'ti-eye'"
+                ></i>
               </button>
             </div>
           </div>
 
-          <button @click.prevent="changePassword()" type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2"
-            :disabled="isLoadingOtp || !enableChange">
-            <div v-if="isLoadingOtp" class="spinner-border spinner-border-sm text-light" role="status"></div>
+          <button
+            @click.prevent="changePassword()"
+            type="submit"
+            class="btn btn-primary w-100 py-8 mb-4 rounded-2"
+            :disabled="isLoadingOtp || !enableChange"
+          >
+            <div
+              v-if="isLoadingOtp"
+              class="spinner-border spinner-border-sm text-light"
+              role="status"
+            ></div>
             <span class="text-text-light ml-1">{{
               isLoadingOtp ? "Loading ...." : "Change Password"
             }}</span>
@@ -354,14 +455,12 @@ export default defineComponent({
       }
     };
 
-
     const removeDarkTheme = () => {
       const linkTag = document.getElementById("dark-mode");
       if (linkTag) {
         document.head.removeChild(linkTag);
       }
     };
-
 
     const appTheme = ref("");
     const body = document.body;
@@ -374,17 +473,17 @@ export default defineComponent({
       } else {
         removeDarkTheme();
       }
-    }
+    };
 
     const mountedTheme = () => {
       const theme = localStorage.getItem("app-theme");
       theme == null || theme == "white-theme"
         ? toggleChangeTheme("white-theme")
         : toggleChangeTheme("dark-theme");
-    }
+    };
 
     onMounted(() => {
-      mountedTheme()
+      mountedTheme();
       resetEyed();
       resetFormChange();
       isLoading.value = false;

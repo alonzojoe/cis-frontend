@@ -4,23 +4,41 @@
       <div class="row mt-4">
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
-            <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date From</label>
-            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.date_from" />
+            <label class="form-label fs-6 mb-2 fw-semibold"
+              >Consultation Date From</label
+            >
+            <input
+              type="date"
+              class="form-control form-control-sm custom-font"
+              v-model="formSearch.date_from"
+            />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
-            <label class="form-label fs-6 mb-2 fw-semibold">Consultation Date To</label>
-            <input type="date" :min="formSearch.date_from" class="form-control form-control-sm custom-font"
-              v-model="formSearch.date_to" />
+            <label class="form-label fs-6 mb-2 fw-semibold"
+              >Consultation Date To</label
+            >
+            <input
+              type="date"
+              :min="formSearch.date_from"
+              class="form-control form-control-sm custom-font"
+              v-model="formSearch.date_to"
+            />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
-          <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
-            <button class="btn btn-primary" @click="generateReport()" @keyup.enter="generateReport()">
+          <div
+            class="d-flex gap-2 align-items-center"
+            style="margin-top: 1.7rem"
+          >
+            <button
+              class="btn btn-primary"
+              @click="generateReport()"
+              @keyup.enter="generateReport()"
+            >
               Generate & Download Report
             </button>
-            <button class="btn btn-danger" @click="refresh()">Refresh</button>
           </div>
         </div>
       </div>

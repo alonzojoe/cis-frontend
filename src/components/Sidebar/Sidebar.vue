@@ -144,7 +144,7 @@ export default defineComponent({
     };
 
     const visitTab = (itemId, hasSubmenu, routerName) => {
-      console.log(!hasSubmenu.length, routerName);
+      // console.log(!hasSubmenu.length, routerName);
       if (!hasSubmenu.length) {
         router.push({ name: routerName });
       }

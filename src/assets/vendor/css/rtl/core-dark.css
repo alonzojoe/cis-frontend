@@ -26967,3 +26967,13 @@ div:where(.swal2-container) .swal2-html-container {
 .cdh-login-text{
   color: #43BDF5 !important;
 }
+
+@media screen and (max-width: 991px) {
+  .light-style .authentication-wrapper.authentication-bg {
+    background-color: #2A2C3F !important;
+  }
+}
+
+.ts-control, .ts-control input, .ts-dropdown {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
