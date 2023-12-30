@@ -46,5 +46,5 @@ app.use(store)
 app.use(router)
 app.mount('#app')
 
-const assetsPath = "./assets"; // Set your desired path here
+const assetsPath = "./assets";
 document.querySelector("html").setAttribute("data-assets-path", assetsPath);
