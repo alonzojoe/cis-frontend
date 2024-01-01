@@ -1,46 +1,48 @@
 <template>
   <Toast />
-  <div class="bg-primary fam-med p-2 px-3" style="top: 3.8rem">
-    <div class="d-flex justify-content-between align-items-center">
-      <span class="fs-2 text-white fw-semibold">
-        <span class="fam-med-text">Family and Community Medicine - </span> <span>Patient Chart</span>
-      </span>
-      <button class="btn btn-warning" @click="processChart()">
-        {{ dataType.type != "new" ? "Update" : "Save" }} Patient Chart
-      </button>
-    </div>
-  </div>
-
-  <div class="row py-5">
-    <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
-      <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections" class="py-5 side-sections"
-        data-bs-root-margin="0px 0px -40%" data-bs-offset="50" data-bs-smooth-scroll="true">
-        <patient-information :validatePatient="validatePatient" :saveSubmitted="saveSubmitted" id="pinfo"
-          :chartType="dataType.type" />
-        <vital-signs :validateVitals="validateVitals" :saveSubmitted="saveSubmitted" class="mt-6" id="vital" />
-        <past-history class="mt-6" id="past" />
-        <family-history class="mt-6" id="fam" />
-        <social-history class="mt-6" id="soc" />
-        <vaccination class="mt-6" id="vac" />
-        <soap :validateSoap="validateSoap" :saveSubmitted="saveSubmitted" class="mt-6" id="soap" />
-        <physician :validatePhysician="validatePhysician" :saveSubmitted="saveSubmitted" class="mt-5 mb-5"
-          id="physician" />
+  <div class="chart-container">
+    <div class="bg-primary fam-med p-2 px-3" style="top: 3.8rem">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="fs-2 text-white fw-semibold">
+          <span class="fam-med-text">Family and Community Medicine - </span> <span>Patient Chart</span>
+        </span>
+        <button class="btn btn-warning" @click="processChart()">
+          {{ dataType.type != "new" ? "Update" : "Save" }} Patient Chart
+        </button>
       </div>
     </div>
-    <div class="col-lg-1">
-      <div class="card position-fixed w-100">
-        <div class="card-body p-2">
-          <h6 class="card-title py-0 my-0 p-2 mb-1 fw-normal">Sections</h6>
-          <hr class="mt-0" />
-          <div class="list-group list-group-flush" id="side-sections">
-            <a ref="linkPinfo" href="#pinfo" class="list-group-item list-group-item-action">Patient Info</a>
-            <a ref="linkVital" href="#vital" class="list-group-item list-group-item-action">Vital Signs</a>
-            <a href="#past" class="list-group-item list-group-item-action">Past History</a>
-            <a href="#fam" class="list-group-item list-group-item-action">Family History</a>
-            <a href="#soc" class="list-group-item list-group-item-action">Social History</a>
-            <a href="#vac" class="list-group-item list-group-item-action">Vaccination</a>
-            <a ref="linkSoap" href="#soap" class="list-group-item list-group-item-action">SOAP</a>
-            <a ref="linkPhy" href="#physician" class="list-group-item list-group-item-action">Physician</a>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
+        <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections" class="py-3 side-sections"
+          data-bs-root-margin="0px 0px -40%" data-bs-offset="100" data-bs-smooth-scroll="true">
+          <patient-information :validatePatient="validatePatient" :saveSubmitted="saveSubmitted" id="pinfo"
+            :chartType="dataType.type" />
+          <vital-signs :validateVitals="validateVitals" :saveSubmitted="saveSubmitted" class="mt-6" id="vital" />
+          <past-history class="mt-6" id="past" />
+          <family-history class="mt-6" id="fam" />
+          <social-history class="mt-6" id="soc" />
+          <vaccination class="mt-6" id="vac" />
+          <soap :validateSoap="validateSoap" :saveSubmitted="saveSubmitted" class="mt-6" id="soap" />
+          <physician :validatePhysician="validatePhysician" :saveSubmitted="saveSubmitted" class="mt-5 mb-5"
+            id="physician" />
+        </div>
+      </div>
+      <div class="col-lg-1">
+        <div class="card position-fixed w-100">
+          <div class="card-body p-2">
+            <h6 class="card-title py-0 my-0 p-2 mb-1 fw-normal">Sections</h6>
+            <hr class="mt-0" />
+            <div class="list-group list-group-flush" id="side-sections">
+              <a ref="linkPinfo" href="#pinfo" class="list-group-item list-group-item-action">Patient Info</a>
+              <a ref="linkVital" href="#vital" class="list-group-item list-group-item-action">Vital Signs</a>
+              <a href="#past" class="list-group-item list-group-item-action">Past History</a>
+              <a href="#fam" class="list-group-item list-group-item-action">Family History</a>
+              <a href="#soc" class="list-group-item list-group-item-action">Social History</a>
+              <a href="#vac" class="list-group-item list-group-item-action">Vaccination</a>
+              <a ref="linkSoap" href="#soap" class="list-group-item list-group-item-action">SOAP</a>
+              <a ref="linkPhy" href="#physician" class="list-group-item list-group-item-action">Physician</a>
+            </div>
           </div>
         </div>
       </div>
@@ -433,9 +435,9 @@ export default defineComponent({
       await store.dispatch("fetchAllPhysicians");
       const scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: "#side-sections",
-        offset: 4 * 16,
+        // offset: 4 * 16,
         smoothScroll: true,
-        threshold: [0.1, 0.5, 1],
+        // threshold: [0.1, 0.5, 1],
       });
     });
     return {
@@ -498,8 +500,12 @@ export default defineComponent({
 
 .side-sections {
   position: relative;
-  height: 300rem;
+  min-height: calc(100vh / 2.0);
   overflow: auto;
   z-index: 1;
+}
+
+.chart-container {
+  padding-top: 63.03px !important;
 }
 </style>
