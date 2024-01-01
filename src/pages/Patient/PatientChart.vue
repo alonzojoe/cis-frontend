@@ -11,10 +11,10 @@
     </div>
   </div>
 
-  <div class="row mt-6">
+  <div class="row py-5">
     <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
       <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections" class="py-5 side-sections"
-        data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true">
+        data-bs-root-margin="0px 0px -40%" data-bs-offset="50" data-bs-smooth-scroll="true">
         <patient-information :validatePatient="validatePatient" :saveSubmitted="saveSubmitted" id="pinfo"
           :chartType="dataType.type" />
         <vital-signs :validateVitals="validateVitals" :saveSubmitted="saveSubmitted" class="mt-6" id="vital" />
