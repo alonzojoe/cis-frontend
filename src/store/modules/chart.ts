@@ -367,6 +367,7 @@ const actions = {
             lname: payload.lname,
             fname: payload.fname,
             mname: payload.mname,
+            suffix: payload.suffix,
             birthdate: payload.birthdate,
             age: payload.age,
             gender: payload.gender,
