@@ -4,7 +4,8 @@
     <div class="bg-primary fam-med p-2 px-3" style="top: 3.8rem">
       <div class="d-flex justify-content-between align-items-center">
         <span class="fs-2 text-white fw-semibold">
-          <span class="fam-med-text">Family and Community Medicine - </span> <span>Patient Chart</span>
+          <span class="fam-med-text">Family and Community Medicine - </span>
+          <span>Patient Chart</span>
         </span>
         <button class="btn btn-warning" @click="processChart()">
           {{ dataType.type != "new" ? "Update" : "Save" }} Patient Chart
@@ -14,18 +15,43 @@
 
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-11 mb-4">
-        <div @scroll="handleScroll" data-bs-spy="scroll" data-bs-target="#side-sections" class="py-3 side-sections"
-          data-bs-root-margin="0px 0px -40%" data-bs-offset="100" data-bs-smooth-scroll="true">
-          <patient-information :validatePatient="validatePatient" :saveSubmitted="saveSubmitted" id="pinfo"
-            :chartType="dataType.type" />
-          <vital-signs :validateVitals="validateVitals" :saveSubmitted="saveSubmitted" class="mt-6" id="vital" />
+        <div
+          @scroll="handleScroll"
+          data-bs-spy="scroll"
+          data-bs-target="#side-sections"
+          class="py-3 side-sections"
+          data-bs-root-margin="0px 0px -40%"
+          data-bs-offset="100"
+          data-bs-smooth-scroll="true"
+        >
+          <patient-information
+            :validatePatient="validatePatient"
+            :saveSubmitted="saveSubmitted"
+            id="pinfo"
+            :chartType="dataType.type"
+          />
+          <vital-signs
+            :validateVitals="validateVitals"
+            :saveSubmitted="saveSubmitted"
+            class="mt-6"
+            id="vital"
+          />
           <past-history class="mt-6" id="past" />
           <family-history class="mt-6" id="fam" />
           <social-history class="mt-6" id="soc" />
           <vaccination class="mt-6" id="vac" />
-          <soap :validateSoap="validateSoap" :saveSubmitted="saveSubmitted" class="mt-6" id="soap" />
-          <physician :validatePhysician="validatePhysician" :saveSubmitted="saveSubmitted" class="mt-5 mb-5"
-            id="physician" />
+          <soap
+            :validateSoap="validateSoap"
+            :saveSubmitted="saveSubmitted"
+            class="mt-6"
+            id="soap"
+          />
+          <physician
+            :validatePhysician="validatePhysician"
+            :saveSubmitted="saveSubmitted"
+            class="mt-5 mb-10"
+            id="physician"
+          />
         </div>
       </div>
       <div class="col-lg-1">
@@ -34,14 +60,42 @@
             <h6 class="card-title py-0 my-0 p-2 mb-1 fw-normal">Sections</h6>
             <hr class="mt-0" />
             <div class="list-group list-group-flush" id="side-sections">
-              <a ref="linkPinfo" href="#pinfo" class="list-group-item list-group-item-action">Patient Info</a>
-              <a ref="linkVital" href="#vital" class="list-group-item list-group-item-action">Vital Signs</a>
-              <a href="#past" class="list-group-item list-group-item-action">Past History</a>
-              <a href="#fam" class="list-group-item list-group-item-action">Family History</a>
-              <a href="#soc" class="list-group-item list-group-item-action">Social History</a>
-              <a href="#vac" class="list-group-item list-group-item-action">Vaccination</a>
-              <a ref="linkSoap" href="#soap" class="list-group-item list-group-item-action">SOAP</a>
-              <a ref="linkPhy" href="#physician" class="list-group-item list-group-item-action">Physician</a>
+              <a
+                ref="linkPinfo"
+                href="#pinfo"
+                class="list-group-item list-group-item-action"
+                >Patient Info</a
+              >
+              <a
+                ref="linkVital"
+                href="#vital"
+                class="list-group-item list-group-item-action"
+                >Vital Signs</a
+              >
+              <a href="#past" class="list-group-item list-group-item-action"
+                >Past History</a
+              >
+              <a href="#fam" class="list-group-item list-group-item-action"
+                >Family History</a
+              >
+              <a href="#soc" class="list-group-item list-group-item-action"
+                >Social History</a
+              >
+              <a href="#vac" class="list-group-item list-group-item-action"
+                >Vaccination</a
+              >
+              <a
+                ref="linkSoap"
+                href="#soap"
+                class="list-group-item list-group-item-action"
+                >SOAP</a
+              >
+              <a
+                ref="linkPhy"
+                href="#physician"
+                class="list-group-item list-group-item-action"
+                >Physician</a
+              >
             </div>
           </div>
         </div>
@@ -49,12 +103,21 @@
     </div>
   </div>
   <loader :title="'Loading Patient Chart Data...'" v-if="isLoading" />
-  <loader :title="dataType.type == 'update'
-    ? 'Updating Patient Chart, Please wait...'
-    : 'Creating Patient Chart, Please wait...'
-    " :warning="true" :create="true" v-if="savingFlag" />
+  <loader
+    :title="
+      dataType.type == 'update'
+        ? 'Updating Patient Chart, Please wait...'
+        : 'Creating Patient Chart, Please wait...'
+    "
+    :warning="true"
+    :create="true"
+    v-if="savingFlag"
+  />
 
-  <modal-sm :details="modalValidation" @close-modal="modalValidation.show = false">
+  <modal-sm
+    :details="modalValidation"
+    @close-modal="modalValidation.show = false"
+  >
     <div class="px-5 row mt-3 mb-3">
       <div class="col-12">
         <div class="d-flex align-items-start gap-2">
@@ -64,22 +127,50 @@
         <hr />
         <div class="col-12">
           <div class="d-flex align-items-start flex-column" id="side-sections">
-            <a href="javascript:void(0);" @click="scrollingDown('pinfo')" class="fs-5 fw-semibold"
-              :class="!chartErrors.patient ? 'text-danger' : 'text-success'"><i class="fa-solid"
-                :class="!chartErrors.patient ? 'fa-xmark' : 'fa-check'"></i>
-              Patient Information</a>
-            <a href="javascript:void(0);" @click="scrollingDown('vital')" class="fs-5 fw-semibold"
-              :class="!chartErrors.vitals ? 'text-danger' : 'text-success'"><i class="fa-solid"
-                :class="!chartErrors.vitals ? 'fa-xmark' : 'fa-check'"></i>
-              Vital Signs</a>
-            <a href="javascript:void(0);" @click="scrollingDown('soap')" class="fs-5 fw-semibold"
-              :class="!chartErrors.soap ? 'text-danger' : 'text-success'"><i class="fa-solid"
-                :class="!chartErrors.soap ? 'fa-xmark' : 'fa-check'"></i>
-              SOAP</a>
-            <a href="javascript:void(0);" @click="scrollingDown('physician')" class="fs-5 fw-semibold"
-              :class="!chartErrors.physician ? 'text-danger' : 'text-success'"><i class="fa-solid"
-                :class="!chartErrors.physician ? 'fa-xmark' : 'fa-check'"></i>
-              Consulting Physician</a>
+            <a
+              href="javascript:void(0);"
+              @click="scrollingDown('pinfo')"
+              class="fs-5 fw-semibold"
+              :class="!chartErrors.patient ? 'text-danger' : 'text-success'"
+              ><i
+                class="fa-solid"
+                :class="!chartErrors.patient ? 'fa-xmark' : 'fa-check'"
+              ></i>
+              Patient Information</a
+            >
+            <a
+              href="javascript:void(0);"
+              @click="scrollingDown('vital')"
+              class="fs-5 fw-semibold"
+              :class="!chartErrors.vitals ? 'text-danger' : 'text-success'"
+              ><i
+                class="fa-solid"
+                :class="!chartErrors.vitals ? 'fa-xmark' : 'fa-check'"
+              ></i>
+              Vital Signs</a
+            >
+            <a
+              href="javascript:void(0);"
+              @click="scrollingDown('soap')"
+              class="fs-5 fw-semibold"
+              :class="!chartErrors.soap ? 'text-danger' : 'text-success'"
+              ><i
+                class="fa-solid"
+                :class="!chartErrors.soap ? 'fa-xmark' : 'fa-check'"
+              ></i>
+              SOAP</a
+            >
+            <a
+              href="javascript:void(0);"
+              @click="scrollingDown('physician')"
+              class="fs-5 fw-semibold"
+              :class="!chartErrors.physician ? 'text-danger' : 'text-success'"
+              ><i
+                class="fa-solid"
+                :class="!chartErrors.physician ? 'fa-xmark' : 'fa-check'"
+              ></i>
+              Consulting Physician</a
+            >
           </div>
         </div>
       </div>
@@ -437,7 +528,7 @@ export default defineComponent({
         target: "#side-sections",
         // offset: 4 * 16,
         smoothScroll: true,
-        // threshold: [0.1, 0.5, 1],
+        threshold: [1, 0.5, 1],
       });
     });
     return {
@@ -480,8 +571,6 @@ export default defineComponent({
   z-index: 100;
 }
 
-
-
 @media screen and (max-width: 1199px) {
   .fam-med {
     width: 100%;
@@ -498,9 +587,13 @@ export default defineComponent({
   margin-top: 5rem !important;
 }
 
+.mb-10 {
+  margin-bottom: 10rem !important;
+}
+
 .side-sections {
   position: relative;
-  min-height: calc(100vh / 2.0);
+  min-height: calc(100vh / 2);
   overflow: auto;
   z-index: 1;
 }
