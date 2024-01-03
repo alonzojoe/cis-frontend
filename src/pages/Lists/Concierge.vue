@@ -5,48 +5,30 @@
       <div class="row mt-4">
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
-            <label class="form-label fs-6 mb-2 fw-semibold"
-              >Consultation No.</label
-            >
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font cst-capital"
-              v-model="formSearch.consultation_no"
-              @keyup.enter="search()"
-            />
+            <label class="form-label fs-6 mb-2 fw-semibold">Consultation No.</label>
+            <input type="text" class="form-control form-control-sm custom-font cst-capital"
+              v-model="formSearch.consultation_no" @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font cst-capital"
-              v-model="formSearch.lname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formSearch.lname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font cst-capital"
-              v-model="formSearch.fname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formSearch.fname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font cst-capital"
-              v-model="formSearch.mname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formSearch.mname"
+              @keyup.enter="search()" />
           </div>
         </div>
       </div>
@@ -54,23 +36,15 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-            <input
-              type="date"
-              :max="currentData"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.birthdate"
-              @keyup.enter="search()"
-            />
+            <input type="date" :max="currentData" class="form-control form-control-sm custom-font"
+              v-model="formSearch.birthdate" @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Payment Type</label>
-            <select
-              class="form-control form-select-sm custom-font cst-capital form-select"
-              v-model="formSearch.payment_type"
-              @keyup.enter="search()"
-            >
+            <select class="form-control form-select-sm custom-font cst-capital form-select"
+              v-model="formSearch.payment_type" @keyup.enter="search()">
               <option value="">Please Select</option>
               <option value="CASH">CASH</option>
               <option value="HMO">HMO</option>
@@ -78,15 +52,8 @@
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
-          <div
-            class="d-flex gap-2 align-items-center"
-            style="margin-top: 1.7rem"
-          >
-            <button
-              class="btn btn-primary"
-              @click="search()"
-              @keyup.enter="search()"
-            >
+          <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
+            <button class="btn btn-primary" @click="search()" @keyup.enter="search()">
               Search
             </button>
             <button class="btn btn-danger" @click="refresh()">Refresh</button>
@@ -162,13 +129,8 @@
               </button>
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
-              <button
-                class="btn btn-sm"
-                :class="
-                  p.consultation_status == 0 ? 'btn-success' : 'btn-danger'
-                "
-                @click="changeStatus(p)"
-              >
+              <button class="btn btn-sm" :class="p.consultation_status == 0 ? 'btn-success' : 'btn-danger'
+                " @click="changeStatus(p)">
                 Set {{ p.consultation_status == 0 ? "Active" : "Inactive" }}
               </button>
             </td>
@@ -196,11 +158,8 @@
         </tbody>
       </table>
     </div>
-    <paginator
-      v-if="!isLoading && patients.length"
-      :data="paginationData"
-      @update:currentPage="updateCurrentPage($event)"
-    />
+    <paginator v-if="!isLoading && patients.length" :data="paginationData"
+      @update:currentPage="updateCurrentPage($event)" />
   </div>
   <modal-sm :details="modalDetails" @close-modal="modalDetails.show = false">
     <div class="d-flex align-items-center justify-content-center">
@@ -208,32 +167,21 @@
     </div>
     <div class="row mt-1 mb-3 px-4">
       <div class="col-sm-12 col-md-6 col-lg-6">
-        <div
-          class="form-check custom-option custom-option-icon"
-          :class="{ checked: patientType == 'old' }"
-          @click="chooseType('old')"
-        >
+        <div class="form-check custom-option custom-option-icon" :class="{ checked: patientType == 'old' }"
+          @click="chooseType('old')">
           <label class="form-check-label custom-option-content">
             <span class="custom-option-body">
               <i class="fa-solid fa-hospital-user"></i>
               <span class="custom-option-title">Old</span>
               <small> (Patient with existing clinic records) </small>
             </span>
-            <input
-              class="form-check-input"
-              type="radio"
-              value="old"
-              v-model="patientType"
-            />
+            <input class="form-check-input" type="radio" value="old" v-model="patientType" />
           </label>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6">
-        <div
-          class="form-check custom-option custom-option-icon"
-          :class="{ checked: patientType == 'new' }"
-          @click="chooseType('new')"
-        >
+        <div class="form-check custom-option custom-option-icon" :class="{ checked: patientType == 'new' }"
+          @click="chooseType('new')">
           <label class="form-check-label custom-option-content">
             <span class="custom-option-body">
               <i class="fa-solid fa-user-plus"></i>
@@ -241,12 +189,7 @@
               <span class="custom-option-title"> New </span>
               <small> (New patient without existing records) </small>
             </span>
-            <input
-              class="form-check-input"
-              type="radio"
-              value="new"
-              v-model="patientType"
-            />
+            <input class="form-check-input" type="radio" value="new" v-model="patientType" />
           </label>
         </div>
       </div>
@@ -254,11 +197,7 @@
     <div class="row px-4">
       <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
         <div>
-          <button
-            class="btn btn-primary w-100"
-            @click="proceed()"
-            :disabled="!patientType"
-          >
+          <button class="btn btn-primary w-100" @click="proceed()" :disabled="!patientType">
             Select
           </button>
         </div>
@@ -272,62 +211,36 @@
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
               <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-              <input
-                type="text"
-                class="form-control form-control-sm custom-font cst-capital"
-                v-model="formExisting.lname"
-                @keyup.enter="searchPatient()"
-              />
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formExisting.lname"
+                @keyup.enter="searchPatient()" />
             </div>
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
               <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-              <input
-                type="text"
-                class="form-control form-control-sm custom-font cst-capital"
-                v-model="formExisting.fname"
-                @keyup.enter="searchPatient()"
-              />
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formExisting.fname"
+                @keyup.enter="searchPatient()" />
             </div>
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
-              <label class="form-label fs-6 mb-2 fw-semibold"
-                >Middle Name</label
-              >
-              <input
-                type="text"
-                class="form-control form-control-sm custom-font cst-capital"
-                v-model="formExisting.mname"
-                @keyup.enter="searchPatient()"
-              />
+              <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
+              <input type="text" class="form-control form-control-sm custom-font cst-capital" v-model="formExisting.mname"
+                @keyup.enter="searchPatient()" />
             </div>
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3">
             <div>
               <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-              <input
-                type="date"
-                :max="currentData"
-                class="form-control form-control-sm custom-font"
-                v-model="formExisting.birthdate"
-                @keyup.enter="searchPatient()"
-              />
+              <input type="date" :max="currentData" class="form-control form-control-sm custom-font"
+                v-model="formExisting.birthdate" @keyup.enter="searchPatient()" />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12 col-md-6 col-lg-3">
-            <div
-              class="d-flex gap-2 align-items-center"
-              style="margin-top: 1.7rem"
-            >
-              <button
-                class="btn btn-primary btn-sm"
-                @click="searchPatient()"
-                @keyup.enter="searchPatient()"
-              >
+            <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
+              <button class="btn btn-primary btn-sm" @click="searchPatient()" @keyup.enter="searchPatient()">
                 Search
               </button>
               <button class="btn btn-danger btn-sm" @click="resetExisting()">
@@ -358,7 +271,7 @@
           <tbody>
             <tr v-for="p in existingPatients" :key="p.id">
               <td class="text-center align-middle fw-normal p-1 m-0">
-                {{ p.lname }}, {{ p.fname }} {{ p.mname }} {{ suffix }}
+                {{ p.lname }}, {{ p.fname }} {{ p.mname }} {{ p.suffix }}
               </td>
               <td class="text-center align-middle fw-normal p-1 m-0">
                 {{ p.gender }}
@@ -396,27 +309,15 @@
         </table>
       </div>
       <div class="mt-3" v-if="triggerSearch && !existingPatients.length">
-        <span
-          >No results found for
-          <span class="fst-italic cst-capital"
-            >{{ formExisting.lname }}, {{ formExisting.fname }}</span
-          ></span
-        >
-        &nbsp;<button
-          class="ml-5 btn btn-warning btn-sm"
-          @click="instead('new')"
-        >
+        <span>No results found for
+          <span class="fst-italic cst-capital">{{ formExisting.lname }}, {{ formExisting.fname }}</span></span>
+        &nbsp;<button class="ml-5 btn btn-warning btn-sm" @click="instead('new')">
           Add New Patient Instead?
         </button>
       </div>
     </div>
   </modal-md>
-  <loader
-    :title="statusMessage"
-    :warning="true"
-    :create="true"
-    v-if="statusFlag"
-  />
+  <loader :title="statusMessage" :warning="true" :create="true" v-if="statusFlag" />
 </template>
 
 <script lang="ts">
