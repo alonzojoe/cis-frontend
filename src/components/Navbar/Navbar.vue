@@ -1,24 +1,14 @@
 <template>
   <nav
     class="m-0 rounded-0 w-auto layout-navbar navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme container-fluid"
-    id="layout-navbar"
-  >
-    <div
-      class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none"
-    >
-      <a
-        class="nav-item nav-link px-0 me-xl-4"
-        @click="toggleExpend"
-        href="javascript:void(0)"
-      >
+    id="layout-navbar">
+    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+      <a class="nav-item nav-link px-0 me-xl-4" @click="toggleExpend" href="javascript:void(0)">
         <i class="ti ti-menu-2 ti-sm"></i>
       </a>
     </div>
 
-    <div
-      class="navbar-nav-right d-flex align-items-center"
-      id="navbar-collapse"
-    >
+    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
       <div class="navbar-nav align-items-center">
         <div class="nav-item navbar-search-wrapper mb-2">
           <h4 class="mt-4 fw-bold">{{ route.meta.title }}</h4>
@@ -27,29 +17,18 @@
 
       <ul class="navbar-nav flex-row align-items-center ms-auto">
         <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-          <a
-            class="nav-link hide-arrow"
-            href="javascript:void(0);"
-            @click="
-              toggleChangeTheme(
-                appTheme == 'dark-theme' ? 'white-theme' : 'dark-theme'
-              )
-            "
-          >
-            <i
-              class="ti rounded-circle ti-md"
-              :class="
-                appTheme == 'dark-theme' ? 'ti-sun-filled' : 'ti-moon-filled'
-              "
-            >
+          <a class="nav-link hide-arrow" href="javascript:void(0);" @click="
+            toggleChangeTheme(
+              appTheme == 'dark-theme' ? 'white-theme' : 'dark-theme'
+            )
+            ">
+            <i class="ti rounded-circle ti-md" :class="appTheme == 'dark-theme' ? 'ti-sun-filled' : 'ti-moon-filled'
+              ">
             </i>
           </a>
         </li>
 
-        <li
-          class="nav-item dropdown-language dropdown me-2 me-xl-0"
-          id="user-name"
-        >
+        <li class="nav-item dropdown-language dropdown me-2 me-xl-0" id="user-name">
           <a class="nav-link hide-arrow" href="javascript:void(0);">
             <h5 class="mt-3 fw-semibold">
               {{ authUser.fname }} {{ authUser.lname }}
@@ -57,18 +36,10 @@
           </a>
         </li>
 
-        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-          <a
-            class="nav-link dropdown-toggle hide-arrow"
-            href="javascript:void(0);"
-            data-bs-toggle="dropdown"
-          >
+        <li class="nav-item navbar-dropdown dropdown-user">
+          <a class="nav-link hide-arrow" href="javascript:void(0);">
             <div class="avatar avatar-online">
-              <img
-                src="../../assets/logos/avatar.jpeg"
-                alt="user-avatar"
-                class="h-auto rounded-circle"
-              />
+              <img src="../../assets/logos/avatar.jpeg" alt="user-avatar" class="h-auto rounded-circle" />
             </div>
           </a>
         </li>
