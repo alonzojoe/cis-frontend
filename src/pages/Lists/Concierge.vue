@@ -92,6 +92,9 @@
               Physician
             </th>
             <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+              View History
+            </th>
+            <th class="text-center bg-primary text-white fw-bold p-1 m-0">
               Options
             </th>
             <th class="text-center bg-primary text-white fw-bold p-1 m-0">
@@ -108,8 +111,10 @@
               {{ p.consultation_datetime }}
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
-              {{ p.patient_lname }}, {{ p.patient_fname }}
-              {{ p.patient_mname }} {{ p.patient_suffix }}
+              <a href="javascript:void(0);" class="text-dark" @click="updateChart(p)">
+                {{ p.patient_lname }}, {{ p.patient_fname }}
+                {{ p.patient_mname }} {{ p.patient_suffix }}
+              </a>
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
               {{ p.gender }}
@@ -124,6 +129,11 @@
               {{ p.physician }}
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
+              <button class="btn btn-dark btn-sm" @click="viewHistory(p)">
+                View History
+              </button>
+            </td>
+            <td class="text-center align-middle fw-normal p-1 m-0">
               <button class="btn btn-warning btn-sm" @click="updateChart(p)">
                 Update Chart
               </button>
@@ -136,12 +146,12 @@
             </td>
           </tr>
           <tr v-if="!patients.length && !isLoading">
-            <td class="text-center align-middle fw-bold p-1 m-0" colspan="9">
+            <td class="text-center align-middle fw-bold p-1 m-0" colspan="10">
               No records found.
             </td>
           </tr>
           <tr v-if="isLoading">
-            <td colspan="9">
+            <td colspan="10">
               <div class="d-flex align-items-center justify-content-center">
                 <div class="d-flex align-items-center jusitfy-content-center">
                   <div class="sk-wave sk-primary">
@@ -510,6 +520,19 @@ export default defineComponent({
       });
     };
 
+    const viewHistory = async (patient) => {
+      const routeParams = {
+        patient_id: patient.patient_id
+      }
+
+      const encrypted = encryptData(JSON.stringify(routeParams));
+
+      router.push({
+        name: "history",
+        params: { data: encodeURIComponent(encrypted) }
+      })
+    }
+
     const instead = (type) => {
       chooseType(type);
       proceed();
@@ -627,6 +650,7 @@ export default defineComponent({
       changeStatus,
       statusFlag,
       statusMessage,
+      viewHistory
     };
   },
 });

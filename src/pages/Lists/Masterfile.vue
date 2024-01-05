@@ -5,48 +5,30 @@
       <div class="row mt-4">
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
-            <label class="form-label fs-6 mb-2 fw-semibold"
-              >Consultation No.</label
-            >
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.consultation_no"
-              @keyup.enter="search()"
-            />
+            <label class="form-label fs-6 mb-2 fw-semibold">Consultation No.</label>
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.consultation_no"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Last Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.lname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.lname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">First Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.fname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.fname"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Middle Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.mname"
-              @keyup.enter="search()"
-            />
+            <input type="text" class="form-control form-control-sm custom-font" v-model="formSearch.mname"
+              @keyup.enter="search()" />
           </div>
         </div>
       </div>
@@ -54,47 +36,27 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Birthdate</label>
-            <input
-              type="date"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.birthdate"
-              @keyup.enter="search()"
-            />
+            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.birthdate"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Date From</label>
-            <input
-              type="date"
-              class="form-control form-control-sm custom-font"
-              v-model="formSearch.date_from"
-              @keyup.enter="search()"
-            />
+            <input type="date" class="form-control form-control-sm custom-font" v-model="formSearch.date_from"
+              @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
           <div>
             <label class="form-label fs-6 mb-2 fw-semibold">Date To</label>
-            <input
-              type="date"
-              class="form-control form-control-sm custom-font"
-              :min="formSearch.date_from"
-              v-model="formSearch.date_to"
-              @keyup.enter="search()"
-            />
+            <input type="date" class="form-control form-control-sm custom-font" :min="formSearch.date_from"
+              v-model="formSearch.date_to" @keyup.enter="search()" />
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
-          <div
-            class="d-flex gap-2 align-items-center"
-            style="margin-top: 1.7rem"
-          >
-            <button
-              class="btn btn-primary"
-              @click="search()"
-              @keyup.enter="search()"
-            >
+          <div class="d-flex gap-2 align-items-center" style="margin-top: 1.7rem">
+            <button class="btn btn-primary" @click="search()" @keyup.enter="search()">
               Search
             </button>
             <button class="btn btn-danger" @click="refresh()">Refresh</button>
@@ -131,6 +93,9 @@
               Physician
             </th>
             <th class="text-center bg-primary text-white fw-bold p-1 m-0">
+              View History
+            </th>
+            <th class="text-center bg-primary text-white fw-bold p-1 m-0">
               Options
             </th>
             <th class="text-center bg-primary text-white fw-bold p-1 m-0">
@@ -147,8 +112,10 @@
               {{ p.consultation_datetime }}
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
-              {{ p.patient_lname }}, {{ p.patient_fname }}
-              {{ p.patient_mname }} {{ p.patient_suffix }}
+              <a href="javascript:void(0);" class="text-dark" @click="updateChart(p)">
+                {{ p.patient_lname }}, {{ p.patient_fname }}
+                {{ p.patient_mname }} {{ p.patient_suffix }}
+              </a>
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
               {{ p.gender }}
@@ -163,29 +130,29 @@
               {{ p.physician }}
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
+              <button class="btn btn-dark btn-sm" @click="viewHistory(p)">
+                View History
+              </button>
+            </td>
+            <td class="text-center align-middle fw-normal p-1 m-0">
               <button class="btn btn-warning btn-sm" @click="updateChart(p)">
                 Update Chart
               </button>
             </td>
             <td class="text-center align-middle fw-normal p-1 m-0">
-              <button
-                class="btn btn-sm"
-                :class="
-                  p.consultation_status == 0 ? 'btn-success' : 'btn-danger'
-                "
-                @click="changeStatus(p)"
-              >
+              <button class="btn btn-sm" :class="p.consultation_status == 0 ? 'btn-success' : 'btn-danger'
+                " @click="changeStatus(p)">
                 Set {{ p.consultation_status == 0 ? "Active" : "Inactive" }}
               </button>
             </td>
           </tr>
           <tr v-if="!patients.length && !isLoading">
-            <td class="text-center align-middle fw-bold p-1 m-0" colspan="9">
+            <td class="text-center align-middle fw-bold p-1 m-0" colspan="10">
               No records found.
             </td>
           </tr>
           <tr v-if="isLoading">
-            <td colspan="9">
+            <td colspan="10">
               <div class="d-flex align-items-center justify-content-center">
                 <div class="d-flex align-items-center jusitfy-content-center">
                   <div class="sk-wave sk-primary">
@@ -202,18 +169,10 @@
         </tbody>
       </table>
     </div>
-    <paginator
-      v-if="!isLoading && patients.length"
-      :data="paginationData"
-      @update:currentPage="updateCurrentPage($event)"
-    />
+    <paginator v-if="!isLoading && patients.length" :data="paginationData"
+      @update:currentPage="updateCurrentPage($event)" />
   </div>
-  <loader
-    :title="statusMessage"
-    :warning="true"
-    :create="true"
-    v-if="statusFlag"
-  />
+  <loader :title="statusMessage" :warning="true" :create="true" v-if="statusFlag" />
 </template>
 
 <script lang="ts">
@@ -349,6 +308,18 @@ export default defineComponent({
       });
     };
 
+    const viewHistory = async (patient) => {
+      const routeParams = {
+        patient_id: patient.patient_id
+      }
+
+      const encrypted = encryptData(JSON.stringify(routeParams));
+
+      router.push({
+        name: "history",
+        params: { data: encodeURIComponent(encrypted) }
+      })
+    }
     const statusFlag = ref(false);
     const statusMessage = ref("");
     const changeStatus = async (patient) => {
@@ -399,6 +370,7 @@ export default defineComponent({
       changeStatus,
       statusFlag,
       statusMessage,
+      viewHistory
     };
   },
 });

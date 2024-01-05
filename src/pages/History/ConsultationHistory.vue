@@ -115,7 +115,8 @@
                             <tbody>
                                 <tr v-for="c in history.consultation_histories" :key="c.consultation_id">
                                     <td class="text-center align-middle fw-normal p-1 m-0">
-                                        <a href="javascript:void(0);" class="fw-bold"> {{ c.consultation_no }}</a>
+                                        <a href="javascript:void(0);" class="fw-bold" @click="viewChart(c)"> {{
+                                            c.consultation_no }}</a>
                                     </td>
                                     <td class="text-center align-middle fw-normal p-1 m-0">
                                         {{ c.consultation_datetime }}
@@ -134,6 +135,7 @@
             </div>
         </div>
     </div>
+    <loader :title="'Loading Patient Consultation History'" v-if="isLoading" />
 </template>
 
 <script lang="ts">
@@ -149,25 +151,49 @@ import {
 import TitledCard from "@/components/Cards/TitledCard.vue";
 import Textarea from "primevue/textarea";
 import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
+import { encryptData, decryptData, NumericOnly, calculateAge } from "@/service";
+import Loader from "@/components/Loaders/Loader.vue";
 export default defineComponent({
     name: "ConsultationHistory",
     components: {
         TitledCard,
-        Textarea
+        Textarea,
+        Loader
     },
     setup() {
         const store = useStore();
         const isLock = computed(() => store.getters.getSideLock);
+        const route = useRoute();
+        const router = useRouter();
+        const uriParams = decodeURIComponent(route.params.data);
         const calculateWidth = computed(() => {
             return isLock.value ? "calc(100% - 16.25rem)" : "calc(100% - 5.25rem)";
         });
 
 
         const history = computed(() => store.getters.getHistory)
-
+        const isLoading = ref(false);
         const fetchHistory = async () => {
-            await store.dispatch('fetchHistory', 49)
+            isLoading.value = true
+            await store.commit('setHistoryEmpty')
+            const params = await decryptData(uriParams);
+            await store.dispatch('fetchHistory', params.patient_id)
+            isLoading.value = false
         }
+
+        const viewChart = async (patient: object) => {
+            const params = {
+                type: "update",
+                consultation_id: patient.consultation_id,
+            };
+
+            const paramsString = encryptData(JSON.stringify(params));
+            router.push({
+                name: "chart",
+                params: { data: encodeURIComponent(paramsString) },
+            });
+        };
 
         onMounted(async () => {
             await fetchHistory()
@@ -175,7 +201,9 @@ export default defineComponent({
 
         return {
             calculateWidth,
-            history
+            history,
+            viewChart,
+            isLoading
         }
     }
 })

@@ -16,6 +16,7 @@ const mutations = {
         state.data.history = payload.map((h) => {
             return {
                 ...h,
+                birthdate: moment(h.birthdate).format('LL'),
                 consultation_histories: h.consultation_histories.map((c) => {
                     return {
                         ...c,
