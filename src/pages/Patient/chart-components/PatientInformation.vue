@@ -199,6 +199,7 @@
   </titled-card>
 </template>
 
+
 <script lang="ts">
 import { defineComponent, onMounted, computed } from "vue";
 import TitledCard from "@/components/Cards/TitledCard.vue";

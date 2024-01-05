@@ -47,6 +47,13 @@ const routes = [
                         name: 'chart',
                         component: () => import('@/pages/Patient/PatientChart.vue'),
                         meta: { title: 'Patient Chart' }
+                    },
+                    {
+                        path: 'history/:data?',
+                        name: 'history',
+                        component: () => import('@/pages/History/ConsultationHistory.vue'),
+                        meta: { title: 'Consultation History' }
+
                     }
                 ]
             },
