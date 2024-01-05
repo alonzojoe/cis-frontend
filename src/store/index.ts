@@ -8,6 +8,7 @@ import Chart from './modules/chart'
 import Existing from './modules/existing'
 import Settings from './modules/settings'
 import Dashboard from './modules/dashboard'
+import History from './modules/history'
 const store = createStore({
     modules: {
         Routes,
@@ -17,7 +18,8 @@ const store = createStore({
         Chart,
         Existing,
         Settings,
-        Dashboard
+        Dashboard,
+        History
     }
 });
 
