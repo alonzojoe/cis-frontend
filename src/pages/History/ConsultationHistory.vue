@@ -7,92 +7,46 @@
                 </span>
             </div>
         </div>
-
         <div class="row mtp-6">
             <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
-                <titled-card title="Patient Information">
-                    <div class="row mt-3">
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Last Name</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.lname" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">First Name</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.fname" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Middle Name</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.mname" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Suffix</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered" maxlength="5"
-                                    v-model="history.suffix" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Birthdate</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.birthdate" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Age</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.age" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Gender</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.gender" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Contact No.</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.contact_no" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <div>
-                                <label class="form-label fs-6 fw-semibold">Address</label>
-                                <input type="text"
-                                    class="form-control form-control-sm custom-font cst-capital none-bordered"
-                                    maxlength="255" v-model="history.address" style="text-align:left !important;" />
-
-                            </div>
-                        </div>
-                    </div>
-                </titled-card>
+                <patient-info />
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 mt-4 mb-4">
+        </div>
+        <div class="row py-0 border rounded">
+            <div class="col-sm-12 col-md-12 col-lg-12 px-0">
+                <div class="demo-vertical-spacing demo-only-element">
+                    <nav class="navbar navbar-expand-lg border rounded">
+                        <div class="container-fluid">
+                            <a class="navbar-brand text-primary pe-none fw-bold" href="javascript:void(0)">Sections</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbar-ex-7">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbar-ex-7">
+                                <div class="navbar-nav me-auto gap-2">
+                                    <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 1 }"
+                                        href="javascript:void(0)" @click="switchTab(1)">Consultation
+                                        History</a>
+                                    <a class="nav-item nav-link fw-bold pe-none chevron"><i
+                                            class="fa-solid fa-chevron-right"></i></a>
+                                    <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 2 }"
+                                        href="javascript:void(0)" @click="switchTab(2)">Past History</a>
+                                    <a class="nav-item nav-link fw-bold pe-none chevron"><i
+                                            class="fa-solid fa-chevron-right"></i></a>
+                                    <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 3 }"
+                                        href="javascript:void(0)" @click="switchTab(3)">Family History</a>
+                                    <a class="nav-item nav-link fw-bold pe-none chevron"><i
+                                            class="fa-solid fa-chevron-right"></i></a>
+                                    <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 4 }"
+                                        href="javascript:void(0)" @click="switchTab(4)">Social History</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mt-5 mb-4" v-if="currentTab == 1">
                 <titled-card title="Consultation History">
                     <div class="table-responsive mt-3" v-if="history.consultation_histories">
                         <table class="table table-bordered table-hover">
@@ -133,6 +87,16 @@
                     </div>
                 </titled-card>
             </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mb-4" v-if="currentTab == 2">
+                <past-history class="pe-none" />
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mb-4" v-if="currentTab == 3">
+                <family-history class="pe-none" />
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mb-4" v-if="currentTab == 4">
+                <social-history class="pe-none" />
+            </div>
+
         </div>
     </div>
     <loader :title="'Loading Patient Consultation History'" v-if="isLoading" />
@@ -150,6 +114,10 @@ import {
 } from "vue";
 import TitledCard from "@/components/Cards/TitledCard.vue";
 import Textarea from "primevue/textarea";
+import PatientInfo from "./history-components/PatientInfo.vue";
+import PastHistory from "@/pages/Patient/chart-components/PastHistory.vue";
+import FamilyHistory from "@/pages/Patient/chart-components/FamilyHistory.vue";
+import SocialHistory from "@/pages/Patient/chart-components/SocialHistory.vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import { encryptData, decryptData, NumericOnly, calculateAge } from "@/service";
@@ -159,7 +127,11 @@ export default defineComponent({
     components: {
         TitledCard,
         Textarea,
-        Loader
+        Loader,
+        PatientInfo,
+        PastHistory,
+        FamilyHistory,
+        SocialHistory
     },
     setup() {
         const store = useStore();
@@ -179,6 +151,15 @@ export default defineComponent({
             await store.commit('setHistoryEmpty')
             const params = await decryptData(uriParams);
             await store.dispatch('fetchHistory', params.patient_id)
+            store.commit("setPastHistoryEmpty");
+            store.commit("setFamilyHistoryEmpty");
+            store.commit("setSocialHistoryEmpty");
+            store.dispatch("fetchPastHistory", history.value.past_history_id);
+            store.dispatch("fetchFamilyHistory", history.value.family_history_id);
+            await store.dispatch(
+                "fetchSocialHistory",
+                history.value.social_history_id
+            );
             isLoading.value = false
         }
 
@@ -195,7 +176,16 @@ export default defineComponent({
             });
         };
 
+        const currentTab = ref(1)
+        const resetter = () => {
+            currentTab.value = 1
+        }
+        const switchTab = (tab) => {
+            currentTab.value = tab
+        }
+
         onMounted(async () => {
+            resetter()
             await fetchHistory()
         })
 
@@ -203,7 +193,9 @@ export default defineComponent({
             calculateWidth,
             history,
             viewChart,
-            isLoading
+            isLoading,
+            switchTab,
+            currentTab
         }
     }
 })
@@ -217,6 +209,32 @@ export default defineComponent({
     z-index: 100;
 }
 
+.navbar.bg-primary {
+    background-color: rgb(41, 172, 237) !important;
+}
+
+@media screen and (max-width: 991px) {
+    .chevron {
+        display: none !important;
+    }
+
+    .navbar-nav .nav-link.active {
+        padding-left: 5px !important;
+    }
+
+}
+
+
+@media screen and (max-width: 1199px) {
+    .consultation-header {
+        width: 100%;
+    }
+
+    .mtp-6 {
+        margin-top: 5rem;
+    }
+}
+
 .none-bordered {
     border-top: none !important;
     border-right: none !important;
@@ -226,6 +244,12 @@ export default defineComponent({
     font-weight: 800;
     pointer-events: none !important;
     font-size: 17px !important;
+}
+
+.navbar-nav .nav-link.active {
+    background: #29ACED !important;
+    border-radius: 5px !important;
+    color: #fff;
 }
 
 .mtp-6 {

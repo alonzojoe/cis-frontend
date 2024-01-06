@@ -32,7 +32,7 @@
       <div class="col-lg-1">
         <div class="card position-fixed w-100">
           <div class="card-body p-2">
-            <h6 class="card-title py-0 my-0 p-2 mb-1 fw-normal">Sections</h6>
+            <h5 class="card-title py-0 my-0 p-2 mb-1 fw-normal text-primary fw-bold">Sections</h5>
             <hr class="mt-0" />
             <div class="list-group list-group-flush" id="side-sections">
               <a ref="linkPinfo" href="#pinfo" class="list-group-item list-group-item-action">Patient Info</a>
@@ -203,6 +203,9 @@ export default defineComponent({
         isLoading.value = true;
         await store.dispatch("fetchPatient", dataType.value.patient_id);
         store.commit("setConsultationObjectEmpty");
+        store.commit("setPastHistoryEmpty");
+        store.commit("setFamilyHistoryEmpty");
+        store.commit("setSocialHistoryEmpty");
         store.commit("setConsultationEmpty");
         store.commit("setVitalSignsEmpty");
         store.dispatch("fetchLatestVitals", patient.value.id);
