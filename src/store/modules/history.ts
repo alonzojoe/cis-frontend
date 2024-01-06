@@ -1,5 +1,6 @@
 import api from '@/api';
 import moment from 'moment';
+import { calculateAge } from '@/service';
 
 const state = {
     data: {
@@ -17,6 +18,7 @@ const mutations = {
             return {
                 ...h,
                 birthdate: moment(h.birthdate).format('LL'),
+                age: calculateAge(h.birthdate),
                 consultation_histories: h.consultation_histories.map((c) => {
                     return {
                         ...c,
