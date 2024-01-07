@@ -69,8 +69,9 @@
                             <tbody>
                                 <tr v-for="c in history.consultation_histories" :key="c.consultation_id">
                                     <td class="text-center align-middle fw-normal p-1 m-0">
-                                        <a href="javascript:void(0);" class="fw-bold" @click="viewChart(c)"> {{
-                                            c.consultation_no }}</a>
+                                        <a href="javascript:void(0);" class="fw-bold" @click="viewChart(c)">
+                                            <u> {{ c.consultation_no }}</u>
+                                        </a>
                                     </td>
                                     <td class="text-center align-middle fw-normal p-1 m-0">
                                         {{ c.consultation_datetime }}
@@ -235,16 +236,7 @@ export default defineComponent({
     }
 }
 
-.none-bordered {
-    border-top: none !important;
-    border-right: none !important;
-    border-left: none !important;
-    border-radius: 0 !important;
-    text-align: center;
-    font-weight: 800;
-    pointer-events: none !important;
-    font-size: 17px !important;
-}
+
 
 .navbar-nav .nav-link.active {
     background: #29ACED !important;

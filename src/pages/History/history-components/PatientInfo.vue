@@ -93,4 +93,15 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.none-bordered {
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+    text-align: center;
+    font-weight: 800;
+    pointer-events: none !important;
+    font-size: 17px !important;
+}
+</style>
