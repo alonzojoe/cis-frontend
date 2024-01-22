@@ -28,16 +28,15 @@
                                     <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 1 }"
                                         href="javascript:void(0)" @click="switchTab(1)">Consultation
                                         History</a>
-                                    <a class="nav-item nav-link fw-bold pe-none chevron"><i
-                                            class="fa-solid fa-chevron-right"></i></a>
+                                    <a class="nav-item nav-link fw-bold pe-none chevron">|</a>
                                     <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 2 }"
                                         href="javascript:void(0)" @click="switchTab(2)">Past History</a>
-                                    <a class="nav-item nav-link fw-bold pe-none chevron"><i
-                                            class="fa-solid fa-chevron-right"></i></a>
+                                    <a class="nav-item nav-link fw-bold pe-none chevron">|</a>
                                     <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 3 }"
                                         href="javascript:void(0)" @click="switchTab(3)">Family History</a>
-                                    <a class="nav-item nav-link fw-bold pe-none chevron"><i
-                                            class="fa-solid fa-chevron-right"></i></a>
+                                    <a class="nav-item nav-link fw-bold pe-none chevron">|</a>
+                                    <!-- <a class="nav-item nav-link fw-bold pe-none chevron"><i
+                                            class="fa-solid fa-chevron-right"></i></a> -->
                                     <a class="nav-item nav-link fw-bold" :class="{ 'active': currentTab == 4 }"
                                         href="javascript:void(0)" @click="switchTab(4)">Social History</a>
                                 </div>
