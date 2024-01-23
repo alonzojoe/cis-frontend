@@ -1,15 +1,13 @@
 <script lang="ts">
-import { defineComponent, ref, getCurrentInstance } from 'vue'
-import { useLoading } from '@/components/Loaders/loaderSettings';
+import { defineComponent } from "vue";
+import { useLoading } from "@/components/Loaders/loaderSettings";
 export default defineComponent({
   name: "App",
   setup() {
+    const { loading } = useLoading();
 
-    const { loading } = useLoading()
-
-    return { loading }
-
-  }
+    return { loading };
+  },
 });
 </script>
 
