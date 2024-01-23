@@ -55,13 +55,6 @@ export default defineComponent({
 
     const selectRef = ref(null);
 
-    const selectOptions = {
-      create: true,
-      sortField: {
-        field: "text",
-        direction: "asc",
-      },
-    };
     let tomSelectInstance;
 
     watch(() => {
