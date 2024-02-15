@@ -13,8 +13,8 @@ api.interceptors.response.use((resp) => resp, async (error) => {
         try {
             const oldToken = localStorage.getItem("ajioasdmianc8a79sdy0")
             const response = await api.post('/auth/refresh', {}, {
-                headers: {
-                    Authorization: 'Bearer ' + oldToken
+                headers: {  Authorization: 'Bearer ' + oldToken
+                  
                 }
             });
             if (response.status === 200) {
