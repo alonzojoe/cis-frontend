@@ -13,8 +13,7 @@ api.interceptors.response.use((resp) => resp, async (error) => {
         try {
             const oldToken = localStorage.getItem("ajioasdmianc8a79sdy0")
             const response = await api.post('/auth/refresh', {}, {
-                headers: {  Authorization: 'Bearer ' + oldToken
-                  
+                headers: {  Authorization: 'Bearer ' + oldToken,
                 }
             });
             if (response.status === 200) {
@@ -22,6 +21,7 @@ api.interceptors.response.use((resp) => resp, async (error) => {
                 Cookies.set("auth_token", newToken, { expires: 365 });
                 localStorage.setItem("ajioasdmianc8a79sdy0", newToken);
                 api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+                api.defaults.headers.common['ngrok-skip-browser-warning'] = true;
                 return api(error.config);
             }
         } catch (refreshError) {
