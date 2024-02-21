@@ -111,6 +111,7 @@ router.beforeEach((to, from) => {
     //Route Guard
     const authenticated = Cookies.get('auth_token')
     api.defaults.headers.common['Authorization'] = `Bearer ${authenticated}`
+    api.defaults.headers.common['ngrok-skip-browser-warning'] = '69420';
     if (to.meta.requiresGuest && authenticated) {
 
         return { name: 'dashboard' };
