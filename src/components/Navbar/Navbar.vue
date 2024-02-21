@@ -112,19 +112,19 @@ export default defineComponent({
       appTheme.value = theme;
       localStorage.setItem("app-theme", theme);
       body.classList.add("fade-effect", "fade-out");
-      // if (theme == "dark-theme") {
-      //   addDarkTheme();
-      // } else {
-      //   removeDarkTheme();
-      //   // location.reload();
-      // }
-
-      const currentAttribute = themeLink.getAttribute("href");
-      if (theme === "dark-theme") {
-        themeLink.setAttribute("href", "/theme/core-dark.css");
+      if (theme == "dark-theme") {
+        addDarkTheme();
       } else {
-        themeLink.setAttribute("href", "/theme/core.css");
+        removeDarkTheme();
+        // location.reload();
       }
+
+      // const currentAttribute = themeLink.getAttribute("href");
+      // if (theme === "dark-theme") {
+      //   themeLink.setAttribute("href", "/theme/core-dark.css");
+      // } else {
+      //   themeLink.setAttribute("href", "/theme/core.css");
+      // }
 
       // setTimeout(() => {
       //   if (theme === "dark-theme") {
@@ -139,10 +139,7 @@ export default defineComponent({
       // }, 10);
     };
 
-    const darkCss = new URL(
-      "/src/assets/vendor/css/rtl/core-dark.css",
-      import.meta.url
-    );
+    const darkCss = "/theme/core-dark.css";
 
     let styleTag = null;
     const addDarkTheme = () => {

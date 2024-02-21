@@ -14,7 +14,7 @@ import '@/assets/vendor/fonts/fontawesome.css'
 import '@/assets/vendor/fonts/tabler-icons.css'
 import '@/assets/vendor/fonts/flag-icons.css'
 //core css
-// import '@/assets/vendor/css/rtl/core.css'
+import '@/assets/vendor/css/rtl/core.css'
 import '@/assets/vendor/css/rtl/theme-default.css'
 import '@/assets/vendor/css/demo.css'
 import '@/assets/vendor/fonts/flag-icons.css'
