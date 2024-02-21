@@ -21,7 +21,7 @@ api.interceptors.response.use((resp) => resp, async (error) => {
                 Cookies.set("auth_token", newToken, { expires: 365 });
                 localStorage.setItem("ajioasdmianc8a79sdy0", newToken);
                 api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-                api.defaults.headers.common['ngrok-skip-browser-warning'] = true;
+                api.defaults.headers.common['ngrok-skip-browser-warning'] = 69420;
                 return api(error.config);
             }
         } catch (refreshError) {
