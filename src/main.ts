@@ -9,6 +9,7 @@ import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
 import { registerScrollSpy } from 'vue3-scroll-spy';
 
+import '@/assets/vendor/css/rtl/core-dark.css'
 //icons
 import '@/assets/vendor/fonts/fontawesome.css'
 import '@/assets/vendor/fonts/tabler-icons.css'
