@@ -108,14 +108,22 @@ export default defineComponent({
     const appTheme = ref("");
     const body = document.body;
     const toggleChangeTheme = async (theme) => {
+      const themeLink = document.getElementById("theme");
       appTheme.value = theme;
       localStorage.setItem("app-theme", theme);
       body.classList.add("fade-effect", "fade-out");
-      if (theme == "dark-theme") {
-        addDarkTheme();
+      // if (theme == "dark-theme") {
+      //   addDarkTheme();
+      // } else {
+      //   removeDarkTheme();
+      //   // location.reload();
+      // }
+
+      const currentAttribute = themeLink.getAttribute("href");
+      if (theme === "dark-theme") {
+        themeLink.setAttribute("href", "/theme/core-dark.css");
       } else {
-        removeDarkTheme();
-        // location.reload();
+        themeLink.setAttribute("href", "/theme/core-dark.css");
       }
 
       // setTimeout(() => {
