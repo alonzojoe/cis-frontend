@@ -123,7 +123,7 @@ export default defineComponent({
       if (theme === "dark-theme") {
         themeLink.setAttribute("href", "/theme/core-dark.css");
       } else {
-        themeLink.setAttribute("href", "/theme/core-dark.css");
+        themeLink.setAttribute("href", "/theme/core.css");
       }
 
       // setTimeout(() => {
