@@ -131,10 +131,7 @@ export default defineComponent({
       // }, 10);
     };
 
-    const darkCss = new URL(
-      "/src/assets/vendor/css/rtl/core-dark.css",
-      import.meta.url
-    );
+    const darkCss = new URL("/src/assets/vendor/css/rtl/core-dark.css", "/#/");
 
     let styleTag = null;
     const addDarkTheme = () => {
