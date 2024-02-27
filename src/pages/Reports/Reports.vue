@@ -189,7 +189,7 @@ export default defineComponent({
           // Only add header on the first page
           if (data.pageNumber === 1) {
             doc.addImage(
-              "/src/assets/logos/camarin-logo-white.png",
+              "/logos/camarin-logo-white.png",
               "PNG",
               10,
               10,
@@ -200,7 +200,7 @@ export default defineComponent({
             // Right Logo
             const rightLogoX = doc.internal.pageSize.width - logoWidth - 10;
             doc.addImage(
-              "/src/assets/logos/camarin-logo-white.png",
+              "/logos/camarin-logo-white.png",
               "PNG",
               rightLogoX,
               10,
