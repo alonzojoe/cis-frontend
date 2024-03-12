@@ -39,7 +39,7 @@
             <i
               class="ti rounded-circle ti-md"
               :class="
-                appTheme == 'dark-theme' ? 'ti-sun-filled' : 'ti-moon-filled'
+                appTheme == 'dark-theme' ? 'ti-moon-filled' : 'ti-sun-filled'
               "
             >
             </i>
