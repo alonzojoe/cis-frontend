@@ -13,7 +13,8 @@ api.interceptors.response.use((resp) => resp, async (error) => {
         try {
             const oldToken = localStorage.getItem("ajioasdmianc8a79sdy0")
             const response = await api.post('/auth/refresh', {}, {
-                headers: {  Authorization: 'Bearer ' + oldToken,
+                headers: {
+                    Authorization: 'Bearer ' + oldToken,
                 }
             });
             if (response.status === 200) {
@@ -22,6 +23,7 @@ api.interceptors.response.use((resp) => resp, async (error) => {
                 localStorage.setItem("ajioasdmianc8a79sdy0", newToken);
                 api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
                 api.defaults.headers.common['ngrok-skip-browser-warning'] = '69420';
+                api.defaults.headers.common['bypass-tunnel-reminder'] = '312';
                 return api(error.config);
             }
         } catch (refreshError) {
