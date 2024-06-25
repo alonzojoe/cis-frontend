@@ -112,7 +112,7 @@ router.beforeEach((to, from) => {
     const authenticated = Cookies.get('auth_token')
     api.defaults.headers.common['Authorization'] = `Bearer ${authenticated}`
     api.defaults.headers.common['ngrok-skip-browser-warning'] = '69420';
-    api.defaults.headers.common['X-Pinggy-No-Screen'] = '312';
+    api.defaults.headers.common['localtonet-skip-warning'] = '312';
     if (to.meta.requiresGuest && authenticated) {
 
         return { name: 'dashboard' };
