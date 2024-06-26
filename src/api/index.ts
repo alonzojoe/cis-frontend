@@ -23,7 +23,7 @@ api.interceptors.response.use((resp) => resp, async (error) => {
                 localStorage.setItem("ajioasdmianc8a79sdy0", newToken);
                 api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
                 api.defaults.headers.common['ngrok-skip-browser-warning'] = '69420';
-                api.defaults.headers.common['localtonet-skip-warning'] = '312';
+                api.defaults.headers.common['bypass-tunnel-reminder'] = '69420';
                 return api(error.config);
             }
         } catch (refreshError) {
